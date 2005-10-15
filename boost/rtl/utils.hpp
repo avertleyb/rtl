@@ -1,0 +1,113 @@
+// Copyright (C) 2002 Arkadiy Vertleyb, Dmitriy Arapov
+// Permission to copy, use, modify, sell and distribute this software 
+// is granted provided this copyright notice appears in all copies. 
+// This software is provided "as is" without express or implied
+// warranty, and with no claim as to its suitability for any purpose.
+
+#ifndef BOOST_RTL_UTILS_HPP_INCLUDED
+#define BOOST_RTL_UTILS_HPP_INCLUDED
+
+#include "tuple.hpp"
+#include "iterator_root.hpp"
+#include <iostream>
+#include <functional>
+#include <algorithm>
+#include <boost/mpl/for_each.hpp>
+//#include <typeinfo.h>
+
+namespace rel
+{
+	// print_field
+
+	template <class Tuple>
+		class print_field
+	{
+	public:
+		print_field(const Tuple& t) : t_(t) {}
+		template <class T> 
+			void operator()(const T&)
+		{
+			std::cout << BOOST_RTL_FIELD(t_, T) << "\t";
+		}
+
+	private:
+		const Tuple& t_;
+	};
+
+	// print_field
+
+	//struct print_field_name
+	//{
+	//public:
+	//	template <class T> 
+	//		void operator()(T) const
+	//	{
+ //           std::cout << "\t" << typeid(T).name() << std::endl;
+	//	}
+	//};
+
+ //   template<class T>
+ //       void print_info(const T&)
+ //   {
+ //       std::cout << "SortList {" << std::endl;
+ //       boost::mpl::for_each<typename T::sort_list>(print_field_name());
+ //       std::cout << "}" << std::endl;
+ //   };
+
+    // print
+
+	template <class Table>
+	void print(const Table& tab)
+	{
+		BOOST_TYPENAME Table::const_iterator e = tab.end(); 
+		for (BOOST_TYPENAME Table::const_iterator it = tab.begin(); it != e; ++it)
+		{
+			boost::mpl::for_each<
+				BOOST_TYPENAME Table::field_list>(print_field<BOOST_TYPENAME Table::value_type>(*it));
+
+			std::cout << std::endl;
+		}
+
+		std::cout << std::endl;
+	}
+
+	// count
+
+	template <class Table>
+	int count(const Table& tab)
+	{
+		int c = 0;
+		BOOST_TYPENAME Table::const_iterator e = tab.end();
+		for (BOOST_TYPENAME Table::const_iterator itr = tab.begin(); itr != e; ++itr)
+			c++;
+		
+		return c;
+	}
+
+	// compare
+
+	template <class Table1, class Table2>
+	bool equal_tables(const Table1& t1, const Table2& t2)
+	{
+		BOOST_STATIC_ASSERT((list_equal<BOOST_MSVC_TYPENAME Table1::field_list, BOOST_MSVC_TYPENAME Table2::field_list>::value));
+
+		BOOST_MSVC_TYPENAME Table1::const_iterator it1 = t1.begin();
+		BOOST_MSVC_TYPENAME Table2::const_iterator it2 = t2.begin();
+
+		BOOST_MSVC_TYPENAME Table1::const_iterator e1 = t1.end();
+		BOOST_MSVC_TYPENAME Table2::const_iterator e2 = t2.end();
+
+		while (it1 != e1 && it2 != e2)
+		{
+			if (compare_iterators<BOOST_MSVC_TYPENAME Table1::field_list>(it1, it2) != 0) //DA
+				return false;
+
+			++it1;
+			++it2;
+		}
+
+		return it1 == e1 && it2 == e2;
+	}
+}
+
+#endif//BOOST_RTL_UTILS_HPP_INCLUDED
