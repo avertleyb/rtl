@@ -3,6 +3,7 @@
 #include "generic.hpp"
 #include "test.hpp"
 #include "test_suite.hpp"
+#include <stdexcept>
 
 using namespace unit;
 
