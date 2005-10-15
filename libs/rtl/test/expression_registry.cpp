@@ -39,10 +39,10 @@ namespace er
 		c1_t c1(cover(i1));
 		i2_t i2(c1);
 
-		cout << "k1:" << k1.id() << endl;
-		cout << "k2:" << k2.id() << endl;
-		cout << "i1:" << i1.id() << endl;
-		cout << "i2:" << i2.id() << endl;
+		cout << "k1:" << (double)k1.id() << endl;
+		cout << "k2:" << (double)k2.id() << endl;
+		cout << "i1:" << (double)i1.id() << endl;
+		cout << "i2:" << (double)i2.id() << endl;
 
 		expression_registry exprs;
 

@@ -186,7 +186,7 @@ namespace rel
 			for (std::vector<node_proxy::ptr>::iterator it =
 				proxies_.begin(); it != proxies_.end(); ++it)
 			{
-				std::cout << (*it)->id() << std::endl;
+				std::cout << (double)(*it)->id() << std::endl;
 			}
 		}
 	private:
