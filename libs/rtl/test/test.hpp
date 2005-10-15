@@ -4,11 +4,14 @@
 #include <string>
 #include <iostream>
 
+//#define TESTASSERT(b)\
+//	if (!(b)){\
+//		std::cout << __FILE__ << "(" << __LINE__ << ") : " << #b << std::endl;\
+//		throw unit::failure();\
+//	}
+
 #define TESTASSERT(b)\
-	if (!(b)){\
-		std::cout << __FILE__ << "(" << __LINE__ << ") : " << #b << std::endl;\
-		throw unit::failure();\
-	}
+	if (!(b)){throw unit::failure();}
 
 namespace unit
 {

@@ -58,10 +58,10 @@ namespace er
 
 		tr.commit(exprs);
 
-		assert(equal_tables(t, k1));
-		assert(equal_tables(t, k2));
-		assert(equal_tables(t, i1));
-		assert(equal_tables(t, i2));
+		TESTASSERT(equal_tables(t, k1));
+		TESTASSERT(equal_tables(t, k2));
+		TESTASSERT(equal_tables(t, i1));
+		TESTASSERT(equal_tables(t, i2));
 	}
 	unit::test_function _("expression_registry", foo);
 }
