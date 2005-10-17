@@ -27,16 +27,17 @@ namespace rel
 
 	// counter
 
-	struct counter_t : public column<counter_t, int>
+	template<class T>
+    struct counter_t : public column<counter_t<T>, T>
 	{
-		counter_t(int i = 0) : column<counter_t, int>(i) {}   // DA to use while comparing against counter
+		counter_t(T i = T()) : column<counter_t<T>, T>(i) {}   // DA to use while comparing against counter
 		template<class Tuple> void operator()(const Tuple&)
 		{
-			this->value()++;
+			++this->value();
 		}
 	};
 
-	struct counter : public column_name<counter_t> {};
+	struct counter : public column_name<counter_t<int> > {};
 
 	// min
 

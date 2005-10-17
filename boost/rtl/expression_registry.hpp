@@ -51,14 +51,16 @@ namespace rel
 			plus_type plus = delta(idx_, tr).first.internal_table();
 			minus_type minus = delta(idx_, tr).second.internal_table();
 
-			for (typename minus_type::const_iterator it1 = minus.begin(); it1 != minus.end(); ++it1)
+			typename minus_type::const_iterator minus_end = minus.end();
+            for (typename minus_type::const_iterator it1 = minus.begin(); it1 != minus_end; ++it1)
 			{
 				row<BOOST_TYPENAME Idx::idx::sort_list> sub;
-				copy_fields<BOOST_TYPENAME Idx::idx::sort_list>(*it1, sub);
+				copy_fields<BOOST_TYPENAME Idx::idx::sort_list>(it1, sub);
 				idx_.internal_table().remove(idx_.internal_table().lower_bound(sub));
 			}
 
-			for (typename plus_type::const_iterator it2 = plus.begin(); it2 != plus.end(); ++it2)
+			typename plus_type::const_iterator plus_end = plus.end();
+			for (typename plus_type::const_iterator it2 = plus.begin(); it2 != plus_end; ++it2)
 				idx_.internal_table().insert(*it2);
 		}
 		Idx idx_;

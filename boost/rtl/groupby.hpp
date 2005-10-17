@@ -106,7 +106,7 @@ namespace rel
 
             if (itr_ != end_arg) // DA
 			{
-				copy_fields<key_list>(*itr_, result_);
+				copy_fields<key_list>(itr_, result_);
 
 				for (end_range_ = itr_; end_range_ != end_arg && 
 					compare_iterators<key_list>(end_range_, itr_) == 0; ++end_range_)
