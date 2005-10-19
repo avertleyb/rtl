@@ -143,10 +143,17 @@ namespace rel
 	};
 
 	template<class SortList, class Table> 
-		BOOST_TYPENAME key_index_t<Table,SortList>::type 
-		key_index(const Table& t, SortList* s = 0)
+		typename key_index_t<Table, SortList>::type 
+		key_index(const Table& t)
 	{
-		return BOOST_TYPENAME key_index_t<Table,SortList>::type(t);
+		return typename key_index_t<Table, SortList>::type(t);
+	}
+
+    template<class SortList, class Strategy, class Table> 
+		typename key_index_t<Table, SortList, Strategy>::type 
+		key_index(const Table& t)
+	{
+		return typename key_index_t<Table, SortList, Strategy>::type(t);
 	}
 }
 

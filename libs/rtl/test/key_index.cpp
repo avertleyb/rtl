@@ -54,7 +54,7 @@ SecondaryIndexTest::run()
 //	print(key_index(key_index(t,sl),ol));
 	TESTASSERT(equal_tables(
 		t,
-		key_index(key_index(t,sl),ol)
+		key_index<old_sort_list>(key_index<new_sort_list>(t))
 	));
 	TESTASSERT(equal_tables(
 		invert<new_sort_list,default_table_implementation>(t),
