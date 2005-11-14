@@ -456,7 +456,8 @@ namespace rel
 		BOOST_TYPENAME traits<R>::modified_type 
 		modified(const R& r, const transaction& tr)
 	{
-		return Union(difference(r, delta(r, tr).second), delta(r, tr).first);
+        typename traits<R>::delta_type d = delta(r, tr);
+		return Union(difference(r, d.second), d.first);
 	}
 }
 

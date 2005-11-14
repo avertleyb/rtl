@@ -13,7 +13,10 @@
 */
 
 #define TESTASSERT(b)\
-	if (!(b)){throw unit::failure();}
+	if (!(b)){\
+		std::cout << "Failed: " << #b << std::endl;\
+		throw unit::failure();\
+	}
 
 namespace unit
 {

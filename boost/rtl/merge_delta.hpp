@@ -17,6 +17,8 @@ namespace rel
 	{
 		typedef typename R::arg1_type tab1;
 		typedef typename R::arg2_type tab2;
+		typedef typename traits<tab1>::delta_type del1;
+		typedef typename traits<tab2>::delta_type del2;
 		typedef typename traits<tab1>::minus_type min1;
 		typedef typename traits<tab2>::minus_type min2;
 		typedef typename traits<tab1>::plus_type pls1;
@@ -44,10 +46,13 @@ namespace rel
 	BOOST_TYPENAME traits<mg_t<T1,T2,PS> >::delta_type
 	_delta(const mg_t<T1,T2,PS>& mg, const transaction& tr)
 	{
-		BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type >::min1 m1 = delta(mg.argument1(), tr).second;
-		BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type >::min2 m2 = delta(mg.argument2(), tr).second;
-		BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type >::pls1 p1 = delta(mg.argument1(), tr).first;
-		BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type >::pls2 p2 = delta(mg.argument2(), tr).first;
+        typename merge_traits<typename merge_t<T1, T2, PS>::type>::del1 d1 = delta(mg.argument1(), tr);
+        typename merge_traits<typename merge_t<T1, T2, PS>::type>::del2 d2 = delta(mg.argument2(), tr);
+
+        BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type >::min1 m1 = d1.second;
+		BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type >::min2 m2 = d2.second;
+		BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type >::pls1 p1 = d1.first;
+		BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type >::pls2 p2 = d2.first;
 		T1 t1 = mg.argument1();
 		T2 t2 = mg.argument2();
 

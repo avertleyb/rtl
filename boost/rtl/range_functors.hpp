@@ -44,7 +44,7 @@ namespace rel
 			>::type sub_list;
 
 			row<sub_list> sub;
-			copy_different_tuples<FieldList, sub_list, size<FieldList>::value>(*it, sub);
+			copy_different_tuples<FieldList, sub_list, size<FieldList>::value>(it, sub);
 			return t.lower_bound(sub);
 		}
 	};
@@ -90,7 +90,7 @@ namespace rel
 			>::type sub_list;
 
 			row<sub_list> sub;
-			copy_different_tuples<FieldList, sub_list, size<FieldList>::value>(*it, sub);
+			copy_different_tuples<FieldList, sub_list, size<FieldList>::value>(it, sub);
 			return t.upper_bound(sub);
 		}
 	};

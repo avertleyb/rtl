@@ -45,11 +45,13 @@ namespace rel
 	private:
 		virtual void update_index(transaction& tr)
 		{
+            typedef typename traits<Idx>::delta_type delta_type;
 			typedef typename traits<Idx>::plus_type::idx plus_type;
 			typedef typename traits<Idx>::minus_type::idx minus_type;
 
-			plus_type plus = delta(idx_, tr).first.internal_table();
-			minus_type minus = delta(idx_, tr).second.internal_table();
+			delta_type d = delta(idx_, tr);
+            plus_type plus = d.first.internal_table();
+			minus_type minus = d.second.internal_table();
 
 			typename minus_type::const_iterator minus_end = minus.end();
             for (typename minus_type::const_iterator it1 = minus.begin(); it1 != minus_end; ++it1)

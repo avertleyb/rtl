@@ -65,15 +65,10 @@ namespace rel
 		}
 		void move_to_next()
 		{
-			while (itr_ != relation_->arg_.end())
-			{
-				//value_type tup(*itr_);
-				//if ((relation_->pred_)(tup))
-				if ((relation_->pred_)(itr_))
-					break;
-				
+            arg_iterator end = relation_->arg_.end();
+
+			while (itr_ != end && !(relation_->pred_)(itr_))
 				++itr_;
-			}
 		}
 		void move_to_prev()
 		{
@@ -142,38 +137,57 @@ namespace rel
 		template <class SubTuple>
 			range_t<const_iterator> equal_range(const SubTuple& sub) const
 		{
-			const bool valid = valid_subtuple<SubTuple,BOOST_TYPENAME Table::sort_list>::value;
-			BOOST_STATIC_ASSERT(valid);
+			BOOST_STATIC_ASSERT((
+                valid_subtuple<SubTuple,BOOST_TYPENAME Table::sort_list>::value
+                ));
 
-			range_t<BOOST_TYPENAME arg_type::const_iterator> r(arg_.equal_range(sub));
-			sel_t<range_t<BOOST_TYPENAME arg_type::const_iterator>,Pred> s(r,pred_);
-			range_t<const_iterator> temp(
-				const_iterator(s.begin().base().base(),this),
-				const_iterator(s.end().base().base(),this)
-			);
-			return temp;
+			range_t<typename arg_type::const_iterator> r(arg_.equal_range(sub));
+
+            typename arg_type::const_iterator it1 = r.begin().base();
+            typename arg_type::const_iterator it2 = r.end().base();
+            typename arg_type::const_iterator end = arg_.end();
+
+            while(it1 != end && !pred_(it1))
+                ++it1;
+
+            while(it2 != end && !pred_(it2))
+                ++it2;
+
+            return range_t<const_iterator>(
+                const_iterator(it1, this),
+                const_iterator(it2, this));
 		}
 
 		template<class SubTuple>
 			const_iterator lower_bound(const SubTuple& sub) const
 		{
-			const bool valid = valid_subtuple<SubTuple,BOOST_TYPENAME Table::sort_list>::value;
-			BOOST_STATIC_ASSERT(valid);
+			BOOST_STATIC_ASSERT((
+                valid_subtuple<SubTuple,BOOST_TYPENAME Table::sort_list>::value
+                ));
 
-			range_t<BOOST_TYPENAME arg_type::const_iterator> r(arg_.lower_bound(sub),arg_.end());
-			sel_t<range_t<BOOST_TYPENAME arg_type::const_iterator>,Pred> s(r,pred_);
-			return const_iterator(s.begin().base().base(),this);
+            typename arg_type::const_iterator it = arg_.lower_bound(sub);
+            typename arg_type::const_iterator end = arg_.end();
+
+            while(it != end && !pred_(it))
+                ++it;
+
+            return const_iterator(it, this);
 		}
 
 		template<class SubTuple>
 			const_iterator upper_bound(const SubTuple& sub) const
 		{
-			const bool valid = valid_subtuple<SubTuple,BOOST_TYPENAME Table::sort_list>::value;
-			BOOST_STATIC_ASSERT(valid);
+			BOOST_STATIC_ASSERT((
+                valid_subtuple<SubTuple,BOOST_TYPENAME Table::sort_list>::value
+                ));
 
-			range_t<BOOST_TYPENAME arg_type::const_iterator> r(arg_.begin(),arg_.upper_bound(sub));
-			sel_t<range_t<BOOST_TYPENAME arg_type::const_iterator>,Pred> s(r,pred_);
-			return const_iterator(s.end().base().base(),this);
+            typename arg_type::const_iterator it = arg_.upper_bound(sub);
+            typename arg_type::const_iterator end = arg_.end();
+
+            while(it != end && !pred_(it))
+                ++it;
+
+            return const_iterator(it, this);
 		}
 
 		Pred pred() const

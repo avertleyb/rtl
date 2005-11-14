@@ -21,9 +21,11 @@ namespace rel
 		BOOST_TYPENAME traits<key_idx_t<Tb, SL, Str> >::delta_type 
 		_delta(const key_idx_t<Tb, SL, Str>& idx, const transaction& tr)
 	{
+        typename traits<typename key_idx_t<Tb, SL, Str>::arg_type>::delta_type d = delta(idx.argument(), tr);
+
 		return typename traits<key_idx_t<Tb, SL, Str> >::delta_type(
-			BOOST_TYPENAME traits<key_idx_t<Tb, SL, Str> >::plus_type(delta(idx.argument(), tr).first),
-			BOOST_TYPENAME traits<key_idx_t<Tb, SL, Str> >::minus_type(delta(idx.argument(), tr).second));
+			BOOST_TYPENAME traits<key_idx_t<Tb, SL, Str> >::plus_type(d.first),
+			BOOST_TYPENAME traits<key_idx_t<Tb, SL, Str> >::minus_type(d.second));
 	}
 }
 

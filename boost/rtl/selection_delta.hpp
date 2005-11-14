@@ -21,9 +21,12 @@ namespace rel
 		BOOST_TYPENAME traits<sel_t<Tb, Pred> >::delta_type 
 		_delta(const sel_t<Tb, Pred>& sel, const transaction& tr)
 	{
+        typename traits<typename sel_t<Tb, Pred>::arg_type>::delta_type d = 
+            delta(sel.argument(), tr); 
+
 		return BOOST_TYPENAME traits<sel_t<Tb, Pred> >::delta_type(
-			selection(delta(sel.argument(), tr).first, sel.pred()),
-			selection(delta(sel.argument(), tr).second, sel.pred()));
+			selection(d.first, sel.pred()),
+			selection(d.second, sel.pred()));
 	}
 }
 

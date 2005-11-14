@@ -147,13 +147,18 @@ namespace range_join_cpp
 
 		// test delta
 
-		transaction tr;
+		print(a);
+        print(b);
+
+        transaction tr;
 		
 		tr.insert(a, tuple_a(6));
 		TESTASSERT(count(delta(jn, tr).first) == 0);
 
 		tr.insert(b, tuple_b(6, 1));
 		tr.insert(b, tuple_b(6, 2));
+
+        print(delta(jn, tr).first);
 		TESTASSERT(count(delta(jn, tr).first) == 2);
 
 		tr.insert(b, tuple_b(1, 3));

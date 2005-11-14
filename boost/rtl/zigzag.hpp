@@ -295,13 +295,21 @@ namespace rel
 		{
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
-			equivalent_operator_type z
-			(
-				range(arg1_.lower_bound(subtuple), arg1_.end()),
-				range(arg2_.lower_bound(subtuple), arg2_.end())
-			);
-			typename equivalent_operator_type::const_iterator b = z.begin();
-			return const_iterator(b.base1().base(), b.base2().base(), this, b.get_sign());
+
+			typename arg1_type::const_iterator l1 = arg1_.lower_bound(subtuple);
+			typename arg2_type::const_iterator l2 = arg2_.lower_bound(subtuple);
+			typename arg1_type::const_iterator e1 = arg1_.end();
+			typename arg2_type::const_iterator e2 = arg2_.end();
+			bool is_e1 = (l1 == e1);
+			bool is_e2 = (l2 == e2);
+			if (is_e1 && is_e2) return const_iterator(l1,l2,this,1);
+			int comp = is_e1 ? 1 : (is_e2 ? -1 : const_iterator::compare_sides(l1,l2));
+			const_iterator i(l1,l2,this,comp);
+			if (!Policy::accept(comp))
+			{
+				i.incr(e1,e2);
+			}
+			return i;
 		}
 
 		template<class SubTuple>
@@ -309,23 +317,21 @@ namespace rel
 		{
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
-			equivalent_operator_type z
-			(
-				range(arg1_.begin(), arg1_.upper_bound(subtuple)),
-				range(arg2_.begin(), arg2_.upper_bound(subtuple))
-			);
-			typename equivalent_operator_type::const_iterator b = z.begin();
-			const_iterator begin(b.base1().base(), b.base2().base(), this, b.get_sign());
-			const_iterator end;
-			if (z.end() == z.begin()) end = begin;
-			else
+
+			typename arg1_type::const_iterator u1 = arg1_.upper_bound(subtuple);
+			typename arg2_type::const_iterator u2 = arg2_.upper_bound(subtuple);
+			typename arg1_type::const_iterator e1 = arg1_.end();
+			typename arg2_type::const_iterator e2 = arg2_.end();
+			bool is_e1 = (u1 == e1);
+			bool is_e2 = (u2 == e2);
+			if (is_e1 && is_e2) return const_iterator(u1,u2,this,1);
+			int comp = is_e1 ? 1 : (is_e2 ? -1 : const_iterator::compare_sides(u1,u2));
+			const_iterator i(u1,u2,this,comp);
+			if (!Policy::accept(comp))
 			{
-				BOOST_TYPENAME equivalent_operator_type::const_iterator last = z.end();
-				--last; // points to the last tuple in equivalent operator
-				end = const_iterator(last.base1().base(), last.base2().base(), this, last.get_sign());
-				++end;
+				i.incr(e1,e2);
 			}
-			return end;
+			return i;
 		}
 	};
 }

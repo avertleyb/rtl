@@ -79,9 +79,11 @@ namespace rel
 		{
 			// returns whether itr1_ was moved 
 			bool result = false;
-			while(true)
+            typename Table1::const_iterator end1 = this->relation_->arg1_.end();
+
+            while(true)
 			{
-				if (this->itr1_ == this->relation_->arg1_.end())
+				if (this->itr1_ == end1)
 				{
 					this->itr2_ = this->relation_->arg2_.end();
 					return result;
@@ -118,17 +120,17 @@ namespace rel
 		{}
 		void increment()
 		{
-			assert(invariant());
+			//assert(invariant());
 			if (++this->itr2_ == end_)
 			{
 				++this->itr1_;
 				adjust_forward();
 			}
-			assert(invariant());
+			//assert(invariant());
 		}
 		void decrement()
 		{
-			assert(invariant());
+			//assert(invariant());
 			if (this->itr1_ == this->relation_->arg1_.end())
 			{
 				--this->itr1_;
@@ -141,12 +143,12 @@ namespace rel
 			}
 			else
 				--this->itr2_;
-			assert(invariant());
+			//assert(invariant());
 		}
 		template<class Column>
 			typename Column::type get_internal(const Column& c) const 
 		{
-			assert(invariant());
+			//assert(invariant());
 			return get_internal(c, 
 				typename list_contains<typename Table1::field_list, Column>::type()); 
 		}

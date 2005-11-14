@@ -44,6 +44,7 @@ namespace gby_delta_cpp
 
 //		groupby_type gby = groupby<key_list, group_list>(t);
 		groupby_type gby = groupby<1, group_list>(t);
+        print(gby);
 
 		transaction tr;
 
@@ -51,12 +52,23 @@ namespace gby_delta_cpp
 		tr.insert(t, tuple_t(10, 1));
 		tr.remove(t, tuple_t(1, 9));
 
-		table<table_info<groupby_type::field_list> > m;
-//		materialize(modified(gby, tr), m);
+		//table<table_info<groupby_type::field_list> > m;
+		//materialize(modified(gby, tr), m);
+
+
+        traits<groupby_type>::delta_type d = delta(gby, tr);
+
+        print(d.first);
+        print(d.second);
+
+        table_type<groupby_type>::type m;
+        m.append(modified(gby, tr));
+        
+        print(m);
 
 		tr.commit();
 
-//		TESTASSERT(equal_tables(m, groupby<1, group_list>(t)));
+		TESTASSERT(equal_tables(m, groupby<1, group_list>(t)));
 		TESTASSERT(equal_tables(gby, groupby<1, group_list>(t)));
 	}
 

@@ -76,69 +76,56 @@ namespace rel
 		groupby_iterator() 
 		{} 
 
+        template<class Column>
+            typename Column::type _get(const Column& c, boost::mpl::true_) const
+        {
+            return itr_[c];
+        }
+
+        template<class Column>
+            typename Column::type _get(const Column& c, boost::mpl::false_) const
+        {
+            typename Column::impl_type result;
+
+            row<key_list> sub;
+            copy_fields<key_list>(itr_, sub);
+
+            arg_iterator end = relation_->arg_.upper_bound(sub);
+
+            for(arg_iterator it = itr_; it != end; ++it)
+				result(it);
+
+            return result.value();
+        }
+
 		template<class Column>
-			typename Column::type
-		get_internal(const Column&) const 
+			typename Column::type get_internal(const Column& c) const 
 		{
-			return BOOST_RTL_FIELD(result_,Column);
+            typedef typename list_contains<
+                typename relation_type::key_list, 
+                Column
+            >::type is_fast; 
+            return _get(c, is_fast()); 
 		}
 
 	private:
-		void make_step_forward() 
-		{
-			copy_fields<key_list>(*itr_, result_);
-            arg_iterator end_arg = relation_->arg_.end();
-
-			for (end_range_ = itr_; end_range_ != end_arg && 
-				compare_tuples<key_list>(*end_range_, *itr_) == 0; ++end_range_)
-			{
-				group_fields<GroupList>(*end_range_, result_);
-			}
-		}
-
 		void increment()
 		{
-            value_type temp;
-			result_ = temp;
-
-			itr_ = end_range_;
-            arg_iterator end_arg = relation_->arg_.end();
-
-            if (itr_ != end_arg) // DA
-			{
-				copy_fields<key_list>(itr_, result_);
-
-				for (end_range_ = itr_; end_range_ != end_arg && 
-					compare_iterators<key_list>(end_range_, itr_) == 0; ++end_range_)
-				{
-					group_fields<GroupList>(end_range_, result_);
-				}
-			}
+            row<key_list> sub;
+            copy_fields<key_list>(itr_, sub);
+            *this = groupby_iterator(relation_->arg_.upper_bound(sub), relation_);
 		}
 		
 		void decrement()
 		{
-            value_type temp;
-			result_ = temp;
-
-			end_range_ = itr_;
-			arg_iterator prev(itr_);
-			--prev;
-
-			do
-			{
-				itr_ = prev;
-				group_fields<GroupList>(*itr_, result_);
-			}
-			while (itr_ != relation_->arg_.begin() &&
-				compare_tuples<key_list>(*itr_, *--prev) == 0);
-
-			copy_fields<key_list>(*itr_, result_);
+            --itr_;
+            row<key_list> sub;
+            copy_fields<key_list>(itr_, sub);
+            *this = groupby_iterator(relation_->arg_.lower_bound(sub), relation_);
 		}
 
 	private:
 		value_type result_;
-		arg_iterator end_range_;
 	};
 
 	// gby_base
@@ -177,9 +164,7 @@ namespace rel
 
 		const_iterator begin() const 
 		{
-			const_iterator temp(arg_.begin(),this);
-			temp.make_step_forward();
-			return temp;
+            return const_iterator(arg_.begin(), this);
 		}
 
 		const_iterator end() const
@@ -195,9 +180,8 @@ namespace rel
 
 			range_t<BOOST_TYPENAME Table::const_iterator> r(arg_.equal_range(sub));
 
-			const_iterator lbound(r.begin().base(),this);
-			const_iterator ubound(r.end().base(),this);
-			lbound.make_step_forward();
+			const_iterator lbound(r.begin().base(), this);
+			const_iterator ubound(r.end().base(), this);
 
 			return range(lbound, ubound);
 		}
@@ -208,10 +192,7 @@ namespace rel
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
 
-			const_iterator lbound(arg_.lower_bound(sub),this);
-			lbound.make_step_forward();
-
-			return lbound;
+			return const_iterator(arg_.lower_bound(sub), this);
 		}
 
 		template<class SubTuple>
@@ -220,7 +201,7 @@ namespace rel
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
 
-			return const_iterator(arg_.upper_bound(sub),this);
+			return const_iterator(arg_.upper_bound(sub), this);
 		}
 	};
 

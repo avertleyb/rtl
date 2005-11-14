@@ -129,11 +129,24 @@ namespace rel
 		typedef typename Info::field_list field_list;
     
     	typedef row<field_list> value_type;
-		typedef typename optimize_sort			
+		
+        typedef typename optimize_sort			
 		<
 			typename Info::sort_list,
 			typename Info::keys
-		>::type sort_list;
+		>::type optimized_sort_list;
+
+        /* AV: cover delta choke when sort_list on table and delta not same type,
+           even if same sequence -- all this needs to be revisited!!! */
+
+        typedef typename boost::mpl::if_<
+            typename list_equal<optimized_sort_list, typename Info::sort_list>::type,
+            typename Info::sort_list,
+            optimized_sort_list
+        >::type sort_list;
+
+        //typedef typename Info::sort_list sort_list;
+
 		typedef typename Info::keys keys;
     	typedef typename Info::implementation implementation;
     	typedef table_iterator<Info> const_iterator;
@@ -147,6 +160,13 @@ namespace rel
     public:
 		table() : data_ptr_(new SortPolicy) 
  		{}
+
+        template<class R>
+            void append(const R& r)
+        {
+            for (typename R::const_iterator it = r.begin(); it != r.end(); ++it)
+                insert(*it);
+        }
 
  		const_iterator begin() const {return const_iterator(data_ptr_->begin(),this);}
  		const_iterator end() const {return const_iterator(data_ptr_->end(),this);}
@@ -219,7 +239,17 @@ namespace rel
     
    	private:
  		boost::shared_ptr<SortPolicy> data_ptr_;
-   	};		
+   	};
+
+    template<class R>
+        struct table_type
+    {
+        typedef table<table_info<
+            typename R::field_list,
+            typename R::sort_list,
+            typename R::keys
+            > > type;
+    };
 }
     
 #endif//BOOST_RTL_TABLE_HPP_INCLUDED
