@@ -7,11 +7,11 @@
 #ifndef BOOST_RTL_RANGE_SELECTION_HPP_INCLUDED
 #define BOOST_RTL_RANGE_SELECTION_HPP_INCLUDED
 
-#include "range.hpp"
-#include "range_functors.hpp"
+#include <boost/rtl/range.hpp>
+#include <boost/rtl/range_functors.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	// range_selection
 
 	template<class Table, class Begin, class End> 
@@ -164,50 +164,50 @@ namespace rel
 	// lt
 	template<class Table, class Key> 
 		struct selection_lt_t : boost::mpl::identity<
-		typename range_selection_t<Table, rel::begin, rel::lower_bound_t<Key> >::type>
+		typename range_selection_t<Table, begin, lower_bound_t<Key> >::type>
 	{};
 	template<class Table, class Key>
 		BOOST_MSVC_TYPENAME selection_lt_t<Table, Key>::type
 		selection_lt(const Table& t, const Key& k)
 	{
-		return range_selection(t, rel::begin(), rel::lower_bound(k));
+		return range_selection(t, begin(), lower_bound(k));
 	}
 
 	// le
 	template<class Table, class Key> 
 		struct selection_le_t : boost::mpl::identity<
-		typename range_selection_t<Table, rel::begin, rel::upper_bound_t<Key> >::type>
+		typename range_selection_t<Table, begin, upper_bound_t<Key> >::type>
 	{};
 	template<class Table, class Key>
 		BOOST_MSVC_TYPENAME selection_le_t<Table, Key>::type
 		selection_le(const Table& t, const Key& k)
 	{
-		return range_selection(t, rel::begin(), rel::upper_bound(k));
+		return range_selection(t, begin(), upper_bound(k));
 	}
 
 	// gt
 	template<class Table, class Key> 
 		struct selection_gt_t : boost::mpl::identity<
-		typename range_selection_t<Table, rel::upper_bound_t<Key>, rel::end>::type>
+		typename range_selection_t<Table, upper_bound_t<Key>, end>::type>
 	{};
 	template<class Table, class Key>
 		BOOST_MSVC_TYPENAME selection_gt_t<Table, Key>::type
 		selection_gt(const Table& t, const Key& k)
 	{
-		return range_selection(t, rel::upper_bound(k), rel::end());
+		return range_selection(t, upper_bound(k), end());
 	}
 
 	//ge
 	template<class Table, class Key> 
 		struct selection_ge_t : boost::mpl::identity<
-		typename range_selection_t<Table, rel::lower_bound_t<Key>, rel::end>::type>
+		typename range_selection_t<Table, lower_bound_t<Key>, end>::type>
 	{};
 	template<class Table, class Key>
 		BOOST_MSVC_TYPENAME selection_ge_t<Table, Key>::type
 		selection_ge(const Table& t, const Key& k)
 	{
-		return range_selection(t, rel::lower_bound(k), rel::end());
+		return range_selection(t, lower_bound(k), end());
 	}
-}
+}}
 
 #endif//BOOST_RTL_RANGE_SELECTION_HPP_INCLUDED

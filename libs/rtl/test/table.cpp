@@ -1,19 +1,20 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 #include "test_function.hpp"
-#include "table.hpp"
-#include "utils.hpp"
-#include "range.hpp"
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/utils.hpp>
+#include <boost/rtl/range.hpp>
 #include "test_decrement.hpp"
-#include "crossproduct.hpp"
+#include <boost/rtl/crossproduct.hpp>
 
-#include "vector_impl.hpp"
+#include <boost/rtl/vector_impl.hpp>
 
 #ifdef BOOST_RTL_USE_SET
 #   include "indexed_set_impl.hpp"
 #endif
 
+using namespace boost;
 using namespace rel;
 using namespace unit;
 //using namespace boost;

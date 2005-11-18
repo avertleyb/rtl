@@ -1,8 +1,8 @@
 #ifndef BOOST_RTL_TEST_TABLES_HPP_INCLUDED
 #define BOOST_RTL_TEST_TABLES_HPP_INCLUDED
 
-#include "tuple.hpp"
-#include "table.hpp"
+#include <boost/rtl/tuple.hpp>
+#include <boost/rtl/table.hpp>
 #include <string>
 #include <memory>
 #include <iostream>
@@ -63,7 +63,7 @@ namespace depts
 	BOOST_RTL_DEFINE_COLUMN(heapstr::StringPtr, dept);
 	BOOST_RTL_DEFINE_COLUMN(heapstr::StringPtr, name);
 	
-	struct table : public rel::table<rel::table_info<
+	struct table : public boost::rel::table<boost::rel::table_info<
 		boost::mpl::vector2<name, dept>
 		> >
 	{
@@ -83,7 +83,7 @@ namespace people
 	BOOST_RTL_DEFINE_COLUMN(heapstr::StringPtr, name);
 	BOOST_RTL_DEFINE_COLUMN(int, salary);
 
-	struct table : public rel::table<rel::table_info<
+	struct table : public boost::rel::table<boost::rel::table_info<
 		boost::mpl::vector2<name, salary>
 		> >
 	{
@@ -105,7 +105,7 @@ namespace staff
 	BOOST_RTL_DEFINE_COLUMN(std::string, project);
 	BOOST_RTL_DEFINE_COLUMN(int, country);
 
-	struct table : public rel::table<rel::table_info<
+	struct table : public boost::rel::table<boost::rel::table_info<
 		boost::mpl::vector5<ssn, name, year, project, country> 
 		> >
 	{
@@ -127,7 +127,7 @@ namespace account
 
     typedef boost::mpl::vector2<sn, zip> lst;
 
-	struct table : public rel::table<rel::table_info<
+	struct table : public boost::rel::table<boost::rel::table_info<
 		boost::mpl::vector2<sn, zip>
 		> >
 	{
@@ -156,7 +156,7 @@ namespace myspace
 	BOOST_RTL_DEFINE_COLUMN(int,sn)
 	BOOST_RTL_DEFINE_COLUMN(std::string,qq)
 	
-	struct table : public rel::table<rel::table_info<
+	struct table : public boost::rel::table<boost::rel::table_info<
 		boost::mpl::vector2<sn, qq>
 		> >
 	{
@@ -190,7 +190,7 @@ namespace country
 	BOOST_RTL_DEFINE_COLUMN(short, code);
 	BOOST_RTL_DEFINE_COLUMN(std::string, name);
 
-	struct table : public rel::table<rel::table_info<
+	struct table : public boost::rel::table<boost::rel::table_info<
 		boost::mpl::vector2<code, name>
 		> >
 	{

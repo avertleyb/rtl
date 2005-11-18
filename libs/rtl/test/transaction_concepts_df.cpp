@@ -12,12 +12,12 @@ namespace tc
 struct difference_test : full_set_test
 {
 	
-	typedef rel::difference_t<table_type_1,table_type_2>::type difference_type;
-	typedef rel::diff_t<table_type_1,table_type_2>::type diff_type;
+	typedef boost::rel::difference_t<table_type_1,table_type_2>::type difference_type;
+	typedef boost::rel::diff_t<table_type_1,table_type_2>::type diff_type;
 	typedef difference_type result_type;
 	typedef difference_type::value_type tuple_r;
 	typedef difference_type::sort_list sort_list_r;
-//	typedef rel::table<rel::table_info<difference_type::field_list,sort_list_r> > table_type_r;
+//	typedef boost::rel::table<boost::rel::table_info<difference_type::field_list,sort_list_r> > table_type_r;
 	BOOST_RTL_TABLE_2(table_type_r,difference_type::field_list,sort_list_r);
 
 	table_type_r res_;
@@ -51,8 +51,8 @@ struct difference_test : full_set_test
 
 	void run()
 	{
-		difference_type df = rel::difference(arg1_,arg2_);
-		TESTASSERT(rel::equal_tables(df,res_));
+		difference_type df = boost::rel::difference(arg1_,arg2_);
+		TESTASSERT(boost::rel::equal_tables(df,res_));
 		simple_checks
 		<
 			result_type,
@@ -64,8 +64,8 @@ struct difference_test : full_set_test
 
 	void irun()
 	{
-		diff_type df = rel::diff(arg1_,arg2_);
-		TESTASSERT(rel::equal_tables(df,res_));
+		diff_type df = boost::rel::diff(arg1_,arg2_);
+		TESTASSERT(boost::rel::equal_tables(df,res_));
 		simple_checks
 		<
 			diff_type,

@@ -11,13 +11,13 @@
 #include <vector>
 #include <algorithm>
 #include <boost/mem_fn.hpp>
-#include "tuple.hpp"
-#include "range.hpp"
-#include "identifiable.hpp"
-#include "iterator_index.hpp"
-#include "utils.hpp"
-#include "partial_index.hpp"
-#include "partial_index_delta.hpp"
+#include <boost/rtl/tuple.hpp>
+#include <boost/rtl/range.hpp>
+#include <boost/rtl/identifiable.hpp>
+#include <boost/rtl/iterator_index.hpp>
+#include <boost/rtl/utils.hpp>
+#include <boost/rtl/partial_index.hpp>
+#include <boost/rtl/partial_index_delta.hpp>
 
 /////////////////////////////////////////////////////////////////////////////////
 //                           Table deltas
@@ -55,8 +55,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class R, class Sub> 
 		bool find(const R& tab, const Sub& sub, typename R::const_iterator& it) 
 	{
@@ -112,7 +112,7 @@ namespace rel
 		typedef BOOST_TYPENAME minus_type::const_iterator minus_iterator;
 		typedef BOOST_TYPENAME table_delta<Table>::plus_type plus_type;
 		typedef BOOST_TYPENAME plus_type::const_iterator plus_iterator;
-		typedef rel::row<BOOST_TYPENAME Table::sort_list> sort_tuple;
+		typedef row<BOOST_TYPENAME Table::sort_list> sort_tuple;
 		typedef std::vector<bool> update_flags;
 
 		virtual ptrdiff_t id() const
@@ -317,7 +317,7 @@ namespace rel
 
 	class transaction
 	{
-		typedef std::set<table_proxy*, rel::id_less> set_type;
+		typedef std::set<table_proxy*, id_less> set_type;
 
 	public:
 		~transaction()
@@ -438,6 +438,6 @@ namespace rel
 	private:
 		set_type proxies_;
 	};
-}
+}}
 
 #endif//BOOST_RTL_TRANSACTION_HPP_INCLUDED

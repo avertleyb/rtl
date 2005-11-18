@@ -5,10 +5,10 @@
 
 using namespace boost;
 
-BOOST_RTL_DEFINE_COLUMN(rel::Perfmeter,c1);
-BOOST_RTL_DEFINE_COLUMN(rel::Perfmeter,c2);
-BOOST_RTL_DEFINE_COLUMN(rel::Perfmeter,c3);
-BOOST_RTL_DEFINE_COLUMN(rel::Perfmeter,c4);
+BOOST_RTL_DEFINE_COLUMN(Perfmeter,c1);
+BOOST_RTL_DEFINE_COLUMN(Perfmeter,c2);
+BOOST_RTL_DEFINE_COLUMN(Perfmeter,c3);
+BOOST_RTL_DEFINE_COLUMN(Perfmeter,c4);
 
 namespace tc
 {
@@ -18,13 +18,13 @@ struct cross_product_test_full_sort_list_base
 
 	typedef mpl::vector2<c1, c2> f_list_1;
 	typedef mpl::vector2<c3, c4> f_list_2;
-	typedef rel::row<f_list_1> tuple_1;
-	typedef rel::row<f_list_2> tuple_2;
+	typedef boost::rel::row<f_list_1> tuple_1;
+	typedef boost::rel::row<f_list_2> tuple_2;
 
 	BOOST_RTL_TABLE_1(table_type_1,f_list_1);
 	BOOST_RTL_TABLE_1(table_type_2,f_list_2);
 
-	typedef rel::cross_product_t<table_type_1,table_type_2>::type result_type;
+	typedef boost::rel::cross_product_t<table_type_1,table_type_2>::type result_type;
 	typedef result_type::value_type tuple_r;
 	typedef result_type::sort_list sort_list_r;
 	BOOST_RTL_TABLE_2(table_type_r,result_type::field_list,sort_list_r);
@@ -58,7 +58,7 @@ struct cross_product_test_full_sort_list_base
 	};
 	void run()
 	{
-		result_type xp = rel::cross_product(arg1_,arg2_);
+		result_type xp = boost::rel::cross_product(arg1_,arg2_);
 		simple_checks
 		<
 			result_type,

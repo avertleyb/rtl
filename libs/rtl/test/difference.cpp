@@ -1,21 +1,21 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 #include "test_function.hpp"
-#include "tuple.hpp"
-#include "table.hpp"
-#include "difference.hpp"
+#include <boost/rtl/tuple.hpp>
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/difference.hpp>
 #include "test_tables.hpp"
-#include "utils.hpp"
-#include "rename.hpp"
+#include <boost/rtl/utils.hpp>
+#include <boost/rtl/rename.hpp>
 #include "test_decrement.hpp"
 #include "test_zigzag.hpp"
-#include "selection.hpp"
-#include "select_functors.hpp"
+#include <boost/rtl/selection.hpp>
+#include <boost/rtl/select_functors.hpp>
 
+using namespace boost;
 using namespace rel;
 using namespace unit;
-using namespace boost;
 using namespace lambda;
 
 namespace difference_cpp

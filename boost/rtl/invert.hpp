@@ -7,10 +7,10 @@
 #ifndef BOOST_RTL_INVERT_HPP_INCLUDED
 #define BOOST_RTL_INVERT_HPP_INCLUDED
 
-#include "table.hpp"
+#include <boost/rtl/table.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template
 	<
 		class SortList, 
@@ -52,5 +52,5 @@ namespace rel
 		return res;
 	}
 
-}
+}}
 #endif//BOOST_RTL_INVERT_HPP_INCLUDED

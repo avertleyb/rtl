@@ -7,19 +7,19 @@
 namespace tc
 {
 
-BOOST_RTL_DEFINE_COLUMN(rel::Perfmeter,c1);
-BOOST_RTL_DEFINE_COLUMN(rel::Perfmeter,c2);
-BOOST_RTL_DEFINE_COLUMN(rel::Perfmeter,c3);
-BOOST_RTL_DEFINE_COLUMN(rel::Perfmeter,c4);
+BOOST_RTL_DEFINE_COLUMN(Perfmeter,c1);
+BOOST_RTL_DEFINE_COLUMN(Perfmeter,c2);
+BOOST_RTL_DEFINE_COLUMN(Perfmeter,c3);
+BOOST_RTL_DEFINE_COLUMN(Perfmeter,c4);
 
 struct full_set_test
 {
 	typedef boost::mpl::vector2<c1, c2> f_list;
 	typedef boost::mpl::vector1<c1> s_list;
-	typedef rel::row<f_list> tuple_1;
-	typedef rel::row<f_list> tuple_2;
-//	typedef rel::table<rel::table_info<f_list,s_list> > table_type_1;
-//	typedef rel::table<rel::table_info<f_list,s_list> > table_type_2;
+	typedef boost::rel::row<f_list> tuple_1;
+	typedef boost::rel::row<f_list> tuple_2;
+//	typedef boost::rel::table<boost::rel::table_info<f_list,s_list> > table_type_1;
+//	typedef boost::rel::table<boost::rel::table_info<f_list,s_list> > table_type_2;
 	BOOST_RTL_TABLE_2(table_type_1,f_list,s_list);
 	BOOST_RTL_TABLE_2(table_type_2,f_list,s_list);
 

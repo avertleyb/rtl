@@ -8,13 +8,13 @@
 #define BOOST_RTL_COLUMN_HPP_INCLUDED
 
 #define BOOST_RTL_DEFINE_COLUMN(T, Name)\
-	struct Name : public rel::column_name<rel::column<Name, T > >{};
+	struct Name : public boost::rel::column_name<boost::rel::column<Name, T > >{};
 
 // the following macro is depricated and will be removed soon
 #define BOOST_RTL_COLUMN(Name, T) BOOST_RTL_DEFINE_COLUMN(T, Name)
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class Impl> 
 		struct column_name
 	{
@@ -75,6 +75,6 @@ namespace rel
 		enum {ctg = 3};
 	};
 
-}
+}}
 
 #endif//BOOST_RTL_COLUMN_HPP_INCLUDED

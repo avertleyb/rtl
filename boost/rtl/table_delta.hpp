@@ -7,12 +7,12 @@
 #ifndef BOOST_RTL_TABLE_DELTA_HPP_INCLUDED
 #define BOOST_RTL_TABLE_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "table.hpp"
-#include "transaction.hpp" // added
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/transaction.hpp> // added
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class R> struct table_traits
 	{
 		typedef typename table_delta<R>::plus_type plus_type;
@@ -24,6 +24,6 @@ namespace rel
 	{
 		return tr.delta(t);
 	}
-}
+}}
 
 #endif//BOOST_RTL_TABLE_DELTA_HPP_INCLUDED

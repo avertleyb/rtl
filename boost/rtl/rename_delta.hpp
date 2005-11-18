@@ -7,11 +7,10 @@
 #ifndef BOOST_RTL_RENAME_DELTA_HPP_INCLUDED
 #define BOOST_RTL_RENAME_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "rename.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/rename.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
 
 	template<class R> struct cnv_traits
 	{
@@ -27,6 +26,6 @@ namespace rel
 		BOOST_TYPENAME traits<cnv_t<Table,Pairs> >::minus_type minus(delta(cnv.argument(), tr).second);
 		return BOOST_TYPENAME traits<cnv_t<Table,Pairs> >::delta_type(plus,minus);
 	};
-}
+}}
 
 #endif//BOOST_RTL_RENAME_DELTA_HPP_INCLUDED 

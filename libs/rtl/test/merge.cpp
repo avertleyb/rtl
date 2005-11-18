@@ -1,16 +1,16 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 #include "test.hpp"
-#include "table.hpp"
-#include "utils.hpp"
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/utils.hpp>
 #include "test_decrement.hpp"
-#include "merge.hpp"
-#include "crossproduct.hpp"
+#include <boost/rtl/merge.hpp>
+#include <boost/rtl/crossproduct.hpp>
 #include "test_decrement.hpp"
 
-using namespace rel;
 using namespace boost;
+using namespace rel;
 
 namespace qq
 {

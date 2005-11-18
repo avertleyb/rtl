@@ -7,10 +7,10 @@
 #ifndef BOOST_RTL_JOIN_XX_HPP_INCLUDED
 #define BOOST_RTL_JOIN_XX_HPP_INCLUDED
 
-#include "range_join.hpp"
+#include <boost/rtl/range_join.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class T1, class T2, class FieldList>
 	struct join_eq_t : equal_join_t<T1, T2, FieldList>
 	{};
@@ -65,5 +65,5 @@ namespace rel
 	{
 		return range_join(t1, t2, lower_bound<FieldList>(), end());
 	}
-}
+}}
 #endif

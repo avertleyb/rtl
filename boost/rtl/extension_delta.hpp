@@ -7,11 +7,11 @@
 #ifndef BOOST_RTL_EXTENSION_DELTA_HPP_INCLUDED
 #define BOOST_RTL_EXTENSION_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "extension.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/extension.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class R> 
 		struct extension_traits
 	{
@@ -26,6 +26,6 @@ namespace rel
 			extension(delta(ext.argument(), tr).first, ext.policy()),
 			extension(delta(ext.argument(), tr).second, ext.policy()));
 	}
-}
+}}
 
 #endif//BOOST_RTL_EXTENSION_DELTA_HPP_INCLUDED

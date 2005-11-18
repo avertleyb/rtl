@@ -7,14 +7,14 @@
 #ifndef BOOST_RTL_TRAVERSE_HPP_INCLUDED
 #define BOOST_RTL_TRAVERSE_HPP_INCLUDED
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class T, class F> 
 		void traverse(T t, F f)
 	{
 		f(&t);
 		t.traverse_args(f);
 	}
-}
+}}
 
 #endif//BOOST_RTL_TRAVERSE_HPP_INCLUDED

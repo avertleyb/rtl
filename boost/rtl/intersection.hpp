@@ -7,11 +7,10 @@
 #ifndef BOOST_RTL_INTERSECTION_HPP_INCLUDED
 #define BOOST_RTL_INTERSECTION_HPP_INCLUDED
 
-#include "zigzag.hpp"
-#include "keys.hpp"
+#include <boost/rtl/zigzag.hpp>
+#include <boost/rtl/keys.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
 
 	template<class Table1, class Table2>
 		struct intersection_t
@@ -24,6 +23,6 @@ namespace rel
 	{
 		return BOOST_TYPENAME intersection_t<Table1, Table2>::type(t1, t2);
 	}
-}
+}}
 
 #endif//BOOST_RTL_INTERSECTION_HPP_INCLUDED

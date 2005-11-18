@@ -7,8 +7,8 @@
 #ifndef BOOST_RTL_UNARY_HPP_INCLUDED
 #define BOOST_RTL_UNARY_HPP_INCLUDED
 
-#include "tuple.hpp"
-#include "iterator_root.hpp"
+#include <boost/rtl/tuple.hpp>
+#include <boost/rtl/iterator_root.hpp>
 
 #define BOOST_RTL_PULL_UNARY_ITERATOR_TYPEDEFS(Base)\
 	BOOST_RTL_PULL_ITERATOR_TYPEDEFS(Base)\
@@ -21,8 +21,8 @@
 	typedef typename Base::const_iterator const_iterator;\
 	typedef typename Base::arg_type arg_type;
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	// unary_iterator
 
 	template <class Derived, class Relation> 
@@ -93,6 +93,6 @@ namespace rel
 			traverse(argument(), f);
 		}
 	};
-}
+}}
 
 #endif//BOOST_RTL_UNARY_HPP_INCLUDED

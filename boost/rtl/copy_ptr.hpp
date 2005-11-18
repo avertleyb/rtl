@@ -7,8 +7,8 @@
 #ifndef BOOST_RTL_COPY_PTR_HPP_INCLUDED
 #define BOOST_RTL_COPY_PTR_HPP_INCLUDED
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<bool P>
 	struct copy_ptr_helper
 	{
@@ -82,7 +82,7 @@ namespace rel
 	private:
 		T* ptr;
 	};
-}
+}}
 
 #endif //BOOST_RTL_COPY_PTR_HPP_INCLUDED
 

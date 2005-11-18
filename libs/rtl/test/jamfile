@@ -5,7 +5,7 @@ C++FLAGS = -ftemplate-depth-99 -Wall -D NO_BOOST_RTL_USE_SET ;
 
 HDRS = 
 	C:$(SLASH)BOOST$(SLASH)boost_1_33_0
-	..$(SLASH)..$(SLASH)..$(SLASH)boost$(SLASH)rtl 
+	..$(SLASH)..$(SLASH).. 
 	;
 
 LOCATE_TARGET = gnuobj ;

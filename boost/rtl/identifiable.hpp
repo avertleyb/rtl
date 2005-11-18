@@ -10,8 +10,8 @@
 #include <boost/smart_ptr.hpp>
 #include <cstddef>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	class identifiable
 	{
 	public:
@@ -35,6 +35,6 @@ namespace rel
 		}
 	};
 
-}
+}}
 
 #endif//BOOST_RTL_IDENTIFIABLE_HPP_INCLUDED

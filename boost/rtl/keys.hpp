@@ -7,7 +7,7 @@
 #ifndef BOOST_RTL_KEYS_HPP_INCLUDED
 #define BOOST_RTL_KEYS_HPP_INCLUDED
 
-#include "list.hpp"
+#include <boost/rtl/list.hpp>
 #include <boost/mpl/remove_if.hpp>
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/range_c.hpp>
@@ -15,8 +15,7 @@
 #include <boost/mpl/push_back.hpp>
 #include <boost/mpl/insert_range.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
 
 	// A key of a relation is a set of the relation's attributes
 	// which fully defines a tuple in the relation. 
@@ -124,7 +123,7 @@ namespace rel
 	{
 		typedef typename boost::mpl::find_if
 		<
-			boost::mpl::range_c<int,0,size<SortList>::value>,
+			boost::mpl::range_c<int,0,rel::size<SortList>::value>,
 			optimize_helper<SortList,Keys> 
 		>::type v;
 		typedef typename list_prefix<SortList,v::type::value>::type type;
@@ -320,7 +319,7 @@ namespace rel
 		template<class PrefixSize>
 			struct apply
 		{
-			enum {psize = size<SortList>::type::value-PrefixSize::type::value};
+			enum {psize = rel::size<SortList>::type::value-PrefixSize::type::value};
 			typedef typename list_prefix<SortList,psize>::type prefix;
 			typedef typename list_contains_all<FieldList,prefix>::type type;
 		};
@@ -352,7 +351,7 @@ namespace rel
 	{
 		typedef typename boost::mpl::find_if
 		<
-			boost::mpl::range_c<int,0,size<SortList>::value>,
+			boost::mpl::range_c<int,0,rel::size<SortList>::value>,
 			dprj_sort_helper<SortList,FieldList> 
 		>::type v;
 		typedef typename list_prefix<SortList,v::type::value>::type xxx;
@@ -419,7 +418,7 @@ namespace rel
 		>::type type;
 	};
 
-}
+}}
 
 #endif
 

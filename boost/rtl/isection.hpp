@@ -7,13 +7,13 @@
 #ifndef BOOST_RTL_ISECTION_HPP_INCLUDED
 #define BOOST_RTL_ISECTION_HPP_INCLUDED
 
-#include "binary.hpp"
-#include "range.hpp"
-#include "list.hpp"
-#include "keys.hpp"
+#include <boost/rtl/binary.hpp>
+#include <boost/rtl/range.hpp>
+#include <boost/rtl/list.hpp>
+#include <boost/rtl/keys.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class Table1, class Table2, class IsPolicy> class is_t;
 
 	// itr2_ always contains end of second operand, only if match found, it is set to matched pair.
@@ -315,6 +315,6 @@ namespace rel
 	{
 		return BOOST_TYPENAME diff_t<Table1,Table2>::type(t1,t2);
 	}
-}
+}}
 
 #endif//BOOST_RTL_ISECTION_HPP_INCLUDED

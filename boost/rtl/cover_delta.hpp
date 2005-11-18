@@ -7,15 +7,15 @@
 #ifndef BOOST_RTL_COVER_DELTA_HPP_INCLUDED
 #define BOOST_RTL_COVER_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
+#include <boost/rtl/traits.hpp>
 
 #define CONCRETE_HELPER cover_concrete_helper_with_deltas
 //#define CONCRETE_HELPER cover_concrete_helper
 
-#include "cover.hpp"
+#include <boost/rtl/cover.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class Table>
 		class cover_concrete_helper_with_deltas : public cover_concrete_helper<Table>
 	{
@@ -91,7 +91,7 @@ namespace rel
 		return BOOST_TYPENAME traits<cover_t<Tuple,SortList,Keys> >::delta_type(cv.getPlus(tr), cv.getMinus(tr));
 	}
 
-} // namespace rtl
+}} // namespace rtl
 
 #undef CONCRETE_HELPER
 #endif//BOOST_RTL_COVER_DELTA_HPP_INCLUDED

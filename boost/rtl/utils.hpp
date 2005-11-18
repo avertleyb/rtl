@@ -7,16 +7,16 @@
 #ifndef BOOST_RTL_UTILS_HPP_INCLUDED
 #define BOOST_RTL_UTILS_HPP_INCLUDED
 
-#include "tuple.hpp"
-#include "iterator_root.hpp"
+#include <boost/rtl/tuple.hpp>
+#include <boost/rtl/iterator_root.hpp>
 #include <iostream>
 #include <functional>
 #include <algorithm>
 #include <boost/mpl/for_each.hpp>
 //#include <typeinfo.h>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	// print_field
 
 	template <class Tuple>
@@ -108,6 +108,6 @@ namespace rel
 
 		return it1 == e1 && it2 == e2;
 	}
-}
+}}
 
 #endif//BOOST_RTL_UTILS_HPP_INCLUDED

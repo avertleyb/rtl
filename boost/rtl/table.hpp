@@ -7,26 +7,26 @@
 #ifndef BOOST_RTL_TABLE_HPP_INCLUDED
 #define BOOST_RTL_TABLE_HPP_INCLUDED
     
-#include "tuple.hpp"
-#include "range.hpp"
-#include "iterator_root.hpp"
-#include "identifiable.hpp"
-#include "keys.hpp"
+#include <boost/rtl/tuple.hpp>
+#include <boost/rtl/range.hpp>
+#include <boost/rtl/iterator_root.hpp>
+#include <boost/rtl/identifiable.hpp>
+#include <boost/rtl/keys.hpp>
     
 #ifdef BOOST_RTL_USE_SET
-	#include "indexed_set_impl.hpp"
-	namespace rel {
+	#include <boost/rtl/indexed_set_impl.hpp>
+    namespace boost { namespace rel {
 		typedef indexed_set_strategy default_table_implementation;
-	}
+    }}
 #else
-	#include "vector_impl.hpp"
-	namespace rel {
+	#include <boost/rtl/vector_impl.hpp>
+    namespace boost { namespace rel {
 		typedef sorted_strategy default_table_implementation;
-	}
+    }}
 #endif
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class Tuple, class SortList, class StrategyName>
 		struct strategy : boost::mpl::apply2<StrategyName, Tuple, SortList>
 	{};
@@ -176,7 +176,7 @@ namespace rel
     	{
     		const bool valid = valid_subtuple<SubTuple,sort_list>::value;
     		BOOST_STATIC_ASSERT(valid);
-			typedef BOOST_MSVC_TYPENAME rel::size<BOOST_MSVC_TYPENAME SubTuple::field_list>::type size_type;
+            typedef BOOST_MSVC_TYPENAME rel::size<BOOST_MSVC_TYPENAME SubTuple::field_list>::type size_type;
 			data_range p(data_ptr_->equal_range(sub, size_type()));
 			range_t<const_iterator> r(const_iterator(p.first,this),const_iterator(p.second,this)); 
     		return r;
@@ -187,7 +187,7 @@ namespace rel
     	{
     		const bool valid = valid_subtuple<SubTuple,sort_list>::value;
     		BOOST_STATIC_ASSERT(valid);
-			typedef BOOST_MSVC_TYPENAME rel::size<BOOST_MSVC_TYPENAME SubTuple::field_list>::type size_type;
+            typedef BOOST_MSVC_TYPENAME rel::size<BOOST_MSVC_TYPENAME SubTuple::field_list>::type size_type;
   			return const_iterator(data_ptr_->lower_bound(sub, size_type()), this);
     	}
 
@@ -196,7 +196,7 @@ namespace rel
     	{
     		const bool valid = valid_subtuple<SubTuple,sort_list>::value;
     		BOOST_STATIC_ASSERT(valid);
-			typedef BOOST_MSVC_TYPENAME rel::size<BOOST_MSVC_TYPENAME SubTuple::field_list>::type size_type;
+            typedef BOOST_MSVC_TYPENAME rel::size<BOOST_MSVC_TYPENAME SubTuple::field_list>::type size_type;
   			return const_iterator(data_ptr_->upper_bound(sub, size_type()), this);
     	}
 
@@ -250,7 +250,7 @@ namespace rel
             typename R::keys
             > > type;
     };
-}
+}}
     
 #endif//BOOST_RTL_TABLE_HPP_INCLUDED
 

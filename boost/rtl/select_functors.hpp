@@ -38,8 +38,8 @@
 		return name##_t<P1, P2>(p1, p2);\
 	}
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	SELECT_FUNCTOR(gt, >);
 	SELECT_FUNCTOR(ge, >=);
 	SELECT_FUNCTOR(eq, ==);
@@ -49,6 +49,6 @@ namespace rel
 
 	SELECT_CONNECTOR(Or, ||);
 	SELECT_CONNECTOR(And, &&);
-}
+}}
 
 #endif//BOOST_RTL_SELECT_FUNCTORS_HPP_INCLUDED

@@ -1,20 +1,20 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 #include "test.hpp"
-#include "tuple.hpp"
-#include "table.hpp"
-#include "projection.hpp"
+#include <boost/rtl/tuple.hpp>
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/projection.hpp>
 #include "test_tables.hpp"
-#include "utils.hpp"
+#include <boost/rtl/utils.hpp>
 #include "test_function.hpp"
 #include "test_decrement.hpp"
 
 namespace projection_cpp
 {
+	using namespace boost;
 	using namespace rel;
 	using namespace unit;
-	using namespace boost;
 
 	struct ProjectionTest : public test
 	{

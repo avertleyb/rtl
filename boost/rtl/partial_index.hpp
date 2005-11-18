@@ -7,11 +7,10 @@
 #ifndef BOOST_RTL_PARTIAL_INDEX_HPP_INCLUDED
 #define BOOST_RTL_PARTIAL_INDEX_HPP_INCLUDED
 
-#include "index.hpp"
+#include <boost/rtl/index.hpp>
 
 // this index was designed for using internally
-namespace rel
-{
+namespace boost { namespace rel {
 
 	template<class Table>
     	struct px_
@@ -132,7 +131,7 @@ namespace rel
     {
     	return BOOST_TYPENAME partial_index_t<Table>::type(t);
     }
-}
+}}
 
 #endif
 

@@ -7,24 +7,24 @@
 #ifndef BOOST_RTL_RTL_HPP_INCLUDED
 #define BOOST_RTL_RTL_HPP_INCLUDED
 
-#include "generic.hpp"
-#include "cover_delta.hpp"
-#include "crossproduct.hpp"
-#include "difference.hpp"
-#include "groupby.hpp"
-#include "groupby_functors.hpp"
-#include "intersection.hpp"
-#include "isection.hpp"
-#include "iterator_index.hpp"
-#include "join_xx.hpp"
-#include "key_index.hpp"
-#include "merge.hpp"
-#include "projection.hpp"
-#include "rename.hpp"
-#include "selection.hpp"
-#include "range_selection.hpp"
-#include "select_functors.hpp"
-#include "table.hpp"
-#include "union.hpp"
+#include <boost/rtl/generic.hpp>
+#include <boost/rtl/cover_delta.hpp>
+#include <boost/rtl/crossproduct.hpp>
+#include <boost/rtl/difference.hpp>
+#include <boost/rtl/groupby.hpp>
+#include <boost/rtl/groupby_functors.hpp>
+#include <boost/rtl/intersection.hpp>
+#include <boost/rtl/isection.hpp>
+#include <boost/rtl/iterator_index.hpp>
+#include <boost/rtl/join_xx.hpp>
+#include <boost/rtl/key_index.hpp>
+#include <boost/rtl/merge.hpp>
+#include <boost/rtl/projection.hpp>
+#include <boost/rtl/rename.hpp>
+#include <boost/rtl/selection.hpp>
+#include <boost/rtl/range_selection.hpp>
+#include <boost/rtl/select_functors.hpp>
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/union.hpp>
 
 #endif

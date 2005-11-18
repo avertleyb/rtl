@@ -1,16 +1,17 @@
 #include "pch.hpp"
 
-#include "traits.hpp"
-#include "projection_delta.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/projection_delta.hpp>
 #include "table_defs.hpp"
 #include "test_function.hpp"
-#include "expression_registry.hpp"
-#include "utils.hpp"
-#include "table.hpp"
-#include "table_delta.hpp"
+#include <boost/rtl/expression_registry.hpp>
+#include <boost/rtl/utils.hpp>
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/table_delta.hpp>
 
 namespace pd
 {
+	using namespace boost;
 	using namespace rel;
 	using namespace unit;
 

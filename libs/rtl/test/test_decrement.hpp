@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <iostream>
-#include "utils.hpp"
-#include "table.hpp"
+#include <boost/rtl/utils.hpp>
+#include <boost/rtl/table.hpp>
 #include <boost/mpl/for_each.hpp>
 
 template<class R>
@@ -22,7 +22,7 @@ template<class R>
 		while (i != r.begin());
 	}
 
-	TESTASSERT(rel::count(r) == static_cast<int>(v.size()));
+	TESTASSERT(boost::rel::count(r) == static_cast<int>(v.size()));
 
 	BOOST_TYPENAME std::vector<BOOST_TYPENAME R::const_iterator>::reverse_iterator j;
 	for (i = r.begin(), j = v.rbegin(); i != r.end(); ++i, ++j)
@@ -32,13 +32,13 @@ template<class R>
 			std::cout << "should be:   ";
 			
 			boost::mpl::for_each<
-				BOOST_TYPENAME R::field_list>(rel::print_field<BOOST_TYPENAME R::value_type>(*i));
+				BOOST_TYPENAME R::field_list>(boost::rel::print_field<BOOST_TYPENAME R::value_type>(*i));
 
 			std::cout << std::endl;
 			std::cout << "actually is: ";
 			
 			boost::mpl::for_each<
-				BOOST_TYPENAME R::field_list>(rel::print_field<BOOST_TYPENAME R::value_type>(**j));
+				BOOST_TYPENAME R::field_list>(boost::rel::print_field<BOOST_TYPENAME R::value_type>(**j));
 
 			std::cout << std::endl;
 			TESTASSERT(false);

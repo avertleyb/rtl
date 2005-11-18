@@ -8,10 +8,10 @@ using namespace boost;
 namespace tc
 {
 
-BOOST_RTL_DEFINE_COLUMN(rel::Perfmeter,c1);
-BOOST_RTL_DEFINE_COLUMN(rel::Perfmeter,c2);
-BOOST_RTL_DEFINE_COLUMN(rel::Perfmeter,c3);
-BOOST_RTL_DEFINE_COLUMN(rel::Perfmeter,c4);
+BOOST_RTL_DEFINE_COLUMN(Perfmeter,c1);
+BOOST_RTL_DEFINE_COLUMN(Perfmeter,c2);
+BOOST_RTL_DEFINE_COLUMN(Perfmeter,c3);
+BOOST_RTL_DEFINE_COLUMN(Perfmeter,c4);
 
 struct merge_test
 {
@@ -32,7 +32,7 @@ struct merge_test
 	table_type_2 mns2_;
 	table_type_2 pls2_;
 
-	typedef rel::merge_t<table_type_1,table_type_2,1>::type merge_type;
+	typedef boost::rel::merge_t<table_type_1,table_type_2,1>::type merge_type;
 	typedef merge_type::field_list field_list_r;
 	typedef merge_type::sort_list sort_list_r;
 	BOOST_RTL_TABLE_2(table_type_r,field_list_r,sort_list_r);
@@ -311,8 +311,8 @@ struct merge_test
 
 	void run()
 	{
-		merge_type mg = rel::merge<1>(arg1_,arg2_);
-		TESTASSERT(rel::equal_tables(mg,res_));
+		merge_type mg = boost::rel::merge<1>(arg1_,arg2_);
+		TESTASSERT(boost::rel::equal_tables(mg,res_));
 		simple_checks
 		<
 			merge_type,

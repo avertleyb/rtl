@@ -7,12 +7,11 @@
 #ifndef BOOST_RTL_ITERATOR_INDEX_HPP_INCLUDED
 #define BOOST_RTL_ITERATOR_INDEX_HPP_INCLUDED
     
-#include "index.hpp"
-#include "list.hpp"
+#include <boost/rtl/index.hpp>
+#include <boost/rtl/list.hpp>
     
-namespace rel
-{
-   
+namespace boost { namespace rel {
+
 	template<class Table, class SortList>
     	struct itx_
     {
@@ -154,6 +153,6 @@ namespace rel
     {
     	return BOOST_TYPENAME iterator_index_t<Table,SortList>::type(t);
     }
-}
+}}
     
 #endif//BOOST_RTL_ITERATOR_INDEX_HPP_INCLUDED

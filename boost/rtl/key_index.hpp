@@ -7,12 +7,12 @@
 #ifndef BOOST_RTL_KEY_INDEX_HPP_INCLUDED
 #define BOOST_RTL_KEY_INDEX_HPP_INCLUDED
 
-#include "index.hpp"
-#include "table.hpp"
-#include "list.hpp"
+#include <boost/rtl/index.hpp>
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/list.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class Table,class SortList>
 	struct sit_
 	{
@@ -155,6 +155,6 @@ namespace rel
 	{
 		return typename key_index_t<Table, SortList, Strategy>::type(t);
 	}
-}
+}}
 
 #endif//BOOST_RTL_KEY_INDEX_HPP_INCLUDED

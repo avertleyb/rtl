@@ -7,14 +7,14 @@
 #ifndef BOOST_RTL_ZIGZAG_DELTA_HPP_INCLUDED
 #define BOOST_RTL_ZIGZAG_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "intersection.hpp"
-#include "union.hpp"
-#include "difference.hpp"
-#include "isection.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/intersection.hpp>
+#include <boost/rtl/union.hpp>
+#include <boost/rtl/difference.hpp>
+#include <boost/rtl/isection.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	// union
 	template<class R> struct union_traits
 	{
@@ -315,6 +315,6 @@ namespace rel
 	{
 		return _delta((P*)0, zz, tr);
 	}
-}
+}}
 
 #endif //BOOST_RTL_ZIGZAG_DELTA_HPP_INCLUDED

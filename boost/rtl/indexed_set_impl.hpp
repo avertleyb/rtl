@@ -3,10 +3,10 @@
 
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/ordered_index.hpp>
-#include "table.hpp"
+#include <boost/rtl/table.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class SortList>
 		struct indexed_set_impl_predicate
 	{
@@ -98,6 +98,6 @@ namespace rel
 			struct apply : boost::mpl::identity<indexed_set_impl<Tuple, SortList> >
 		{};
 	};
-}
+}}
 
 #endif//BOOST_RTL_INDEXED_SET_HPP_INCLUDED

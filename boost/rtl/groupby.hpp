@@ -7,13 +7,13 @@
 #ifndef BOOST_RTL_GROUPBY_HPP_INCLUDED
 #define BOOST_RTL_GROUPBY_HPP_INCLUDED
 
-#include "unary.hpp"
-#include "list.hpp"
+#include <boost/rtl/unary.hpp>
+#include <boost/rtl/list.hpp>
 #include <boost/mpl/for_each.hpp>
-#include "keys.hpp"
+#include <boost/rtl/keys.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	// group_field
 
 	template <class It, class TargetTuple> 
@@ -219,6 +219,6 @@ namespace rel
 		return BOOST_TYPENAME groupby_t<Table, GroupList, PrefixSize>::type(t);
 	}
 
-}
+}}
 
 #endif//BOOST_RTL_GROUPBY_HPP_INCLUDED

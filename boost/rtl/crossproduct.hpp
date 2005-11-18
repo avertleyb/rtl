@@ -7,10 +7,10 @@
 #ifndef BOOST_RTL_CROSSPRODUCT_HPP_INCLUDED
 #define BOOST_RTL_CROSSPRODUCT_HPP_INCLUDED
 
-#include "range_join.hpp"
+#include <boost/rtl/range_join.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	// cross_product_t
 
 	template <class Table1, class Table2>
@@ -24,6 +24,6 @@ namespace rel
 	{
 		return range_join(t1, t2, begin(), end());
 	}
-}
+}}
 
 #endif//BOOST_RTL_CROSSPRODUCT_HPP_INCLUDED

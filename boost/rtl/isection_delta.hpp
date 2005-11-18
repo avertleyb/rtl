@@ -7,11 +7,11 @@
 #ifndef BOOST_RTL_ISECTION_DELTA_HPP_INCLUDED
 #define BOOST_RTL_ISECTION_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "isection.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/isection.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class R> struct isection_traits
 	{
 		typedef typename R::arg1_type tab1;
@@ -340,6 +340,6 @@ namespace rel
 		return _delta((IsP*)0, is, tr);
 	}
 
-}
+}}
 
 #endif//BOOST_RTL_ISECTION_DELTA_HPP_INCLUDED

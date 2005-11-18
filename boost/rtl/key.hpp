@@ -7,12 +7,12 @@
 #ifndef BOOST_RTL_KEY_HPP_INCLUDED
 #define BOOST_RTL_KEY_HPP_INCLUDED
 
-#include "list.hpp"
-#include "keys.hpp"
-#include "unary.hpp"
+#include <boost/rtl/list.hpp>
+#include <boost/rtl/keys.hpp>
+#include <boost/rtl/unary.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class Table, class Keys> class k_t;
 	template<class Table, class Keys>
 		class key_iterator : public unary_iterator
@@ -152,7 +152,7 @@ namespace rel
 		return BOOST_TYPENAME key_t<Table,Keys>::type(t);
 	}
 
-}
+}}
 
 #endif
 

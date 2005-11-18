@@ -1,9 +1,6 @@
 #ifndef BOOST_RTL_PERFMETER_HPP_INCLUDED
 #define BOOST_RTL_PERFMETER_HPP_INCLUDED
 
-namespace rel
-{
-
 class Perfmeter
 {
 public:
@@ -42,7 +39,5 @@ private:
 	static int comp_counter;
 	static int assign_counter;
 };
-
-}
 
 #endif//BOOST_RTL_PERFMETER_HPP_INCLUDED

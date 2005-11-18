@@ -7,7 +7,7 @@
 #ifndef BOOST_RTL_LIST_HPP_INCLUDED
 #define BOOST_RTL_LIST_HPP_INCLUDED
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 #include <boost/mpl/advance.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
@@ -50,8 +50,8 @@ namespace boost
 }
 #endif
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	// breakable_for_each
 
 	template<class Begin, class End, class F>
@@ -68,7 +68,7 @@ namespace rel
 		{
             typename boost::mpl::deref<Begin>::type param;
 			if (f(param))
-                rel::breakable_for_each_t<BOOST_MSVC_TYPENAME boost::mpl::next<Begin>::type, End, F>::run(f);
+                breakable_for_each_t<BOOST_MSVC_TYPENAME boost::mpl::next<Begin>::type, End, F>::run(f);
 		}
         template<class Unused>
     		static void do_run(F f, boost::mpl::true_)
@@ -77,7 +77,7 @@ namespace rel
 	template<class Sequence, class F>
 		void breakable_for_each(F f, Sequence* = 0)
 	{
-		rel::breakable_for_each_t<
+		breakable_for_each_t<
 			BOOST_MSVC_TYPENAME boost::mpl::begin<Sequence>::type, 
 			BOOST_MSVC_TYPENAME boost::mpl::end<Sequence>::type, 
 			F>::run(f);
@@ -195,9 +195,9 @@ namespace rel
 		// range(begin, begin + n)
 
 		typedef typename boost::mpl::if_c<
-			(n < size<Seq>::value),
+			(n < rel::size<Seq>::value),
 			boost::mpl::int_<n>, 
-			boost::mpl::int_<size<Seq>::value>
+			boost::mpl::int_<rel::size<Seq>::value>
 			>::type prefix_size; 
 
 		typedef boost::mpl::iterator_range<
@@ -452,6 +452,6 @@ namespace rel
 		typedef typename boost::mpl::equal<Seq1, Seq2>::type type;
 		BOOST_STATIC_CONSTANT(bool, value = list_equal::type::value);
 	};
-}
+}}
 
 #endif//BOOST_RTL_LIST_HPP_INCLUDED

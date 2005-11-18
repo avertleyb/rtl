@@ -7,14 +7,13 @@
 #ifndef BOOST_RTL_CACHE_HPP_INCLUDED
 #define BOOST_RTL_CACHE_HPP_INCLUDED
 
-#include "utils.hpp"
-#include "unary.hpp"
-#include "range.hpp"
-#include "utils.hpp"
-#include "identifiable.hpp"
+#include <boost/rtl/utils.hpp>
+#include <boost/rtl/unary.hpp>
+#include <boost/rtl/range.hpp>
+#include <boost/rtl/utils.hpp>
+#include <boost/rtl/identifiable.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
 
 	template<class Table> class ch_t;
 
@@ -202,7 +201,7 @@ namespace rel
 	{
 		return BOOST_MSVC_TYPENAME cache_t<Table>::type(t);
 	}
-}
+}}
 
 #endif//BOOST_RTL_CACHE_HPP_INCLUDED
 

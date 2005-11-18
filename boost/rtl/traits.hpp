@@ -7,13 +7,13 @@
 #ifndef BOOST_RTL_TRAITS_HPP_INCLUDED
 #define BOOST_RTL_TRAITS_HPP_INCLUDED
 
-#include "union.hpp"
-#include "difference.hpp"
-#include "intersection.hpp"
-#include "isection.hpp"
+#include <boost/rtl/union.hpp>
+#include <boost/rtl/difference.hpp>
+#include <boost/rtl/intersection.hpp>
+#include <boost/rtl/isection.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class Info> class table;
 	template<class T> struct table_traits;
 
@@ -459,7 +459,7 @@ namespace rel
         typename traits<R>::delta_type d = delta(r, tr);
 		return Union(difference(r, d.second), d.first);
 	}
-}
+}}
 
 #endif//BOOST_RTL_TRAITS_HPP_INCLUDED
 

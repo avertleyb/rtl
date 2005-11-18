@@ -7,11 +7,11 @@
 #ifndef BOOST_RTL_KEY_INDEX_DELTA_HPP_INCLUDED
 #define BOOST_RTL_KEY_INDEX_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "key_index.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/key_index.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class R> struct key_index_traits
 	{
 		typedef key_idx_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::sort_list, BOOST_TYPENAME R::strategy_type> plus_type;
@@ -27,6 +27,6 @@ namespace rel
 			BOOST_TYPENAME traits<key_idx_t<Tb, SL, Str> >::plus_type(d.first),
 			BOOST_TYPENAME traits<key_idx_t<Tb, SL, Str> >::minus_type(d.second));
 	}
-}
+}}
 
 #endif//BOOST_RTL_KEY_INDEX_DELTA_HPP_INCLUDED

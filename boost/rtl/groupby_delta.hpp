@@ -7,23 +7,23 @@
 #ifndef BOOST_RTL_GROUPBY_DELTA_HPP_INCLUDED
 #define BOOST_RTL_GROUPBY_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "groupby.hpp"
-#include "range_join.hpp"
-#include "projection.hpp"
-#include "rename.hpp"
-#include "list.hpp"
-#include "table.hpp"
-#include "merge.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/groupby.hpp>
+#include <boost/rtl/range_join.hpp>
+#include <boost/rtl/projection.hpp>
+#include <boost/rtl/rename.hpp>
+#include <boost/rtl/list.hpp>
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/merge.hpp>
 #include <boost/mpl/transform_view.hpp>
 
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/logical.hpp>
 
-#include "groupby_functors.hpp"
+#include <boost/rtl/groupby_functors.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
     template<class R> 
     struct groupby_traits
 	{
@@ -238,6 +238,6 @@ namespace rel
             return result != 0;
         }
     };
-}
+}}
 
 #endif//BOOST_RTL_GROUPBY_DELTA_HPP_INCLUDED

@@ -6,11 +6,11 @@ namespace tc
 {
 struct union_test : full_set_test
 {
-	typedef rel::union_t<table_type_1,table_type_2>::type union_type;
+	typedef boost::rel::union_t<table_type_1,table_type_2>::type union_type;
 	typedef union_type result_type;
 	typedef union_type::value_type tuple_r;
 	typedef union_type::sort_list sort_list_r;
-	typedef rel::table<rel::table_info<union_type::field_list, sort_list_r> > table_type_r;
+	typedef boost::rel::table<boost::rel::table_info<union_type::field_list, sort_list_r> > table_type_r;
 
 	table_type_r res_;
 	table_type_r mns_;
@@ -78,8 +78,8 @@ struct union_test : full_set_test
 	}
 	void run()
 	{
-		union_type un = rel::Union(arg1_,arg2_);
-		TESTASSERT(rel::equal_tables(un,res_));
+		union_type un = boost::rel::Union(arg1_,arg2_);
+		TESTASSERT(boost::rel::equal_tables(un,res_));
 //		transactions_checks<union_type>::perform_bin_test(un,mns1_,mns2_,pls1_,pls2_,mns_,pls_);
 		simple_checks
 		<

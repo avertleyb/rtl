@@ -7,11 +7,11 @@
 #ifndef BOOST_RTL_EXPRESSION_REGISTRY_HPP_INCLUDED
 #define BOOST_RTL_EXPRESSION_REGISTRY_HPP_INCLUDED
 
-#include "traverse.hpp"
-#include "transaction.hpp"
+#include <boost/rtl/traverse.hpp>
+#include <boost/rtl/transaction.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	// node_proxy
 
 	struct node_proxy
@@ -214,6 +214,6 @@ namespace rel
 	{
 		reg_->add_node(create_node_proxy(*p));
 	}
-}
+}}
 
 #endif//BOOST_RTL_EXPRESSION_REGISTRY_HPP_INCLUDED

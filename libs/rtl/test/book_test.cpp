@@ -5,24 +5,24 @@
 #include <string>
 #include <iostream>
 
-#include "generic.hpp"
-#include "table.hpp"
+#include <boost/rtl/generic.hpp>
+#include <boost/rtl/table.hpp>
 
 #pragma message("included table.hpp")
 
 #include "test_function.hpp"
-#include "utils.hpp"
-#include "selection.hpp"
-#include "projection.hpp"
-#include "crossproduct.hpp"
-#include "select_functors.hpp"
+#include <boost/rtl/utils.hpp>
+#include <boost/rtl/selection.hpp>
+#include <boost/rtl/projection.hpp>
+#include <boost/rtl/crossproduct.hpp>
+#include <boost/rtl/select_functors.hpp>
 
 namespace book_test_cpp
 {
 	using namespace unit;
 	using namespace std;
-	using namespace rel;
 	using namespace boost;
+	using namespace rel;
 	using namespace lambda;
 
 	namespace book

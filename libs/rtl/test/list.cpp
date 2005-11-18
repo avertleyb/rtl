@@ -1,8 +1,8 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 #include "test_function.hpp"
-#include "list.hpp"
+#include <boost/rtl/list.hpp>
 #include <boost/static_assert.hpp>
 #include <iostream>
 

@@ -7,14 +7,13 @@
 #ifndef BOOST_RTL_COVER_HPP_INCLUDED
 #define BOOST_RTL_COVER_HPP_INCLUDED
 
-#include "copy_ptr.hpp"
-#include "iterator_root.hpp"
-#include "traverse.hpp"
-#include "list.hpp"
-#include "expression_registry.hpp"
+#include <boost/rtl/copy_ptr.hpp>
+#include <boost/rtl/iterator_root.hpp>
+#include <boost/rtl/traverse.hpp>
+#include <boost/rtl/list.hpp>
+#include <boost/rtl/expression_registry.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
 
 	class transaction;
 
@@ -249,7 +248,7 @@ namespace rel
 			template<class List>
 				bool operator()(const List&)
 			{
-				enum {fields_in_List = size<List>::value};
+                enum {fields_in_List = rel::size<List>::value};
 				if (fields_in_List != fields_in_tuple_) return true;
 				else
 				{
@@ -337,7 +336,7 @@ namespace rel
 			template<class List>
 				bool operator()(const List&)
 			{
-				enum {fields_in_List = size<List>::value};
+				enum {fields_in_List = rel::size<List>::value};
 				if (fields_in_List != fields_in_tuple_) return true;
 				else
 				{
@@ -400,7 +399,7 @@ namespace rel
 		template<class SubTuple>
 			range_t<const_iterator> equal_range(const SubTuple& sub) const
 		{
-			const int depth = size<BOOST_TYPENAME SubTuple::field_list>::value;
+			const int depth = rel::size<BOOST_TYPENAME SubTuple::field_list>::value;
 			std::pair<AbstractIterator*,AbstractIterator*> p = hlp_->equal_range(sub,depth);
 			const_iterator b(p.first,this);
 			const_iterator e(p.second,this);
@@ -410,7 +409,7 @@ namespace rel
 		template<class SubTuple>
 			const_iterator lower_bound(const SubTuple& sub) const
 		{
-			const int depth = size<BOOST_TYPENAME SubTuple::field_list>::value;
+			const int depth = rel::size<BOOST_TYPENAME SubTuple::field_list>::value;
 			AbstractIterator* i = hlp_->lower_bound(sub,depth);
 			const_iterator b = const_iterator(i,this);
 			return b;
@@ -419,7 +418,7 @@ namespace rel
 		template<class SubTuple>
 			const_iterator upper_bound(const SubTuple& sub) const
 		{
-			const int depth = size<BOOST_TYPENAME SubTuple::field_list>::value;
+			const int depth = rel::size<BOOST_TYPENAME SubTuple::field_list>::value;
 			AbstractIterator* i = hlp_->upper_bound(sub,depth);
 			const_iterator e = const_iterator(i,this);
 			return e;
@@ -456,6 +455,6 @@ namespace rel
 	};
 	#endif
 
-}
+}}
 
 #endif//BOOST_RTL_COVER_HPP_INCLUDED

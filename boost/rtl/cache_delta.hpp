@@ -7,11 +7,11 @@
 #ifndef BOOST_RTL_CACHE_DELTA_HPP_INCLUDED
 #define BOOST_RTL_CACHE_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "cache.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/cache.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class R> struct cache_traits
 	{
 		typedef ch_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type> plus_type;
@@ -29,5 +29,5 @@ namespace rel
 		);
 	};
 
-}
+}}
 #endif

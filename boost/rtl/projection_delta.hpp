@@ -7,17 +7,17 @@
 #ifndef BOOST_RTL_PROJECTION_DELTA_HPP_INCLUDED
 #define BOOST_RTL_PROJECTION_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "projection.hpp"
-#include "groupby_delta.hpp"
-#include "groupby_functors.hpp"
-#include "join_xx.hpp"
-#include "isection.hpp"
-#include "difference.hpp"
-#include "isection.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/projection.hpp>
+#include <boost/rtl/groupby_delta.hpp>
+#include <boost/rtl/groupby_functors.hpp>
+#include <boost/rtl/join_xx.hpp>
+#include <boost/rtl/isection.hpp>
+#include <boost/rtl/difference.hpp>
+#include <boost/rtl/isection.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class R> struct dprj_traits
 	{
 		// min(proj(t)) = diff(proj(min(t)), proj(difference(t, min(t))); 
@@ -64,6 +64,6 @@ namespace rel
 		return BOOST_TYPENAME traits<dprj_t<Table, FieldList> >::delta_type(plus, minus);
 	}
 
-}
+}}
 
 #endif//BOOST_RTL_PROJECTION_DELTA_HPP_INCLUDED

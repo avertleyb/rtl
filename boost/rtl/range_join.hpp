@@ -1,20 +1,20 @@
 #ifndef BOOST_RTL_RANGE_JOIN_HPP_INCLUDED
 #define BOOST_RTL_RANGE_JOIN_HPP_INCLUDED
 
-#include "binary.hpp"
-#include "range_functors.hpp"
-#include "keys.hpp"
-#include "range.hpp"
+#include <boost/rtl/binary.hpp>
+#include <boost/rtl/range_functors.hpp>
+#include <boost/rtl/keys.hpp>
+#include <boost/rtl/range.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class SubTuple, class Table1> class split
 	{
 	private:
-		enum {len1 = size<typename Table1::sort_list>::value};
+		enum {len1 = rel::size<typename Table1::sort_list>::value};
 
 		enum {long_subtuple = 
-			size<typename SubTuple::field_list>::value > (int)len1};
+			rel::size<typename SubTuple::field_list>::value > (int)len1};
 
 		typedef typename boost::mpl::if_c<
 			long_subtuple,
@@ -238,8 +238,8 @@ namespace rel
             const_iterator lower_bound(const Sub& sub) const 
 		{
 			const bool shorter = 
-				size<typename Sub::field_list>::value <=
-				size<typename Table1::sort_list>::value;
+				rel::size<typename Sub::field_list>::value <=
+				rel::size<typename Table1::sort_list>::value;
 
 			return lower_bound(sub, boost::mpl::bool_<shorter>());
 		}
@@ -284,8 +284,8 @@ namespace rel
             const_iterator upper_bound(const Sub& sub) const 
 		{
 			const bool shorter = 
-				size<typename Sub::field_list>::value <=
-				size<typename Table1::sort_list>::value;
+				rel::size<typename Sub::field_list>::value <=
+				rel::size<typename Table1::sort_list>::value;
 
 			return upper_bound(sub, boost::mpl::bool_<shorter>());
 		}
@@ -330,8 +330,8 @@ namespace rel
             range_t<const_iterator> equal_range(const Sub& sub) const 
 		{
 			const bool shorter = 
-				size<typename Sub::field_list>::value <=
-				size<typename Table1::sort_list>::value;
+				rel::size<typename Sub::field_list>::value <=
+				rel::size<typename Table1::sort_list>::value;
 
 			return equal_range(sub, boost::mpl::bool_<shorter>());
 		}
@@ -412,6 +412,6 @@ namespace rel
 	{
 		return range_join(t1, t2, lower_bound<FieldList>(), upper_bound<FieldList>());
 	}
-}
+}}
 
 #endif//BOOST_RTL_RANGE_JOIN_HPP_INCLUDED

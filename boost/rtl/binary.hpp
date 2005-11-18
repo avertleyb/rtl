@@ -7,8 +7,8 @@
 #ifndef BOOST_RTL_BINARY_HPP_INCLUDED
 #define BOOST_RTL_BINARY_HPP_INCLUDED
 
-#include "tuple.hpp"
-#include "iterator_root.hpp"
+#include <boost/rtl/tuple.hpp>
+#include <boost/rtl/iterator_root.hpp>
 
 #define BOOST_RTL_PULL_BINARY_ITERATOR_TYPEDEFS(Base)\
 	BOOST_RTL_PULL_ITERATOR_TYPEDEFS(Base)\
@@ -23,9 +23,9 @@
 	typedef typename Base::arg1_type arg1_type;\
 	typedef typename Base::arg2_type arg2_type;
 
-namespace rel
-{
-	// binary_iterator
+namespace boost { namespace rel {
+
+    // binary_iterator
 	
 	template <class Derived, class Relation> 
 		class binary_iterator : public iterator_root<Derived, Relation>
@@ -113,6 +113,6 @@ namespace rel
 			traverse(argument2(), f);
 		}
 	};
-}
+}}
 
 #endif//BOOST_RTL_BINARY_HPP_INCLUDED

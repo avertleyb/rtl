@@ -1,6 +1,6 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 
 #include <iostream>
 #include "test_suite.hpp"

@@ -7,7 +7,7 @@
 #ifndef BOOST_RTL_CROSSPRODUCT_DELTA_HPP_INCLUDED
 #define BOOST_RTL_CROSSPRODUCT_DELTA_HPP_INCLUDED
 
-#include "crossproduct.hpp"
-#include "range_join_delta.hpp"
+#include <boost/rtl/crossproduct.hpp>
+#include <boost/rtl/range_join_delta.hpp>
 
 #endif//BOOST_RTL_CROSSPRODUCT_DELTA_HPP_INCLUDED

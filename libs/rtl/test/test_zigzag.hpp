@@ -7,7 +7,7 @@ namespace test_zigzag
 	BOOST_RTL_DEFINE_COLUMN(int, c2);
 	BOOST_RTL_DEFINE_COLUMN(int, c3);
 
-	typedef rel::table<rel::table_info<
+	typedef boost::rel::table<boost::rel::table_info<
 		boost::mpl::vector3<c1, c2, c3>
 		> > table_t;
 

@@ -7,10 +7,10 @@
 #ifndef BOOST_RTL_EXTENSION_HPP_INCLUDED
 #define BOOST_RTL_EXTENSION_HPP_INCLUDED
 
-#include "unary.hpp"
+#include <boost/rtl/unary.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class Table, class Policy> class ext_t;
 	template<class Table, class Policy> class extension_iterator;
 
@@ -144,6 +144,6 @@ namespace rel
 	{
 		return BOOST_TYPENAME extension_t<Table, Policy>::type(t, p);
 	}
-}
+}}
 
 #endif//BOOST_RTL_EXTENSION_HPP_INCLUDED

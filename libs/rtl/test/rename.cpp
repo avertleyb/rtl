@@ -2,19 +2,19 @@
 
 //#define BOOST_MPL_LIMIT_VECTOR_SIZE 50
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 #include "test_function.hpp"
-#include "rename.hpp"
-#include "table.hpp"
-#include "utils.hpp"
+#include <boost/rtl/rename.hpp>
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/utils.hpp>
 #include "test_tables.hpp"
-#include "crossproduct.hpp"
+#include <boost/rtl/crossproduct.hpp>
 
 namespace rename_cpp
 {
+	using namespace boost;
 	using namespace rel;
 	using namespace unit;
-	using namespace boost;
 
 	BOOST_RTL_DEFINE_COLUMN(int, c1);
 

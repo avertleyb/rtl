@@ -1,5 +1,5 @@
 #ifdef USING_PCH
 
-#include "list.hpp"
+#include <boost/rtl/list.hpp>
 
 #endif//USING_PCH

@@ -1,13 +1,13 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 #include "test_function.hpp"
-#include "tuple.hpp"
+#include <boost/rtl/tuple.hpp>
 
 namespace tuple_cpp
 {
-	using namespace rel;
 	using namespace boost;
+	using namespace rel;
 	using namespace unit;
 
 	BOOST_RTL_DEFINE_COLUMN(int, c1)

@@ -10,8 +10,8 @@ namespace tc
 {
 struct intersection_test : full_set_test
 {
-	typedef rel::intersection_t<table_type_1,table_type_2>::type intersection_type;
-	typedef rel::isection_t<table_type_1,table_type_2>::type isection_type;
+	typedef boost::rel::intersection_t<table_type_1,table_type_2>::type intersection_type;
+	typedef boost::rel::isection_t<table_type_1,table_type_2>::type isection_type;
 	typedef intersection_type result_type;
 	typedef intersection_type::value_type tuple_r;
 	typedef intersection_type::sort_list sort_list_r;
@@ -55,8 +55,8 @@ struct intersection_test : full_set_test
 
 	void run()
 	{
-		intersection_type in = rel::intersection(arg1_,arg2_);
-		TESTASSERT(rel::equal_tables(in,res_));
+		intersection_type in = boost::rel::intersection(arg1_,arg2_);
+		TESTASSERT(boost::rel::equal_tables(in,res_));
 		simple_checks
 		<
 			result_type,
@@ -68,8 +68,8 @@ struct intersection_test : full_set_test
 
 	void irun()
 	{
-		isection_type in = rel::isection(arg1_,arg2_);
-		TESTASSERT(rel::equal_tables(in,res_));
+		isection_type in = boost::rel::isection(arg1_,arg2_);
+		TESTASSERT(boost::rel::equal_tables(in,res_));
 		simple_checks
 		<
 			isection_type,

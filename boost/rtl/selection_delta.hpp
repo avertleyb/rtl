@@ -7,11 +7,11 @@
 #ifndef BOOST_RTL_SELECTION_DELTA_HPP_INCLUDED
 #define BOOST_RTL_SELECTION_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "selection.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/selection.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class R> struct selection_traits
 	{
 		typedef sel_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::pred_type> plus_type;
@@ -28,6 +28,6 @@ namespace rel
 			selection(d.first, sel.pred()),
 			selection(d.second, sel.pred()));
 	}
-}
+}}
 
 #endif//BOOST_RTL_SELECTION_DELTA_HPP_INCLUDED

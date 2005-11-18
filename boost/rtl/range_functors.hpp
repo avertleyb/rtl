@@ -1,8 +1,8 @@
 #ifndef BOOST_RTL_RANGE_FUNCTORS_HPP_INCLUDED
 #define BOOST_RTL_RANGE_FUNCTORS_HPP_INCLUDED
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	struct begin
 	{
 		template<class T>
@@ -40,11 +40,11 @@ namespace rel
 		{
 			typedef typename list_prefix<
 				typename Table::sort_list, 
-				size<FieldList>::value
+				rel::size<FieldList>::value
 			>::type sub_list;
 
 			row<sub_list> sub;
-			copy_different_tuples<FieldList, sub_list, size<FieldList>::value>(it, sub);
+			copy_different_tuples<FieldList, sub_list, rel::size<FieldList>::value>(it, sub);
 			return t.lower_bound(sub);
 		}
 	};
@@ -86,11 +86,11 @@ namespace rel
 		{
 			typedef typename list_prefix<
 				typename Table::sort_list, 
-				size<FieldList>::value
+				rel::size<FieldList>::value
 			>::type sub_list;
 
 			row<sub_list> sub;
-			copy_different_tuples<FieldList, sub_list, size<FieldList>::value>(it, sub);
+			copy_different_tuples<FieldList, sub_list, rel::size<FieldList>::value>(it, sub);
 			return t.upper_bound(sub);
 		}
 	};
@@ -122,6 +122,6 @@ namespace rel
 	{
 		return upper_bound_t<row<FieldList> >(sub);
 	}
-}
+}}
 
 #endif//BOOST_RTL_RANGE_FUNCTORS_HPP_INCLUDED

@@ -7,11 +7,11 @@
 #ifndef BOOST_RTL_RANGE_SELECTION_DELTA_HPP_INCLUDED
 #define BOOST_RTL_RANGE_SELECTION_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "range_selection.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/range_selection.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class R> 
 		struct range_selection_traits
 	{
@@ -56,6 +56,6 @@ namespace rel
 			equal_selection(delta(es.argument(), tr).first, es.sub()),
 			equal_selection(delta(es.argument(), tr).second, es.sub()));
 	}
-}
+}}
 
 #endif//BOOST_RTL_RANGE_SELECTION_DELTA_HPP_INCLUDED

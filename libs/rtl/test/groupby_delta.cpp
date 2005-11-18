@@ -1,16 +1,16 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 #include "test_function.hpp"
-#include "table_delta.hpp"
-#include "groupby_delta.hpp"
-#include "groupby_functors.hpp"
-#include "utils.hpp"
+#include <boost/rtl/table_delta.hpp>
+#include <boost/rtl/groupby_delta.hpp>
+#include <boost/rtl/groupby_functors.hpp>
+#include <boost/rtl/utils.hpp>
 
 using namespace std;
 using namespace unit;
-using namespace rel;
 using namespace boost;
+using namespace rel;
 
 namespace gby_delta_cpp
 {

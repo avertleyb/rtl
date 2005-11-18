@@ -2,14 +2,14 @@
 
 #include <string>
 #include "test_function.hpp"
-#include "range_join.hpp"
-#include "table.hpp"
-#include "utils.hpp"
+#include <boost/rtl/range_join.hpp>
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/utils.hpp>
 
 using namespace unit;
+using namespace boost;
 using namespace rel;
 using namespace std;
-using namespace boost;
 
 namespace book
 {

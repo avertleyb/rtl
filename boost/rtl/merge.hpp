@@ -7,13 +7,13 @@
 #ifndef BOOST_RTL_MERGE_HPP_INCLUDED
 #define BOOST_RTL_MERGE_HPP_INCLUDED
 
-#include "binary.hpp"
-#include "list.hpp"
-#include "keys.hpp"
+#include <boost/rtl/binary.hpp>
+#include <boost/rtl/list.hpp>
+#include <boost/rtl/keys.hpp>
 #include <boost/mpl/for_each.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class Table1, class Table2, int PrefixSize> class mg_t;
 
 	template <class Table1, class Table2, int PrefixSize>
@@ -90,7 +90,7 @@ namespace rel
 			typedef BOOST_TYPENAME list_prefix
 			<
 				common_pairs,
-				size<typename SubTuple::field_list>::value
+				rel::size<typename SubTuple::field_list>::value
 			>::type subtuple_pairs;
 
 			static part1 projection1(const SubTuple& sub)
@@ -598,6 +598,6 @@ namespace rel
 		return mg_t<Table1, Table2, PrefixSize>(t1,t2);
 	}
 
-}
+}}
 
 #endif

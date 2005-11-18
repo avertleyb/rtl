@@ -23,8 +23,8 @@
 
 #define BOOST_TYPENAME BOOST_MSVC_TYPENAME
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<bool x, bool y> 
 		struct static_and
 	{
@@ -47,6 +47,6 @@ namespace rel
 	};
 
 	struct null_type;
-}
+}}
 
 #endif//BOOST_RTL_GENERIC_HPP_INCLUDED

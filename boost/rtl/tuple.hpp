@@ -7,16 +7,16 @@
 #ifndef BOOST_RTL_TUPLE_HPP_INCLUDED
 #define BOOST_RTL_TUPLE_HPP_INCLUDED
 
-#include "list.hpp"
-#include "column.hpp"
+#include <boost/rtl/list.hpp>
+#include <boost/rtl/column.hpp>
 #include <boost/mpl/reverse_fold.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <boost/preprocessor.hpp>
 
 #define BOOST_RTL_FIELD(Tuple, Column) (Tuple).get(Column())
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	// derive_from
 
 	template <class T, class U> 
@@ -239,7 +239,7 @@ namespace rel
 		{}
 
 		template<class FL>
-            row(const rel::row<FL>& rhs)
+            row(const row<FL>& rhs)
         {
             BOOST_STATIC_ASSERT((list_equal<field_list, FL>::value));
             copy_fields<field_list>(rhs, *this);
@@ -304,10 +304,10 @@ namespace rel
 
 	template <class SubTuple, class SortList>
 		struct valid_subtuple : list_contains_all<
-			typename list_prefix<SortList, size<typename SubTuple::field_list>::value>::type,
+			typename list_prefix<SortList, rel::size<typename SubTuple::field_list>::value>::type,
 			typename SubTuple::field_list
 		>
 	{};
-}
+}}
 
 #endif//BOOST_RTL_TUPLE_HPP_INCLUDED

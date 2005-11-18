@@ -7,13 +7,12 @@
 #ifndef BOOST_RTL_RENAME_HPP_INCLUDED
 #define BOOST_RTL_RENAME_HPP_INCLUDED
 
-#include "list.hpp"
-#include "keys.hpp"
-#include "unary.hpp"
-#include "range.hpp"
+#include <boost/rtl/list.hpp>
+#include <boost/rtl/keys.hpp>
+#include <boost/rtl/unary.hpp>
+#include <boost/rtl/range.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
 
 	template<class Table, class Pairs> class cnv_t;
 
@@ -211,7 +210,7 @@ namespace rel
 		typedef cnv_t
 		<
 			Table,
-			typename create_pairs<typename Table::field_list,FieldList,size<FieldList>::value>::type
+			typename create_pairs<typename Table::field_list,FieldList,rel::size<FieldList>::value>::type
 		> type;
 	};
 	
@@ -238,6 +237,6 @@ namespace rel
 		return BOOST_TYPENAME auto_rename_t<Table,A>::type(t);
 	}
 
-}
+}}
 
 #endif

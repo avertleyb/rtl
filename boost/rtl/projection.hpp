@@ -7,12 +7,12 @@
 #ifndef BOOST_RTL_PROJECTION_HPP_INCLUDED
 #define BOOST_RTL_PROJECTION_HPP_INCLUDED
 
-#include "unary.hpp"
-#include "list.hpp"
-#include "keys.hpp"
+#include <boost/rtl/unary.hpp>
+#include <boost/rtl/list.hpp>
+#include <boost/rtl/keys.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class Table, class FieldList> class dprj_t;
 	template<class Table, class FieldList> 
 		class dprj_iterator : public unary_iterator
@@ -211,7 +211,7 @@ namespace rel
 		return BOOST_TYPENAME projection_t<Table,FieldList>::type(t);
 	}
 		
-}
+}}
 
 #endif
 

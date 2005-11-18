@@ -7,12 +7,11 @@
 #ifndef BOOST_RTL_ZIGZAG_HPP_INCLUDED
 #define BOOST_RTL_ZIGZAG_HPP_INCLUDED
 
-#include "binary.hpp"
-#include "range.hpp"
-#include "keys.hpp"
+#include <boost/rtl/binary.hpp>
+#include <boost/rtl/range.hpp>
+#include <boost/rtl/keys.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
 
 	struct d_pl
 	{
@@ -334,6 +333,6 @@ namespace rel
 			return i;
 		}
 	};
-}
+}}
 
 #endif

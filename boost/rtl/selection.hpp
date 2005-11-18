@@ -7,12 +7,12 @@
 #ifndef BOOST_RTL_SELECTION_HPP_INCLUDED
 #define BOOST_RTL_SELECTION_HPP_INCLUDED
 
-#include "unary.hpp"
-#include "range.hpp"
-#include "lambda_support.hpp"
+#include <boost/rtl/unary.hpp>
+#include <boost/rtl/range.hpp>
+#include <boost/rtl/lambda_support.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template <class Table, class Pred> class sel_t;
 	template <class Table, class Pred> class selection_iterator;
 
@@ -215,6 +215,6 @@ namespace rel
 		return BOOST_TYPENAME selection_t<Table, Pred>::type(t, p);
 	}
 
-}
+}}
 
 #endif//BOOST_RTL_SELECTION_HPP_INCLUDED

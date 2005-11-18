@@ -7,14 +7,14 @@
 #ifndef BOOST_RTL_VECTOR_IMPL_HPP_INCLUDED
 #define BOOST_RTL_VECTOR_IMPL_HPP_INCLUDED
 
-#include "tuple.hpp"
-#include "range.hpp"
+#include <boost/rtl/tuple.hpp>
+#include <boost/rtl/range.hpp>
 #include <algorithm>
 #include <vector>
-#include "list.hpp"
+#include <boost/rtl/list.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	// in memory implementation optimized for rare inserts and deletes. Updates are OK
 	// Inserts are based on sort/merge
 	// Deletes uses tuple_base flag
@@ -142,7 +142,7 @@ namespace rel
 			struct apply : boost::mpl::identity<sorted_vector<Tuple, SortList> >
 		{};
 	};
-}
+}}
 
 #endif
 

@@ -1,19 +1,19 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 #include "test.hpp"
-#include "crossproduct.hpp"
-#include "selection.hpp"
-#include "select_functors.hpp"
+#include <boost/rtl/crossproduct.hpp>
+#include <boost/rtl/selection.hpp>
+#include <boost/rtl/select_functors.hpp>
 #include "test_tables.hpp"
-#include "utils.hpp"
+#include <boost/rtl/utils.hpp>
 #include <functional>
 
 namespace my_test_cpp
 {
+	using namespace boost;
 	using namespace rel;
 	using namespace unit;
-	using namespace boost;
 	using namespace lambda;
 
 	struct MyTest : public test

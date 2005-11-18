@@ -7,12 +7,12 @@
 #ifndef BOOST_RTL_RANGE_HPP_INCLUDED
 #define BOOST_RTL_RANGE_HPP_INCLUDED
 
-#include "tuple.hpp"
-#include "iterator_root.hpp"
-#include "list.hpp"
+#include <boost/rtl/tuple.hpp>
+#include <boost/rtl/iterator_root.hpp>
+#include <boost/rtl/list.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class Iter, class Op> class range_iterator
 		: public iterator_root<range_iterator<Iter, Op>, Op>
 	{
@@ -260,6 +260,6 @@ namespace rel
 		Iter j(i++);
 		return range(j, i);
 	}
-}
+}}
 
 #endif//BOOST_RTL_RANGE_HPP_INCLUDED

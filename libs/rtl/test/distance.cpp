@@ -1,23 +1,26 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 #include <math.h>
 #include <exception>
 #include "test.hpp"
-#include "utils.hpp"
+#include <boost/rtl/utils.hpp>
 #include <string>
-#include "selection.hpp"
-#include "projection.hpp"
-#include "rename.hpp"
-#include "utils.hpp"
+#include <boost/rtl/selection.hpp>
+#include <boost/rtl/projection.hpp>
+#include <boost/rtl/rename.hpp>
+#include <boost/rtl/utils.hpp>
 #include "test_function.hpp"
-#include "table.hpp"
+#include <boost/rtl/table.hpp>
 #include "table_defs.hpp"
-#include "join_xx.hpp"
+#include <boost/rtl/join_xx.hpp>
+
+using namespace boost;
 
 namespace ds
 {
-	using namespace rel;
+	using namespace boost;
+    using namespace rel;
 	using namespace unit;
 
 	static const double pi = 3.1415927;

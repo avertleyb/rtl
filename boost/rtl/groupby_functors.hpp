@@ -7,10 +7,10 @@
 #ifndef BOOST_RTL_GROUPBY_FUNCTORS_HPP_INCLUDED
 #define BOOST_RTL_GROUPBY_FUNCTORS_HPP_INCLUDED
 
-#include "tuple.hpp"
+#include <boost/rtl/tuple.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	// sum
 
 	template <class Column> 
@@ -82,6 +82,6 @@ namespace rel
 
 	template<class Column> 
 		struct max : public column_name<max_t<Column> > {};
-}
+}}
 
 #endif//BOOST_RTL_GROUPBY_FUNCTORS_HPP_INCLUDED

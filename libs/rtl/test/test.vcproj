@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\boost\boost_1_33_0;..\..\..\boost\rtl"
+				AdditionalIncludeDirectories="C:\boost\boost_1_33_0;..\..\.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;BOOST_MPL_LIMIT_VECTOR_SIZE 10;USING_PCH"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"

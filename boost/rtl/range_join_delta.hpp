@@ -7,13 +7,13 @@
 #ifndef BOOST_RTL_RANGE_JOIN_DELTA_HPP_INCLUDED
 #define BOOST_RTL_RANGE_JOIN_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "range_join.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/range_join.hpp>
 
-#include "table.hpp"
+#include <boost/rtl/table.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class R> struct range_join_traits
 	{
         typedef typename traits<typename R::arg1_type>::delta_type del1;
@@ -57,6 +57,6 @@ namespace rel
 
 		return std::make_pair(plus, minus);
 	}
-};
+}}
 
 #endif//BOOST_RTL_RANGE_JOIN_DELTA_HPP_INCLUDED

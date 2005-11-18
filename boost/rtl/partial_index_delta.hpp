@@ -7,11 +7,11 @@
 #ifndef BOOST_RTL_PARTIAL_INDEX_DELTA_HPP_INCLUDED
 #define BOOST_RTL_PARTIAL_INDEX_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "partial_index.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/partial_index.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class R> struct partial_index_traits
 	{
 		typedef ix_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type,BOOST_TYPENAME R::strategy_type> plus_type;
@@ -29,6 +29,6 @@ namespace rel
 		);
 	}
 
-};
+}}
 
 #endif

@@ -1,16 +1,16 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
+#include <boost/rtl/generic.hpp>
 #include "test_function.hpp"
-#include "table.hpp"
-#include "utils.hpp"
-#include "union.hpp"
-#include "intersection.hpp"
-#include "difference.hpp"
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/utils.hpp>
+#include <boost/rtl/union.hpp>
+#include <boost/rtl/intersection.hpp>
+#include <boost/rtl/difference.hpp>
 
 using namespace unit;
-using namespace rel;
 using namespace boost;
+using namespace rel;
 
 namespace zz
 {

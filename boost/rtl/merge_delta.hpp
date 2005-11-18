@@ -7,14 +7,24 @@
 #ifndef BOOST_RTL_MERGE_DELTA_HPP_INCLUDED
 #define BOOST_RTL_MERGE_DELTA_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "merge.hpp"
+#include <boost/rtl/traits.hpp>
+#include <boost/rtl/merge.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	// merge
 	template<class R> struct merge_traits
 	{
+        typedef typename table_type<R>::type plus_type;
+        typedef typename table_type<R>::type minus_type;
+	};
+
+	template<class T1, class T2, int PS>
+	typename traits<mg_t<T1, T2, PS> >::delta_type
+	_delta(const mg_t<T1, T2, PS>& mg, const transaction& tr)
+	{
+        typedef typename merge_t<T1, T2, PS>::type R;
+
 		typedef typename R::arg1_type tab1;
 		typedef typename R::arg2_type tab2;
 		typedef typename traits<tab1>::delta_type del1;
@@ -24,46 +34,25 @@ namespace rel
 		typedef typename traits<tab1>::plus_type pls1;
 		typedef typename traits<tab2>::plus_type pls2;
 
-		typedef typename union_t
-		<
-			mg_t<min1, tab2, R::prefix_size>, // TODO!!! replace with equal_join
-			mg_t<typename difference_t<tab1, min1>::type, min2, R::prefix_size> // TODO!!! replace with equal_join
-		>::type minus_type;
+        del1 d1 = delta(mg.argument1(), tr);
+        del2 d2 = delta(mg.argument2(), tr);
 
-		typedef BOOST_TYPENAME union_t
-		<
-			mg_t<pls1, typename difference_t<tab2, min2>::type, R::prefix_size>, // TODO!!! replace with equal_join
-			mg_t																 // TODO!!! replace with equal_join
-			<
-				typename union_t<typename difference_t<tab1, min1>::type, pls1>::type, 
-				pls2, 
-				R::prefix_size
-			> 
-		>::type plus_type;
-	};
+        min1 m1 = d1.second;
+		min2 m2 = d2.second;
+		pls1 p1 = d1.first;
+		pls2 p2 = d2.first;
 
-	template<class T1, class T2, int PS>
-	BOOST_TYPENAME traits<mg_t<T1,T2,PS> >::delta_type
-	_delta(const mg_t<T1,T2,PS>& mg, const transaction& tr)
-	{
-        typename merge_traits<typename merge_t<T1, T2, PS>::type>::del1 d1 = delta(mg.argument1(), tr);
-        typename merge_traits<typename merge_t<T1, T2, PS>::type>::del2 d2 = delta(mg.argument2(), tr);
-
-        BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type >::min1 m1 = d1.second;
-		BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type >::min2 m2 = d2.second;
-		BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type >::pls1 p1 = d1.first;
-		BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type >::pls2 p2 = d2.first;
 		T1 t1 = mg.argument1();
 		T2 t2 = mg.argument2();
 
-		BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type>::minus_type minus =
-			Union(merge<PS>(m1, t2), merge<PS>(difference(t1, m1), m2));
+        typename merge_traits<R>::minus_type minus;
+        minus.append(Union(merge<PS>(m1, t2), merge<PS>(difference(t1, m1), m2)));
 
-		BOOST_TYPENAME merge_traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type>::plus_type plus =
-			Union(merge<PS>(p1, difference(t2, m2)), merge<PS>(Union(difference(t1, m1), p1), p2));
+        typename merge_traits<R>::plus_type plus;
+        plus.append(Union(merge<PS>(p1, difference(t2, m2)), merge<PS>(Union(difference(t1, m1), p1), p2)));
 
-		return BOOST_TYPENAME traits<BOOST_TYPENAME merge_t<T1, T2, PS>::type>::delta_type(plus, minus);
+        return std::make_pair(plus, minus);
 	}
-}
+}}
 
 #endif

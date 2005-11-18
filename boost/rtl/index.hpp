@@ -7,20 +7,20 @@
 #ifndef BOOST_RTL_INDEX_HPP_INCLUDED
 #define BOOST_RTL_INDEX_HPP_INCLUDED
 
-#include "tuple.hpp"
-#include "table.hpp"
-#include "iterator_root.hpp"
-#include "identifiable.hpp"
-#include "list.hpp"
-#include "unary.hpp"
+#include <boost/rtl/tuple.hpp>
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/iterator_root.hpp>
+#include <boost/rtl/identifiable.hpp>
+#include <boost/rtl/list.hpp>
+#include <boost/rtl/unary.hpp>
 
 #define BOOST_RTL_PULL_INDEX_TYPEDEFS(Base)			\
 	BOOST_RTL_PULL_UNARY_OPERATOR_TYPEDEFS(Base)    \
 	typedef typename Base::strategy_type strategy_type; 		\
 	typedef typename Base::index_tuple index_tuple;
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template <class Derived, class Relation> class index_iterator
 		: public iterator_root<Derived, Relation>
 	{
@@ -174,5 +174,5 @@ namespace rel
 		idx index_;
 	};
 
-}
+}}
 #endif//BOOST_RTL_INDEX_HPP_INCLUDED

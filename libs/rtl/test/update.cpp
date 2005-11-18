@@ -1,17 +1,17 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
-#include "transaction.hpp"
-#include "table_delta.hpp"
+#include <boost/rtl/generic.hpp>
+#include <boost/rtl/transaction.hpp>
+#include <boost/rtl/table_delta.hpp>
 
 
-#include "utils.hpp"
+#include <boost/rtl/utils.hpp>
 #include "test_function.hpp"
 
 namespace update_cpp
 {
-	using namespace rel;
 	using namespace boost;
+	using namespace rel;
 
 	BOOST_RTL_DEFINE_COLUMN(int, key);
 	BOOST_RTL_DEFINE_COLUMN(double, val);

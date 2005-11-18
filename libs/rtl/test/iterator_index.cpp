@@ -1,20 +1,20 @@
 #include "pch.hpp"
 
-#include "generic.hpp"
-#include "iterator_index.hpp"
+#include <boost/rtl/generic.hpp>
+#include <boost/rtl/iterator_index.hpp>
 #include "test_tables.hpp"
 #include "test.hpp"
-#include "utils.hpp"
-#include "table.hpp"
-#include "invert.hpp"
+#include <boost/rtl/utils.hpp>
+#include <boost/rtl/table.hpp>
+#include <boost/rtl/invert.hpp>
 #include "test_decrement.hpp"
 
 namespace iterator_index_cpp
 {
+	using namespace boost;
 	using namespace std;
 	using namespace rel;
 	using namespace unit;
-	using namespace boost;
 
 	struct PrimaryIndexTest : public test
 	{

@@ -7,10 +7,10 @@
 #ifndef BOOST_RTL_KEY_DELTA_HPP_INCLUDED
 #define BOOST_RTL_KEY_DELTA_HPP_INCLUDED
 
-#include "key.hpp"
+#include <boost/rtl/key.hpp>
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template<class R> struct key_traits
 	{
 		typedef k_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::key_type> plus_type;
@@ -28,7 +28,7 @@ namespace rel
 		);
 	};
 
-}
+}}
 
 #endif
 

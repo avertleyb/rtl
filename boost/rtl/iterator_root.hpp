@@ -14,8 +14,8 @@
 	typedef typename Base::reference reference;\
 	typedef typename Base::relation_type relation_type;
 
-namespace rel
-{
+namespace boost { namespace rel {
+
 	template <class Derived, class Relation> 
 		class iterator_root
 	{
@@ -217,6 +217,6 @@ namespace rel
 		return result;
 	}
 
-}
+}}
 
 #endif//BOOST_RTL_ITERATOR_ROOT_HPP_INCLUDED
