@@ -16,7 +16,8 @@
 namespace boost { namespace rel {
 
 	// union
-	template<class R> struct union_traits
+	template<class R> 
+    struct traits_impl<R, union_tag>
 	{
 		typedef typename R::arg1_type tab1;
 		typedef typename R::arg2_type tab2;
@@ -73,7 +74,8 @@ namespace boost { namespace rel {
 	};
 
 	// intersection
-	template<class R> struct intersection_traits
+	template<class R> 
+    struct traits_impl<R, intersection_tag>
 	{
 		typedef typename R::arg1_type tab1;
 		typedef typename R::arg2_type tab2;
@@ -138,7 +140,8 @@ namespace boost { namespace rel {
 	};
 
 	// difference
-	template<class R> struct difference_traits
+	template<class R> 
+    struct traits_impl<R, difference_tag>
 	{
 		typedef typename R::arg1_type tab1;
 		typedef typename R::arg2_type tab2;
@@ -190,131 +193,81 @@ namespace boost { namespace rel {
 		>::type plus_type;
 	};
 
-	// zigzag
-	template<class P> struct policy_traits
+    // union
+
+	template<class R>
+	typename traits<R>::delta_type delta(const R& un, const transaction& tr, union_tag)
 	{
-		template<class T> struct apply
-		{
-			typedef union_traits<T> type;
-		};
-	};
+        typename traits<typename R::arg1_type>::delta_type d1 = delta(un.argument1(), tr);
+		typename traits<typename R::arg1_type>::plus_type p1 = d1.first;
+		typename traits<typename R::arg1_type>::minus_type m1 = d1.second;
 
-	template<> struct policy_traits<i_pl>
-	{
-		template<class T> struct apply
-		{
-			typedef intersection_traits<T> type;
-		};
-	};
+        typename traits<typename R::arg2_type>::delta_type d2 = delta(un.argument2(), tr);
+		typename traits<typename R::arg2_type>::plus_type p2 = d2.first;
+		typename traits<typename R::arg2_type>::minus_type m2 = d2.second;
 
-	template<> struct policy_traits<d_pl>
-	{
-		template<class T> struct apply
-		{
-			typedef difference_traits<T> type;
-		};
-	};
+        typename R::arg1_type t1 = un.argument1();
+		typename R::arg2_type t2 = un.argument2();
 
-	template<class R> struct zigzag_traits
-	{
-		typedef typename policy_traits<typename R::policy_type>::template apply<R>::type traits_type;
-		typedef typename traits_type::plus_type plus_type;
-		typedef typename traits_type::minus_type minus_type;
-	};
+		typename traits<R>::minus_type minus =
+			Union(Union(m1, diff(m2, t1)), rsection(p1, t2));
 
-	// union
+		typename traits<R>::plus_type plus = 
+			Union(Union(p1, difference(rsection(m1, t2), m2)), diff(p2, difference(t1, m1)));
 
-	template<class T1, class T2>
-	BOOST_TYPENAME traits<zigzag<T1,T2,u_pl> >::delta_type
-	u_delta(const zigzag<T1,T2,u_pl>& un, const transaction& tr)
-	{
-		BOOST_TYPENAME union_traits<BOOST_TYPENAME union_t<T1,T2>::type>::min1 m1 = delta(un.argument1(), tr).second;
-		BOOST_TYPENAME union_traits<BOOST_TYPENAME union_t<T1,T2>::type>::min2 m2 = delta(un.argument2(), tr).second;
-		BOOST_TYPENAME union_traits<BOOST_TYPENAME union_t<T1,T2>::type>::pls1 p1 = delta(un.argument1(), tr).first;
-		BOOST_TYPENAME union_traits<BOOST_TYPENAME union_t<T1,T2>::type>::pls2 p2 = delta(un.argument2(), tr).first;
-		T1 t1 = un.argument1();
-		T2 t2 = un.argument2();
-
-		BOOST_TYPENAME union_traits<BOOST_TYPENAME union_t<T1,T2>::type>::minus_type minus =
-			Union(Union(m1,diff(m2,t1)),rsection(p1,t2));
-
-		BOOST_TYPENAME union_traits<BOOST_TYPENAME union_t<T1,T2>::type>::plus_type plus = 
-			Union(Union(p1,difference(rsection(m1,t2),m2)),diff(p2,difference(t1,m1)));
-
-		return BOOST_TYPENAME traits<BOOST_TYPENAME union_t<T1,T2>::type>::delta_type(plus,minus);
+        return std::make_pair(plus, minus);
 	}
 
 	//intersection
 
-	template<class T1, class T2>
-	BOOST_TYPENAME traits<zigzag<T1, T2, i_pl> >::delta_type
-	i_delta(const zigzag<T1, T2, i_pl>& is, const transaction& tr)
+	template<class R>
+	typename traits<R>::delta_type delta(const R& un, const transaction& tr, intersection_tag)
 	{
-		BOOST_TYPENAME intersection_traits<BOOST_TYPENAME intersection_t<T1,T2>::type>::min1 m1 = delta(is.argument1(), tr).second;
-		BOOST_TYPENAME intersection_traits<BOOST_TYPENAME intersection_t<T1,T2>::type>::min2 m2 = delta(is.argument2(), tr).second;
-		BOOST_TYPENAME intersection_traits<BOOST_TYPENAME intersection_t<T1,T2>::type>::pls1 p1 = delta(is.argument1(), tr).first;
-		BOOST_TYPENAME intersection_traits<BOOST_TYPENAME intersection_t<T1,T2>::type>::pls2 p2 = delta(is.argument2(), tr).first;
-		T1 t1 = is.argument1();
-		T2 t2 = is.argument2();
+        typename traits<typename R::arg1_type>::delta_type d1 = delta(un.argument1(), tr);
+		typename traits<typename R::arg1_type>::plus_type p1 = d1.first;
+		typename traits<typename R::arg1_type>::minus_type m1 = d1.second;
 
-		BOOST_TYPENAME intersection_traits<BOOST_TYPENAME intersection_t<T1,T2>::type>::minus_type minus = 
-			Union(isection(m1,t2),rsection(difference(m2,p2),t1));
+        typename traits<typename R::arg2_type>::delta_type d2 = delta(un.argument2(), tr);
+		typename traits<typename R::arg2_type>::plus_type p2 = d2.first;
+		typename traits<typename R::arg2_type>::minus_type m2 = d2.second;
 
-		BOOST_TYPENAME intersection_traits<BOOST_TYPENAME intersection_t<T1,T2>::type>::plus_type plus = 
-			Union(Union(difference(isection(p1,t2),m2),intersection(p1,p2)),difference(difference(rsection(p2,t1),m1),m2));
-		return BOOST_TYPENAME traits<BOOST_TYPENAME intersection_t<T1,T2>::type>::delta_type(plus,minus);
+        typename R::arg1_type t1 = un.argument1();
+		typename R::arg2_type t2 = un.argument2();
+
+		typename traits<R>::minus_type minus =
+			Union(isection(m1, t2), rsection(difference(m2, p2), t1));
+
+		typename traits<R>::plus_type plus = 
+			Union(Union(difference(isection(p1, t2), m2),intersection(p1, p2)), difference(difference(rsection(p2, t1), m1), m2));
+
+        return std::make_pair(plus, minus);
 	}
 
 	// difference
 
-	template<class T1, class T2>
-	BOOST_TYPENAME traits<zigzag<T1, T2, d_pl> >::delta_type
-	d_delta(const zigzag<T1, T2, d_pl>& df, const transaction& tr)
+	template<class R>
+	typename traits<R>::delta_type delta(const R& un, const transaction& tr, difference_tag)
 	{
-		BOOST_TYPENAME difference_traits<BOOST_TYPENAME difference_t<T1, T2>::type>::min1 m1 = delta(df.argument1(), tr).second; 
-		BOOST_TYPENAME difference_traits<BOOST_TYPENAME difference_t<T1, T2>::type>::min2 m2 = delta(df.argument2(), tr).second; 
-		BOOST_TYPENAME difference_traits<BOOST_TYPENAME difference_t<T1, T2>::type>::pls1 p1 = delta(df.argument1(), tr).first; 
-		BOOST_TYPENAME difference_traits<BOOST_TYPENAME difference_t<T1, T2>::type>::pls2 p2 = delta(df.argument2(), tr).first; 
-		T1 t1 = df.argument1();
-		T2 t2 = df.argument2();
+        typename traits<typename R::arg1_type>::delta_type d1 = delta(un.argument1(), tr);
+		typename traits<typename R::arg1_type>::plus_type p1 = d1.first;
+		typename traits<typename R::arg1_type>::minus_type m1 = d1.second;
 
-		BOOST_TYPENAME difference_traits<BOOST_TYPENAME difference_t<T1, T2>::type>::minus_type minus =
-			diff(Union(m1,rsection(p2,t1)),t2);
+        typename traits<typename R::arg2_type>::delta_type d2 = delta(un.argument2(), tr);
+		typename traits<typename R::arg2_type>::plus_type p2 = d2.first;
+		typename traits<typename R::arg2_type>::minus_type m2 = d2.second;
 
-		BOOST_TYPENAME difference_traits<BOOST_TYPENAME difference_t<T1, T2>::type>::plus_type plus =
-			diff(Union(rsection(m2,difference(t1,m1)),p1),Union(difference(t2,m2),p2));
+        typename R::arg1_type t1 = un.argument1();
+		typename R::arg2_type t2 = un.argument2();
 
-		return BOOST_TYPENAME traits<BOOST_TYPENAME difference_t<T1, T2>::type>::delta_type(plus,minus);
+		typename traits<R>::minus_type minus =
+			diff(Union(m1, rsection(p2, t1)), t2);
+
+		typename traits<R>::plus_type plus = 
+			diff(Union(rsection(m2, difference(t1, m1)), p1),Union(difference(t2, m2), p2));
+
+        return std::make_pair(plus, minus);
 	}
 
-	template<class Z>
-	BOOST_TYPENAME traits<Z>::delta_type
-	_delta(const u_pl*, const Z& zz, const transaction& tr)
-	{
-		return u_delta(zz, tr);
-	}
-
-	template<class Z>
-	BOOST_TYPENAME traits<Z>::delta_type
-	_delta(const i_pl*, const Z& zz, const transaction& tr)
-	{
-		return i_delta(zz, tr);
-	}
-
-	template<class Z>
-	BOOST_TYPENAME traits<Z>::delta_type
-	_delta(const d_pl*, const Z& zz, const transaction& tr)
-	{
-		return d_delta(zz, tr);
-	}
-
-	// common _delta for zigzag
-	template<class T1, class T2, class P>
-	BOOST_TYPENAME traits<zigzag<T1, T2, P> >::delta_type
-	_delta(const zigzag<T1, T2, P>& zz, const transaction& tr)
-	{
-		return _delta((P*)0, zz, tr);
-	}
 }}
 
 #endif //BOOST_RTL_ZIGZAG_DELTA_HPP_INCLUDED

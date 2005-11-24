@@ -13,18 +13,16 @@
 namespace boost { namespace rel {
 
 	// merge
-	template<class R> struct merge_traits
+	template<class R> 
+    struct traits_impl<R, merge_tag>
 	{
         typedef typename table_type<R>::type plus_type;
         typedef typename table_type<R>::type minus_type;
 	};
 
-	template<class T1, class T2, int PS>
-	typename traits<mg_t<T1, T2, PS> >::delta_type
-	_delta(const mg_t<T1, T2, PS>& mg, const transaction& tr)
+	template<class R>
+	typename traits<R>::delta_type delta(const R& mg, const transaction& tr, merge_tag)
 	{
-        typedef typename merge_t<T1, T2, PS>::type R;
-
 		typedef typename R::arg1_type tab1;
 		typedef typename R::arg2_type tab2;
 		typedef typename traits<tab1>::delta_type del1;
@@ -42,14 +40,14 @@ namespace boost { namespace rel {
 		pls1 p1 = d1.first;
 		pls2 p2 = d2.first;
 
-		T1 t1 = mg.argument1();
-		T2 t2 = mg.argument2();
+		tab1 t1 = mg.argument1();
+		tab2 t2 = mg.argument2();
 
-        typename merge_traits<R>::minus_type minus;
-        minus.append(Union(merge<PS>(m1, t2), merge<PS>(difference(t1, m1), m2)));
+        typename traits<R>::minus_type minus;
+        minus.append(Union(merge<R::prefix_size>(m1, t2), merge<R::prefix_size>(difference(t1, m1), m2)));
 
-        typename merge_traits<R>::plus_type plus;
-        plus.append(Union(merge<PS>(p1, difference(t2, m2)), merge<PS>(Union(difference(t1, m1), p1), p2)));
+        typename traits<R>::plus_type plus;
+        plus.append(Union(merge<R::prefix_size>(p1, difference(t2, m2)), merge<R::prefix_size>(Union(difference(t1, m1), p1), p2)));
 
         return std::make_pair(plus, minus);
 	}

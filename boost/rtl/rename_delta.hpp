@@ -12,20 +12,22 @@
 
 namespace boost { namespace rel {
 
-	template<class R> struct cnv_traits
+	template<class R> 
+    struct traits_impl<R, conversion_tag>
 	{
-		typedef cnv_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::pairs> plus_type;
-		typedef cnv_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type, BOOST_TYPENAME R::pairs> minus_type;
+		typedef cnv_t<typename traits<typename R::arg_type>::plus_type, typename R::pairs> plus_type;
+		typedef cnv_t<typename traits<typename R::arg_type>::minus_type, typename R::pairs> minus_type;
 	};
 
-	template<class Table, class Pairs>
-		BOOST_TYPENAME traits<cnv_t<Table,Pairs> >::delta_type 
-	_delta(const cnv_t<Table,Pairs>& cnv, const transaction& tr)
+	template<class R>
+	typename traits<R>::delta_type delta(const R& cnv, const transaction& tr, conversion_tag)
 	{
-		BOOST_TYPENAME traits<cnv_t<Table,Pairs> >::plus_type plus(delta(cnv.argument(), tr).first);
-		BOOST_TYPENAME traits<cnv_t<Table,Pairs> >::minus_type minus(delta(cnv.argument(), tr).second);
-		return BOOST_TYPENAME traits<cnv_t<Table,Pairs> >::delta_type(plus,minus);
+        typename traits<R>::delta_type d(delta(cnv.argument(), tr));
+		typename traits<R>::plus_type plus(d.first);
+		typename traits<R>::minus_type minus(d.second);
+        return std::make_pair(plus,minus);
 	};
+
 }}
 
 #endif//BOOST_RTL_RENAME_DELTA_HPP_INCLUDED 

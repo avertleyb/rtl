@@ -12,19 +12,24 @@
 
 namespace boost { namespace rel {
 
-	template<class R> struct iterator_index_traits
+	template<class R> 
+    struct traits_impl<R, iterator_index_tag>
 	{
-		typedef it_idx_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::sort_list, BOOST_TYPENAME R::strategy_type> plus_type;
-		typedef it_idx_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type, BOOST_TYPENAME R::sort_list, BOOST_TYPENAME R::strategy_type> minus_type;
+        typedef typename iterator_index_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::sort_list, BOOST_TYPENAME R::strategy_type>::type plus_type;
+        typedef typename iterator_index_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type, BOOST_TYPENAME R::sort_list, BOOST_TYPENAME R::strategy_type>::type minus_type;
 	};
-	template<class Tb, class SL, class Str>
-		BOOST_TYPENAME traits<it_idx_t<Tb, SL, Str> >::delta_type 
-		_delta(const it_idx_t<Tb, SL, Str>& idx, const transaction& tr)
+
+    template<class R>
+	typename traits<R>::delta_type delta(const R& idx, const transaction& tr, iterator_index_tag)
 	{
-		return BOOST_TYPENAME traits<it_idx_t<Tb, SL, Str> >::delta_type(
-			BOOST_TYPENAME traits<it_idx_t<Tb, SL, Str> >::plus_type(delta(idx.argument(), tr).first),
-			BOOST_TYPENAME traits<it_idx_t<Tb, SL, Str> >::minus_type(delta(idx.argument(), tr).second));
+        typename traits<typename R::arg_type>::delta_type d = delta(idx.argument(), tr);
+
+        typename traits<R>::plus_type plus(d.first);
+        typename traits<R>::minus_type minus(d.second);
+
+        return std::make_pair(plus, minus);
 	}
+
 }}
 
 #endif//BOOST_RTL_ITERATOR_INDEX_DELTA_HPP_INCLUDED

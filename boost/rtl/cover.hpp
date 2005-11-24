@@ -371,9 +371,13 @@ namespace boost { namespace rel {
 		Table tab_;
 	};
 
-	template<class Tuple, class SortList, class Keys> class cover_t
+    struct cover_tag {};
+
+    template<class Tuple, class SortList, class Keys> class cover_t
 	{
 	public:
+        typedef cover_tag tag;
+
 		typedef typename Tuple::field_list field_list;
 		typedef SortList sort_list;
 		typedef row<field_list> value_type;

@@ -18,7 +18,8 @@
 
 namespace boost { namespace rel {
 
-	template<class R> struct dprj_traits
+	template<class R> 
+    struct traits_impl<R, projection_tag>
 	{
 		// min(proj(t)) = diff(proj(min(t)), proj(difference(t, min(t))); 
 		// pls(proj(t)) = diff(proj(pls(t)), proj(difference(t, min(t))); 
@@ -54,14 +55,22 @@ namespace boost { namespace rel {
 		>::type plus_type;
 	};
 
-	template<class Table, class FieldList>
-		BOOST_TYPENAME traits<dprj_t<Table, FieldList> >::delta_type 
-		_delta(const dprj_t<Table, FieldList>& proj, const transaction& tr)
+    template<class R>
+    typename traits<R>::delta_type delta(const R& proj, const transaction& tr, projection_tag)
 	{
-		BOOST_TYPENAME dprj_traits<dprj_t<Table, FieldList> >::helper_type helper = difference(proj.argument(),delta(proj.argument(), tr).second);			
-		BOOST_TYPENAME dprj_traits<dprj_t<Table, FieldList> >::minus_type minus  = diff(projection<FieldList>(delta(proj.argument(), tr).second),helper);
-		BOOST_TYPENAME dprj_traits<dprj_t<Table, FieldList> >::plus_type plus = diff(projection<FieldList>(delta(proj.argument(), tr).first),helper);
-		return BOOST_TYPENAME traits<dprj_t<Table, FieldList> >::delta_type(plus, minus);
+        typename traits<typename R::arg_type>::delta_type d = 
+            delta(proj.argument(), tr);
+
+		typename traits_impl<R, projection_tag>::helper_type helper = 
+            difference(proj.argument(), d.second);
+
+		typename traits<R>::minus_type minus = 
+            diff(projection<typename R::field_list>(d.second), helper);
+
+		typename traits<R>::plus_type plus = 
+            diff(projection<typename R::field_list>(d.first), helper);
+
+        return std::make_pair(plus, minus);
 	}
 
 }}

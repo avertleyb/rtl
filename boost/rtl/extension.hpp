@@ -70,6 +70,8 @@ namespace boost { namespace rel {
 
 	// ext_t
 
+    struct extension_tag {};
+
 	template<class Table, class Policy>
 		class ext_t : public ext_base<Table, Policy>::type
 	{
@@ -77,6 +79,8 @@ namespace boost { namespace rel {
 		friend class extension_iterator<Table, Policy>;
 
 	public:
+        typedef extension_tag tag;
+
 		BOOST_RTL_PULL_UNARY_OPERATOR_TYPEDEFS(base_type);
         using base_type::arg_;
 		typedef typename Table::keys keys;

@@ -411,6 +411,8 @@ namespace boost { namespace rel {
 			merge_iterator<Table1,Table2,PrefixSize>
 		> > {};
 
+    struct merge_tag {};
+
 	template <class Table1, class Table2, int PrefixSize>
 		class mg_t : public mg_base<Table1, Table2, PrefixSize>::type
 	{
@@ -418,6 +420,8 @@ namespace boost { namespace rel {
 		friend class merge_iterator<Table1,Table2,PrefixSize>;
 	
 	public:
+        typedef merge_tag tag;
+
 		BOOST_RTL_PULL_BINARY_OPERATOR_TYPEDEFS(base_type);
         using base_type::arg1_;
         using base_type::arg2_;

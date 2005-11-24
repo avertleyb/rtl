@@ -13,19 +13,23 @@
 namespace boost { namespace rel {
 
 	template<class R> 
-		struct extension_traits
+	struct traits_impl<R, extension_tag>
 	{
-		typedef ext_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::policy_type> plus_type;
-		typedef ext_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type, BOOST_TYPENAME R::policy_type> minus_type;
+        typedef typename extension_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::policy_type>::type plus_type;
+        typedef typename extension_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type, BOOST_TYPENAME R::policy_type>::type minus_type;
 	};
-	template<class Table, class Policy>
-		BOOST_TYPENAME traits<ext_t<Table, Policy> >::delta_type 
-		_delta(const ext_t<Table, Policy>& ext, const transaction& tr)
+
+    template<class R> 
+    typename traits<R>::delta_type delta(const R& ext, const transaction& tr, extension_tag)
 	{
-		return BOOST_TYPENAME traits<ext_t<Table, Policy> >::delta_type(
-			extension(delta(ext.argument(), tr).first, ext.policy()),
-			extension(delta(ext.argument(), tr).second, ext.policy()));
+        typename traits<typename R::arg_type>::delta_type d = delta(ext.argument(), tr);
+
+        typename traits<R>::plus_type plus = extension(d.first, ext.policy());
+        typename traits<R>::minus_type minus = extension(d.second, ext.policy());
+
+        return std::make_pair(plus, minus);
 	}
+
 }}
 
 #endif//BOOST_RTL_EXTENSION_DELTA_HPP_INCLUDED

@@ -11,21 +11,22 @@
 
 namespace boost { namespace rel {
 
-	template<class R> struct key_traits
+	template<class R> 
+    struct traits_impl<R, key_tag>
 	{
-		typedef k_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::key_type> plus_type;
-		typedef k_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type, BOOST_TYPENAME R::key_type> minus_type;
+        typedef typename key_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::key_type>::type plus_type;
+        typedef typename key_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type, BOOST_TYPENAME R::key_type>::type minus_type;
 	};
 
-	template<class T, class Keys>
-	BOOST_TYPENAME traits<k_t<T,Keys> >::delta_type
-		_delta(const k_t<T,Keys>& k, const transaction& tr)
+	template<class R>
+	typename traits<R>::delta_type delta(const R& k, const transaction& tr, key_tag)
 	{
-		return BOOST_TYPENAME traits<k_t<T,Keys> >::delta_type
-		(
-			key<Keys>(delta(k.argument(),tr).first),
-			key<Keys>(delta(k.argument(),tr).second)
-		);
+        typename traits<typename R::arg_type>::delta_type d = delta(k.argument(), tr);
+
+        typename traits<R>::plus_type plus(d.first);
+        typename traits<R>::minus_type minus(d.second);
+
+        return std::make_pair(plus, minus);
 	};
 
 }}

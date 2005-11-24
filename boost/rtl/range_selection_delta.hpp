@@ -13,48 +13,55 @@
 namespace boost { namespace rel {
 
 	template<class R> 
-		struct range_selection_traits
+    struct traits_impl<R, range_selection_tag>
 	{
-		typedef rsel_t<
+		typedef typename range_selection_t<
 			typename traits<typename R::arg_type>::plus_type,
 			typename R::begin_type,
 			typename R::end_type
-			> plus_type;
+        >::type plus_type;
 
-		typedef rsel_t<
+		typedef typename range_selection_t<
 			typename traits<typename R::arg_type>::minus_type,
 			typename R::begin_type,
 			typename R::end_type
-			> minus_type;
+        >::type minus_type;
 	};
-	template<class T, class Begin, class End>
-		BOOST_MSVC_TYPENAME traits<rsel_t<T, Begin, End> >::delta_type 
-		_delta(const rsel_t<T, Begin, End>& rs, const transaction& tr)
+
+	template<class R>
+    typename traits<R>::delta_type delta(const R& rs, const transaction& tr, range_selection_tag)
 	{
-		return BOOST_MSVC_TYPENAME traits<rsel_t<T, Begin, End> >::delta_type(
-			range_selection(delta(rs.argument(), tr).first, rs.begin_functor(), rs.end_functor()),
-			range_selection(delta(rs.argument(), tr).second, rs.begin_functor(), rs.end_functor()));
+        typename traits<typename R::arg_type>::delta_type d = delta(rs.argument(), tr);
+
+        typename traits<R>::plus_type plus = range_selection(d.first, rs.begin_functor(), rs.end_functor());
+        typename traits<R>::minus_type minus = range_selection(d.second, rs.begin_functor(), rs.end_functor());
+
+        return std::make_pair(plus, minus);
 	}
+
 	template<class R> 
-		struct equal_selection_traits
+	struct traits_impl<R, equal_selection_tag>
 	{
-		typedef esel_t<
+		typedef typename equal_selection_t<
 			typename traits<typename R::arg_type>::plus_type,
 			typename R::sub_type
-			> plus_type;
+        >::type plus_type;
 
-		typedef esel_t<
+		typedef typename equal_selection_t<
 			typename traits<typename R::arg_type>::minus_type,
 			typename R::sub_type
-			> minus_type;
+        >::type minus_type;
 	};
-	template<class T, class Sub>
-		BOOST_MSVC_TYPENAME traits<esel_t<T, Sub> >::delta_type 
-		_delta(const esel_t<T, Sub>& es, const transaction& tr)
-	{
-		return BOOST_MSVC_TYPENAME traits<esel_t<T, Sub> >::delta_type(
-			equal_selection(delta(es.argument(), tr).first, es.sub()),
-			equal_selection(delta(es.argument(), tr).second, es.sub()));
+
+	template<class R>
+    typename traits<R>::delta_type delta(const R& es, const transaction& tr, equal_selection_tag)
+    {
+        typename traits<typename R::arg_type>::delta_type d = delta(es.argument(), tr);
+
+        typename traits<R>::plus_type plus = equal_selection(d.first, es.sub());
+        typename traits<R>::minus_type minus = equal_selection(d.second, es.sub());
+
+        return std::make_pair(plus, minus);
 	}
 }}
 

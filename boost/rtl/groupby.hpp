@@ -131,7 +131,7 @@ namespace boost { namespace rel {
 	// gby_base
 
 	template <class Table, class GroupList, int PrefixSize>
-		struct gby_base : boost::mpl::identity<unary_operator<
+        struct gby_base : boost::mpl::identity<unary_operator<
 			Table,
 			BOOST_TYPENAME concat
 			<
@@ -144,6 +144,8 @@ namespace boost { namespace rel {
 
 	// gby_t
 
+    struct groupby_tag {};
+
 	template <class Table, class GroupList, int PrefixSize>
 		class gby_t : public gby_base<Table, GroupList, PrefixSize>::type
 	{
@@ -151,6 +153,8 @@ namespace boost { namespace rel {
 		friend class groupby_iterator<Table, GroupList, PrefixSize>;
 
 	public:
+        typedef groupby_tag tag;
+
 		BOOST_RTL_PULL_UNARY_OPERATOR_TYPEDEFS(base_type);
         using base_type::arg_;
 		typedef typename list_prefix<typename Table::sort_list, PrefixSize>::type key_list;

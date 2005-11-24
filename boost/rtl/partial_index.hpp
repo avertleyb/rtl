@@ -90,6 +90,8 @@ namespace boost { namespace rel {
 		>
 	{};
 
+    struct partial_index_tag {};
+
 	template<class Table, class Strategy>
 		class ix_t : public ix_base<Table,Strategy>::type
 	{
@@ -98,6 +100,8 @@ namespace boost { namespace rel {
   		typedef idxr<Table> numerator_type;
     	friend class partial_index_iterator<Table,Strategy>;
     public:
+        typedef partial_index_tag tag;
+
   		BOOST_RTL_PULL_INDEX_TYPEDEFS(base_type);
         using base_type::index_;
         using base_type::table_;

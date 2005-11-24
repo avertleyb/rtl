@@ -78,17 +78,17 @@ namespace rel
 		(new CONCRETE_HELPER<Table>(tab));
 	}
 
-	template<class R> struct cover_traits
+	template<class R> 
+    struct traits_impl<R, cover_tag>
 	{
 		typedef cover_t<BOOST_TYPENAME R::value_type, BOOST_TYPENAME R::sort_list, BOOST_TYPENAME R::keys> minus_type;
 		typedef cover_t<BOOST_TYPENAME R::value_type, BOOST_TYPENAME R::sort_list, BOOST_TYPENAME R::keys> plus_type;
 	};
 
-	template<class Tuple, class SortList, class Keys>
-		BOOST_TYPENAME traits<cover_t<Tuple,SortList,Keys> >::delta_type
-		_delta(const cover_t<Tuple,SortList,Keys>& cv, const transaction& tr)
+	template<class R>
+	BOOST_TYPENAME traits<R>::delta_type delta(const R& cv, const transaction& tr, cover_tag)
 	{
-		return BOOST_TYPENAME traits<cover_t<Tuple,SortList,Keys> >::delta_type(cv.getPlus(tr), cv.getMinus(tr));
+        return std::make_pair(cv.getPlus(tr), cv.getMinus(tr));
 	}
 
 }} // namespace rtl

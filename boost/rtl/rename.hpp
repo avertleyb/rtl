@@ -98,6 +98,8 @@ namespace boost { namespace rel {
 
 	// cnv_t
 
+    struct conversion_tag {};
+
 	template<class Table, class Pairs>
 		class cnv_t : public cnv_base<Table, Pairs>::type
 	{
@@ -106,7 +108,10 @@ namespace boost { namespace rel {
 		typedef BOOST_TYPENAME make_reverse<Pairs>::type reverse_pairs;
 
 		friend class conversion_iterator<Table,Pairs>;
-	public:
+	
+    public:
+        typedef conversion_tag tag;
+
 		BOOST_RTL_PULL_UNARY_OPERATOR_TYPEDEFS(base_type);
         using base_type::arg_;
 

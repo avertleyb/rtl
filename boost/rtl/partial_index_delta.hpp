@@ -12,21 +12,22 @@
 
 namespace boost { namespace rel {
 
-	template<class R> struct partial_index_traits
+	template<class R> 
+    struct traits_impl<R, partial_index_tag>
 	{
-		typedef ix_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type,BOOST_TYPENAME R::strategy_type> plus_type;
-		typedef ix_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type,BOOST_TYPENAME R::strategy_type> minus_type;
+        typedef typename partial_index_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type,BOOST_TYPENAME R::strategy_type>::type plus_type;
+        typedef typename partial_index_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type,BOOST_TYPENAME R::strategy_type>::type minus_type;
 	};
 
-	template<class Tb,class Str>
-		BOOST_TYPENAME traits<ix_t<Tb,Str> >::delta_type 
-		_delta(const ix_t<Tb,Str>& idx, const transaction& tr)
+	template<class R>
+    typename traits<R>::delta_type delta(const R& idx, const transaction& tr, partial_index_tag)
 	{
-		return BOOST_TYPENAME traits<ix_t<Tb,Str> >::delta_type
-		(
-			BOOST_TYPENAME traits<ix_t<Tb,Str> >::plus_type(delta(idx.argument(), tr).first),
-			BOOST_TYPENAME traits<ix_t<Tb,Str> >::minus_type(delta(idx.argument(), tr).second)
-		);
+        typename traits<typename R::arg_type>::delta_type d = delta(idx.argument(), tr);
+
+        typename traits<R>::plus_type plus(d.first);
+        typename traits<R>::minus_type minus(d.second);
+
+        return std::make_pair(plus, minus);
 	}
 
 }}

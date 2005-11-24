@@ -109,10 +109,14 @@ namespace boost { namespace rel {
 	so that each copy's iterators are valid 
 	*/
 
+    struct cache_tag {}; 
+
 	template<class Table>
 		class ch_t : public identifiable
 	{
 	public:
+        typedef cache_tag tag;
+
 		typedef typename Table::field_list field_list;
 		typedef typename Table::sort_list sort_list;
 		typedef typename Table::keys keys;

@@ -77,8 +77,9 @@ namespace boost { namespace rel {
     	}
     };
     
- 
-  	template<class Table, class SortList, class Strategy>
+    struct iterator_index_tag {};
+  	
+    template<class Table, class SortList, class Strategy>
  		class it_idx_t  : public index
   			<
     				Table,
@@ -103,6 +104,8 @@ namespace boost { namespace rel {
   		typedef idxr<Table> numerator_type;
     	friend class iterator_index_iterator<Table, SortList,Strategy>;
     public:
+        typedef iterator_index_tag tag;
+
   		BOOST_RTL_PULL_INDEX_TYPEDEFS(base_type);
 		typedef BOOST_TYPENAME Table::const_iterator tab_iterator;
         using base_type::table_;

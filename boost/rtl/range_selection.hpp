@@ -41,6 +41,8 @@ namespace boost { namespace rel {
 		End end_;
 	};
 
+    struct range_selection_tag {};
+
 	template<class Table, class Begin, class End> 
 		class rsel_t : public basic_range<range_selection_policy<Table, Begin, End> >
 	{
@@ -48,6 +50,8 @@ namespace boost { namespace rel {
         using base_type::policy_;
 
 	public:
+        typedef range_selection_tag tag;
+
 		typedef Table arg_type;
 		typedef Begin begin_type;
 		typedef End end_type;
@@ -112,6 +116,8 @@ namespace boost { namespace rel {
 		Sub sub_;
 	};
 
+    struct equal_selection_tag {};
+
 	template<class Table, class Sub> 
 		class esel_t : public basic_range<equal_selection_policy<Table, Sub> >
 	{
@@ -119,6 +125,8 @@ namespace boost { namespace rel {
         using base_type::policy_;
 
 	public:
+        typedef equal_selection_tag tag;
+
 		typedef Table arg_type;
 		typedef Sub sub_type;
 

@@ -122,10 +122,14 @@ namespace boost { namespace rel {
     #endif
     // end MSVC ETI bug workaround
     
-   	template <class Info> 
+    struct table_tag {};
+
+    template <class Info> 
 		class table : public identifiable
     {
     public:
+        typedef table_tag tag;
+
 		typedef typename Info::field_list field_list;
     
     	typedef row<field_list> value_type;

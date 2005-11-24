@@ -24,8 +24,8 @@
 
 namespace boost { namespace rel {
 
-    template<class R> 
-    struct groupby_traits
+    template<class R, class groupby_tag> 
+    struct traits_impl
 	{
         typedef typename table_type<R>::type minus_type;
         typedef typename table_type<R>::type plus_type;
@@ -118,15 +118,14 @@ namespace boost { namespace rel {
         rename_1_field<A>
     >{};
 
-    template<class Table, class GroupList, int PrefixSize>
+    template<class R>
     struct groupby_delta_helper
     {
-		typedef gby_t<Table, GroupList, PrefixSize> R;
 	    typedef table<table_info<typename R::key_list> > affected_groups_t;
 
-        typename traits<Table>::delta_type arg_delta_;
+        typename traits<typename R::arg_type>::delta_type arg_delta_;
         affected_groups_t affected_groups_;
-        typename groupby_traits<R>::minus_type minus_;
+        typename traits<R>::minus_type minus_;
 
         groupby_delta_helper(const R& gby, const transaction& tr)
             : arg_delta_(delta(gby.argument(), tr))
@@ -137,7 +136,7 @@ namespace boost { namespace rel {
 
             minus_.append(
 			    manual_rename<typename R::field_list>(
-                    groupby<PrefixSize, GroupList>(
+                    groupby<R::prefix_size, typename R::group_list>(
                         equal_join<typename rename_list<typename R::key_list, void>::type>(
                             auto_rename<void>(affected_groups_),
                             gby.argument()
@@ -148,22 +147,18 @@ namespace boost { namespace rel {
         }
     };
     
-    template<class Table, class GroupList, int PrefixSize>
-		typename traits<gby_t<Table, GroupList, PrefixSize> >::delta_type
-        _delta(const gby_t<Table, GroupList, PrefixSize>& gby, const transaction& tr, boost::mpl::false_)
+    template<class R>
+    typename traits<R>::delta_type groupby_delta(const R& gby, const transaction& tr, boost::mpl::false_)
 	{
-		typedef gby_t<Table, GroupList, PrefixSize> R;
-
-        typedef groupby_delta_helper<
-            Table, GroupList, PrefixSize> helper_type;
+        typedef groupby_delta_helper<R> helper_type;
 
         helper_type helper(gby, tr);
 
-        typename groupby_traits<R>::plus_type plus;
+        typename traits<R>::plus_type plus;
 
         plus.append(
             manual_rename<typename R::field_list>(
-                groupby<PrefixSize, GroupList>(
+                groupby<R::prefix_size, typename R::group_list>(
 				    equal_join<typename rename_list<typename R::key_list, void>::type>(
                         auto_rename<void>(helper.affected_groups_),
                         modified(gby.argument(), tr)
@@ -175,53 +170,48 @@ namespace boost { namespace rel {
 		return std::make_pair(plus, helper.minus_);
 	}
 
-    template<class Table, class GroupList, int PrefixSize>
-		typename traits<gby_t<Table, GroupList, PrefixSize> >::delta_type
-        _delta(const gby_t<Table, GroupList, PrefixSize>& gby, const transaction& tr, boost::mpl::true_)
+    template<class R>
+    typename traits<R>::delta_type groupby_delta(const R& gby, const transaction& tr, boost::mpl::true_)
 	{
-		typedef gby_t<Table, GroupList, PrefixSize> R;
-
         // helper (minus)
-        typedef groupby_delta_helper<
-            Table, GroupList, PrefixSize> helper_type;
+        typedef groupby_delta_helper<R> helper_type;
 
         helper_type helper(gby, tr);
 
         // this table has grouppers set to nulls
-        typename groupby_traits<R>::plus_type fill;
+        typename traits<R>::plus_type fill;
 
         for (typename helper_type::affected_groups_t::const_iterator it =
             helper.affected_groups_.begin(); it != helper.affected_groups_.end(); ++it)
         {
-            typename groupby_traits<R>::plus_type::value_type tup;
+            typename traits<R>::plus_type::value_type tup;
             copy_fields<typename helper_type::affected_groups_t::field_list>(it, tup);
             fill.insert(tup);
         }
 
         // plus
-        typename groupby_traits<R>::plus_type plus;
+        typename traits<R>::plus_type plus;
 
         populate_plus(
             plus,
-            merge<PrefixSize>(
+            merge<R::prefix_size>(
                 Union(helper.minus_, fill),
-                merge<PrefixSize>(
-                    auto_rename<gby_plus>(Union(groupby<PrefixSize, GroupList>(helper.arg_delta_.first), fill)),
-                    auto_rename<gby_minus>(Union(groupby<PrefixSize, GroupList>(helper.arg_delta_.second), fill))
+                merge<R::prefix_size>(
+                    auto_rename<gby_plus>(Union(groupby<R::prefix_size, typename R::group_list>(helper.arg_delta_.first), fill)),
+                    auto_rename<gby_minus>(Union(groupby<R::prefix_size, typename R::group_list>(helper.arg_delta_.second), fill))
                     )),
             typename R::key_list(), 
-            GroupList()
+            typename R::group_list()
             );
 
 		return std::make_pair(plus, helper.minus_);
 	}
 
-    template<class Table, class GroupList, int PrefixSize>
-	typename traits<gby_t<Table, GroupList, PrefixSize> >::delta_type
-	_delta(const gby_t<Table, GroupList, PrefixSize>& gby, const transaction& tr)
+    template<class R>
+	typename traits<R>::delta_type delta(const R& gby, const transaction& tr, groupby_tag)
     {
-        typename all_support_fast_plus<GroupList>::type selector; 
-        return _delta(gby, tr, selector);
+        typename all_support_fast_plus<typename R::group_list>::type selector; 
+        return groupby_delta(gby, tr, selector);
     }
 
     // groupper traits specializations

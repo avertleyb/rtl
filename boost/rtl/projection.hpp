@@ -121,6 +121,8 @@ namespace boost { namespace rel {
 		>
 	{};
 
+    struct projection_tag {};
+
 	template<class Table, class FieldList>
 		class dprj_t : public dprj_base<Table,FieldList>::type
 	{
@@ -128,6 +130,8 @@ namespace boost { namespace rel {
 
 		friend class dprj_iterator<Table,FieldList>;
 	public:
+        typedef projection_tag tag;
+
 		BOOST_RTL_PULL_UNARY_OPERATOR_TYPEDEFS(base_type);
         using base_type::arg_;
 

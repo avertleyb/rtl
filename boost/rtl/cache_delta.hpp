@@ -12,21 +12,18 @@
 
 namespace boost { namespace rel {
 
-	template<class R> struct cache_traits
+	template<class R> 
+    struct traits_impl<R, cache_tag>
 	{
-		typedef ch_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type> plus_type;
-		typedef ch_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type> minus_type;
+        typedef typename cache_t<typename traits<typename R::arg_type>::plus_type>::type plus_type;
+        typedef typename cache_t<typename traits<typename R::arg_type>::minus_type>::type minus_type;
 	};
 
-	template<class T>
-	BOOST_TYPENAME traits<ch_t<T> >::delta_type
-	_delta(const ch_t<T>& ch, const transaction& tr)
+	template<class R>
+	typename traits<R>::delta_type delta(const R& ch, const transaction& tr, cache_tag)
 	{
-		return BOOST_TYPENAME traits<ch_t<T> >::delta_type
-		(
-			cache(delta(ch.argument(),tr).first),
-			cache(delta(ch.argument(),tr).second)
-		);
+        typename traits<typename R::arg_type>::delta_type d = delta(ch.argument(), tr);
+        return std::make_pair(cache(d.first), cache(d.second));
 	};
 
 }}

@@ -13,14 +13,15 @@
 
 namespace boost { namespace rel {
 
-	template<class R> struct table_traits
+	template<class R> 
+    struct traits_impl<R, table_tag>
 	{
 		typedef typename table_delta<R>::plus_type plus_type;
 		typedef typename table_delta<R>::minus_type minus_type;
 	};
-	template<class Info>
-		BOOST_TYPENAME traits<table<Info> >::delta_type 
-		_delta(const table<Info>& t, const transaction& tr) 
+
+	template<class R>
+	typename traits<R>::delta_type delta(const R& t, const transaction& tr, table_tag) 
 	{
 		return tr.delta(t);
 	}

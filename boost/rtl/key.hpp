@@ -82,12 +82,16 @@ namespace boost { namespace rel {
 		> 
 	{};
 
+    struct key_tag {};
+
 	template<class Table, class Keys>
 		class k_t : public key_base<Table,Keys>::type
 	{
 		typedef typename key_base<Table, Keys>::type base_type;
 		friend class key_iterator<Table, Keys>;
 	public:
+        typedef key_tag tag;
+
 		BOOST_RTL_PULL_UNARY_OPERATOR_TYPEDEFS(base_type);
         using base_type::arg_;
 

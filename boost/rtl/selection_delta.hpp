@@ -12,21 +12,22 @@
 
 namespace boost { namespace rel {
 
-	template<class R> struct selection_traits
+	template<class R>
+    struct traits_impl<R, selection_tag>
 	{
-		typedef sel_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::pred_type> plus_type;
-		typedef sel_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type, BOOST_TYPENAME R::pred_type> minus_type;
+        typedef typename selection_t<typename traits<typename R::arg_type>::plus_type, typename R::pred_type>::type plus_type;
+        typedef typename selection_t<typename traits<typename R::arg_type>::minus_type, typename R::pred_type>::type minus_type;
 	};
-	template<class Tb, class Pred>
-		BOOST_TYPENAME traits<sel_t<Tb, Pred> >::delta_type 
-		_delta(const sel_t<Tb, Pred>& sel, const transaction& tr)
-	{
-        typename traits<typename sel_t<Tb, Pred>::arg_type>::delta_type d = 
-            delta(sel.argument(), tr); 
 
-		return BOOST_TYPENAME traits<sel_t<Tb, Pred> >::delta_type(
-			selection(d.first, sel.pred()),
-			selection(d.second, sel.pred()));
+	template<class R>
+    typename traits<R>::delta_type delta(const R& sel, const transaction& tr, selection_tag)
+	{
+        typename traits<typename R::arg_type>::delta_type d = delta(sel.argument(), tr); 
+
+        typename traits<R>::plus_type plus = selection(d.first, sel.pred());
+        typename traits<R>::minus_type minus = selection(d.second, sel.pred());
+
+        return std::make_pair(plus, minus);
 	}
 }}
 

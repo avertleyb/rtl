@@ -110,6 +110,8 @@ namespace boost { namespace rel {
 			key_idx_t<Table, SortList, Strategy>
 		> > {};
 
+    struct key_index_tag {};
+
 	template<class Table, class SortList, class Strategy> 
 		class key_idx_t : public key_idx_base<Table, SortList, Strategy>::type
 	{
@@ -117,6 +119,8 @@ namespace boost { namespace rel {
 		friend class key_index_iterator<Table, SortList,Strategy>;
 
 	public:
+        typedef key_index_tag tag;
+
 		BOOST_RTL_PULL_INDEX_TYPEDEFS(base_type);
         using base_type::index_;
 		typedef typename arg_type::const_iterator arg_iterator;

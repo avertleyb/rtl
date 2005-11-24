@@ -210,6 +210,12 @@ namespace boost { namespace rel {
 
 	// zigzag
 
+    template<class Policy> struct zigzag_tag {};
+
+    typedef zigzag_tag<d_pl> difference_tag;
+    typedef zigzag_tag<i_pl> intersection_tag;
+    typedef zigzag_tag<u_pl> union_tag;
+
 	template <class Table1, class Table2, class Policy>
 		class zigzag : public zigzag_base<Table1, Table2, Policy>::type
 	{
@@ -229,6 +235,8 @@ namespace boost { namespace rel {
 		> equivalent_operator_type;
 
 	public:
+        typedef zigzag_tag<Policy> tag;
+
 		BOOST_RTL_PULL_BINARY_OPERATOR_TYPEDEFS(base_type);
         using base_type::arg1_;
         using base_type::arg2_;

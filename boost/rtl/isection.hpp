@@ -208,6 +208,11 @@ namespace boost { namespace rel {
 		>::type type;
 	};
 
+    template<class IsPolicy> struct isection_tag_ {};
+
+    typedef isection_tag_<is_pl> isection_tag; 
+    typedef isection_tag_<rs_pl> rsection_tag; 
+    typedef isection_tag_<df_pl> diff_tag; 
 
 	template <class Table1, class Table2, class IsPolicy> 
 		class is_t : public is_base<Table1, Table2, IsPolicy>::type
@@ -216,6 +221,8 @@ namespace boost { namespace rel {
 		friend class isection_iterator<Table1, Table2,IsPolicy>; 
 
 	public:
+        typedef isection_tag_<IsPolicy> tag;
+
 		enum {is_sizeable = false};
 		typedef IsPolicy is_policy;
 

@@ -102,6 +102,8 @@ namespace boost { namespace rel {
 
 	// sel_t
 
+    struct selection_tag {};
+
 	template <class Table, class Pred>
 		class sel_t : public sel_base<Table, Pred>::type
 	{
@@ -109,6 +111,8 @@ namespace boost { namespace rel {
 		friend class selection_iterator<Table, Pred>;
 
 	public:
+        typedef selection_tag tag;
+
 		BOOST_RTL_PULL_UNARY_OPERATOR_TYPEDEFS(base_type);
         using base_type::arg_;
 		typedef Pred pred_type;

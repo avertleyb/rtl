@@ -184,6 +184,8 @@ namespace boost { namespace rel {
 		>	
 	>{};
 
+    struct range_join_tag {};
+
 	template<class Table1, class Table2, class Begin, class End>
 	class rj_t : public range_join_base<Table1, Table2, Begin, End>::type
 	{
@@ -194,6 +196,8 @@ namespace boost { namespace rel {
 		typedef boost::mpl::false_ long_subtuple;
 
 	public:
+        typedef range_join_tag tag;
+
 		BOOST_RTL_PULL_BINARY_OPERATOR_TYPEDEFS(base_type);
 
 		typedef typename crossproduct_keys<
