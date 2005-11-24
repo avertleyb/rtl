@@ -80,28 +80,28 @@ namespace boost { namespace rel {
 	template<class R> 
     struct traits_impl<R, rsection_tag>
 	{
-		typedef BOOST_TYPENAME R::arg1_type tab1;
-		typedef BOOST_TYPENAME R::arg2_type tab2;
-		typedef BOOST_TYPENAME traits<BOOST_TYPENAME R::arg1_type>::minus_type min1;
-		typedef BOOST_TYPENAME traits<BOOST_TYPENAME R::arg2_type>::minus_type min2;
-		typedef BOOST_TYPENAME traits<BOOST_TYPENAME R::arg1_type>::plus_type pls1;
-		typedef BOOST_TYPENAME traits<BOOST_TYPENAME R::arg2_type>::plus_type pls2;
+		typedef typename R::arg1_type tab1;
+		typedef typename R::arg2_type tab2;
+		typedef typename traits<typename R::arg1_type>::minus_type min1;
+		typedef typename traits<typename R::arg2_type>::minus_type min2;
+		typedef typename traits<typename R::arg1_type>::plus_type pls1;
+		typedef typename traits<typename R::arg2_type>::plus_type pls2;
 
-		typedef BOOST_TYPENAME union_t
+		typedef typename union_t
 		<
 			typename intersection_t
 			<
 				min2,
-				BOOST_TYPENAME R::arg1_type
+				typename R::arg1_type
 			>::type,
 			typename intersection_t
 			<
-				BOOST_TYPENAME R::arg2_type,
-				BOOST_TYPENAME difference_t<min1,pls1>::type
+				typename R::arg2_type,
+				typename difference_t<min1,pls1>::type
 			>::type
 		>::type minus_type;
 
-		typedef BOOST_TYPENAME union_t
+		typedef typename union_t
 		<
 			typename intersection_t<
 				pls2,
@@ -109,7 +109,7 @@ namespace boost { namespace rel {
 				<
 					typename difference_t
 					<
-						BOOST_TYPENAME R::arg1_type,
+						typename R::arg1_type,
 						min1
 					>::type,
 					pls1
@@ -121,7 +121,7 @@ namespace boost { namespace rel {
 				<
 					typename intersection_t
 					<
-						BOOST_TYPENAME R::arg2_type,
+						typename R::arg2_type,
 						pls1
 					>::type,
 					min2
@@ -185,7 +185,7 @@ namespace boost { namespace rel {
 	};
 
 	template<class R>
-	BOOST_TYPENAME traits<R>::delta_type
+	typename traits<R>::delta_type
 	delta(const R& is, const transaction& tr, isection_tag)
 	{
         typename traits<typename R::arg1_type>::delta_type d1 = delta(is.argument1(), tr);  
@@ -199,17 +199,17 @@ namespace boost { namespace rel {
 		typename R::arg1_type t1 = is.argument1();
 		typename R::arg2_type t2 = is.argument2();
 
-		BOOST_TYPENAME traits<R>::minus_type minus =
+		typename traits<R>::minus_type minus =
 			Union(isection(m1,t2),rsection(diff(m2,p2),t1));
 
-		BOOST_TYPENAME traits<R>::plus_type plus = 
+		typename traits<R>::plus_type plus = 
 			Union(Union(difference(isection(p1,t2),m2),intersection(p1,p2)),difference(difference(rsection(p2,t1),m1),m2));
 
         return std::make_pair(plus, minus);
 	}
 
 	template<class R>
-	BOOST_TYPENAME traits<R>::delta_type
+	typename traits<R>::delta_type
 	delta(const R& is, const transaction& tr, rsection_tag)
 	{
         typename traits<typename R::arg1_type>::delta_type d1 = delta(is.argument1(), tr);  
@@ -223,7 +223,7 @@ namespace boost { namespace rel {
 		typename R::arg1_type t1 = is.argument1();
 		typename R::arg2_type t2 = is.argument2();
 
-		BOOST_TYPENAME traits<R>::minus_type minus = 
+		typename traits<R>::minus_type minus = 
 		Union
 		(
 			intersection(m2,t1),
@@ -234,7 +234,7 @@ namespace boost { namespace rel {
 			)
 		);
 
-		BOOST_TYPENAME traits<R>::plus_type plus =
+		typename traits<R>::plus_type plus =
 		Union
 		(
 			intersection
@@ -269,7 +269,7 @@ namespace boost { namespace rel {
 	}
 
 	template<class R>
-	BOOST_TYPENAME traits<R>::delta_type
+	typename traits<R>::delta_type
 	delta(const R& is, const transaction& tr, diff_tag)
 	{
         typename traits<typename R::arg1_type>::delta_type d1 = delta(is.argument1(), tr);  

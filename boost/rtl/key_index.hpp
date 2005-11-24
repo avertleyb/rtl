@@ -16,7 +16,7 @@ namespace boost { namespace rel {
 	template<class Table,class SortList>
 	struct sit_
 	{
-		typedef row<BOOST_TYPENAME list_union<SortList,typename Table::sort_list>::type> result;
+		typedef row<typename list_union<SortList,typename Table::sort_list>::type> result;
 	};
 
 	template<class Table, class SortList, class Strategy> class key_idx_t;
@@ -92,7 +92,7 @@ namespace boost { namespace rel {
 		{
 			typedef typename boost::mpl::if_c
 			<
-				list_contains<BOOST_TYPENAME relation_type::sort_list, Column>::value,
+				list_contains<typename relation_type::sort_list, Column>::value,
 				getFast,
 				getSlow
 			>::type result;

@@ -78,29 +78,29 @@ struct simple_checks
 		const Plus& pls
 	)
 	{
-		typedef BOOST_TYPENAME boost::rel::key_index_t<R, BOOST_TYPENAME R::sort_list>::type Key_ix;
+		typedef typename boost::rel::key_index_t<R, typename R::sort_list>::type Key_ix;
 		typedef boost::rel::table
 		<
 			boost::rel::table_info
 			<
-				BOOST_TYPENAME R::field_list, 
-				BOOST_TYPENAME R::sort_list, 
-				BOOST_TYPENAME R::keys
+				typename R::field_list, 
+				typename R::sort_list, 
+				typename R::keys
 			> 
 		> r_table;
 
 		// create stable copy of the relation r
-		r_table inv(boost::rel::invert<BOOST_TYPENAME R::sort_list, typename r_table::implementation>(r));
+		r_table inv(boost::rel::invert<typename R::sort_list, typename r_table::implementation>(r));
 
 		Key_ix idx(r);
 		boost::rel::expression_registry exprs;
 		exprs.add(idx);
 		{
 			boost::rel::transaction fwd;
-			inserter<BOOST_TYPENAME R::arg1_type> i1(r.argument1(),fwd);
-			inserter<BOOST_TYPENAME R::arg2_type> i2(r.argument2(),fwd);
-			deleter<BOOST_TYPENAME R::arg1_type>  d1(r.argument1(),fwd);
-			deleter<BOOST_TYPENAME R::arg2_type>  d2(r.argument2(),fwd);
+			inserter<typename R::arg1_type> i1(r.argument1(),fwd);
+			inserter<typename R::arg2_type> i2(r.argument2(),fwd);
+			deleter<typename R::arg1_type>  d1(r.argument1(),fwd);
+			deleter<typename R::arg2_type>  d2(r.argument2(),fwd);
 			std::for_each(min1.begin(),min1.end(),d1);
 			std::for_each(pls1.begin(),pls1.end(),i1);
 			std::for_each(min2.begin(),min2.end(),d2);
@@ -115,10 +115,10 @@ struct simple_checks
 		}
 		{
 			boost::rel::transaction bkw;
-			inserter<BOOST_TYPENAME R::arg1_type> i1(r.argument1(),bkw);
-			inserter<BOOST_TYPENAME R::arg2_type> i2(r.argument2(),bkw);
-			deleter<BOOST_TYPENAME R::arg1_type>  d1(r.argument1(),bkw);
-			deleter<BOOST_TYPENAME R::arg2_type>  d2(r.argument2(),bkw);
+			inserter<typename R::arg1_type> i1(r.argument1(),bkw);
+			inserter<typename R::arg2_type> i2(r.argument2(),bkw);
+			deleter<typename R::arg1_type>  d1(r.argument1(),bkw);
+			deleter<typename R::arg2_type>  d2(r.argument2(),bkw);
 			std::for_each(pls1.begin(),pls1.end(),d1);
 			std::for_each(min1.begin(),min1.end(),i1);
 			std::for_each(pls2.begin(),pls2.end(),d2);
@@ -146,31 +146,31 @@ struct simple_checks
 		const Plus& pls
 	)
 	{
-		typedef boost::rel::cover_t<BOOST_TYPENAME R::value_type, BOOST_TYPENAME R::sort_list, BOOST_TYPENAME R::keys> RC;
+		typedef boost::rel::cover_t<typename R::value_type, typename R::sort_list, typename R::keys> RC;
 		RC r = boost::rel::cover(rela);
-		typedef BOOST_TYPENAME boost::rel::key_index_t<RC, BOOST_TYPENAME RC::sort_list>::type Key_ix;
+		typedef typename boost::rel::key_index_t<RC, typename RC::sort_list>::type Key_ix;
 		typedef boost::rel::table
 		<
 			boost::rel::table_info
 			<
-				BOOST_TYPENAME RC::field_list, 
-				BOOST_TYPENAME RC::sort_list,
-				BOOST_TYPENAME RC::keys
+				typename RC::field_list, 
+				typename RC::sort_list,
+				typename RC::keys
 			> 
 		> r_table;
 
 		// create stable copy of the relation r
-		r_table inv(boost::rel::invert<BOOST_TYPENAME RC::sort_list, typename r_table::implementation>(r));
+		r_table inv(boost::rel::invert<typename RC::sort_list, typename r_table::implementation>(r));
 
 		Key_ix idx(r);
 		boost::rel::expression_registry exprs;
 		exprs.add(idx);
 		{
 			boost::rel::transaction fwd;
-			inserter<BOOST_TYPENAME R::arg1_type> i1(rela.argument1(),fwd);
-			inserter<BOOST_TYPENAME R::arg2_type> i2(rela.argument2(),fwd);
-			deleter<BOOST_TYPENAME R::arg1_type>  d1(rela.argument1(),fwd);
-			deleter<BOOST_TYPENAME R::arg2_type>  d2(rela.argument2(),fwd);
+			inserter<typename R::arg1_type> i1(rela.argument1(),fwd);
+			inserter<typename R::arg2_type> i2(rela.argument2(),fwd);
+			deleter<typename R::arg1_type>  d1(rela.argument1(),fwd);
+			deleter<typename R::arg2_type>  d2(rela.argument2(),fwd);
 			std::for_each(min1.begin(),min1.end(),d1);
 			std::for_each(pls1.begin(),pls1.end(),i1);
 			std::for_each(min2.begin(),min2.end(),d2);
@@ -184,10 +184,10 @@ struct simple_checks
 		}
 		{
 			boost::rel::transaction bkw;
-			inserter<BOOST_TYPENAME R::arg1_type> i1(rela.argument1(),bkw);
-			inserter<BOOST_TYPENAME R::arg2_type> i2(rela.argument2(),bkw);
-			deleter<BOOST_TYPENAME R::arg1_type>  d1(rela.argument1(),bkw);
-			deleter<BOOST_TYPENAME R::arg2_type>  d2(rela.argument2(),bkw);
+			inserter<typename R::arg1_type> i1(rela.argument1(),bkw);
+			inserter<typename R::arg2_type> i2(rela.argument2(),bkw);
+			deleter<typename R::arg1_type>  d1(rela.argument1(),bkw);
+			deleter<typename R::arg2_type>  d2(rela.argument2(),bkw);
 			std::for_each(pls1.begin(),pls1.end(),d1);
 			std::for_each(min1.begin(),min1.end(),i1);
 			std::for_each(pls2.begin(),pls2.end(),d2);

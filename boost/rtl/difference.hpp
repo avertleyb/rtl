@@ -18,9 +18,9 @@ namespace boost { namespace rel {
 	};
 
 	template<class Table1, class Table2>
-		BOOST_TYPENAME difference_t<Table1, Table2>::type difference(const Table1& t1, const Table2& t2)
+		typename difference_t<Table1, Table2>::type difference(const Table1& t1, const Table2& t2)
 	{
-		return BOOST_TYPENAME difference_t<Table1, Table2>::type(t1, t2);
+		return typename difference_t<Table1, Table2>::type(t1, t2);
 	}
 }}
 

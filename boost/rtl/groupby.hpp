@@ -28,7 +28,7 @@ namespace boost { namespace rel {
 		template <class T> 
 			void operator()(const T&)
 		{
-			static_cast<BOOST_TYPENAME T::impl_type&>(trg_.fields_)(it_);
+			static_cast<typename T::impl_type&>(trg_.fields_)(it_);
 		}
 	private:
 		const It& it_;
@@ -133,7 +133,7 @@ namespace boost { namespace rel {
 	template <class Table, class GroupList, int PrefixSize>
         struct gby_base : boost::mpl::identity<unary_operator<
 			Table,
-			BOOST_TYPENAME concat
+			typename concat
 			<
 				typename list_prefix<typename Table::sort_list,PrefixSize>::type, 
 				GroupList
@@ -182,7 +182,7 @@ namespace boost { namespace rel {
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
 
-			range_t<BOOST_TYPENAME Table::const_iterator> r(arg_.equal_range(sub));
+			range_t<typename Table::const_iterator> r(arg_.equal_range(sub));
 
 			const_iterator lbound(r.begin().base(), this);
 			const_iterator ubound(r.end().base(), this);
@@ -217,10 +217,10 @@ namespace boost { namespace rel {
 	};
 
 	template <int PrefixSize, class GroupList, class Table>
-		BOOST_TYPENAME groupby_t<Table, GroupList, PrefixSize>::type 
+		typename groupby_t<Table, GroupList, PrefixSize>::type 
 	groupby(const Table& t)
 	{
-		return BOOST_TYPENAME groupby_t<Table, GroupList, PrefixSize>::type(t);
+		return typename groupby_t<Table, GroupList, PrefixSize>::type(t);
 	}
 
 }}

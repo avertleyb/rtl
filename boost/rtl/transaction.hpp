@@ -64,7 +64,7 @@ namespace boost { namespace rel {
 			BOOST_MSVC_TYPENAME R::sort_list, 
 			BOOST_MSVC_TYPENAME Sub::field_list>::value));
 
-		range_t<BOOST_TYPENAME R::const_iterator> r(tab.equal_range(sub));
+		range_t<typename R::const_iterator> r(tab.equal_range(sub));
 
 		if (r.begin() == r.end()) 
 			return false;
@@ -80,7 +80,7 @@ namespace boost { namespace rel {
 			BOOST_MSVC_TYPENAME R::sort_list, 
 			BOOST_MSVC_TYPENAME Sub::field_list>::value));
 
-		range_t<BOOST_TYPENAME R::const_iterator> r(tab.equal_range(sub));
+		range_t<typename R::const_iterator> r(tab.equal_range(sub));
 		return (r.begin() != r.end());
 	}
 
@@ -108,11 +108,11 @@ namespace boost { namespace rel {
 		friend class transaction;
 
 	public:
-		typedef BOOST_TYPENAME table_delta<Table>::minus_type minus_type;
-		typedef BOOST_TYPENAME minus_type::const_iterator minus_iterator;
-		typedef BOOST_TYPENAME table_delta<Table>::plus_type plus_type;
-		typedef BOOST_TYPENAME plus_type::const_iterator plus_iterator;
-		typedef row<BOOST_TYPENAME Table::sort_list> sort_tuple;
+		typedef typename table_delta<Table>::minus_type minus_type;
+		typedef typename minus_type::const_iterator minus_iterator;
+		typedef typename table_delta<Table>::plus_type plus_type;
+		typedef typename plus_type::const_iterator plus_iterator;
+		typedef row<typename Table::sort_list> sort_tuple;
 		typedef std::vector<bool> update_flags;
 
 		virtual ptrdiff_t id() const
@@ -131,11 +131,11 @@ namespace boost { namespace rel {
 			update_flags::iterator pfi = p_flags.begin();			
 			while ((mi != me) && (pi != pe))
 			{
-				int result = compare_iterators<BOOST_TYPENAME Table::sort_list>(mi,pi);
+				int result = compare_iterators<typename Table::sort_list>(mi,pi);
 				if(result==0)
 				{
-					BOOST_TYPENAME Table::const_iterator it = mi.get_iterator();
-					const BOOST_TYPENAME Table::value_type& tup = *pi;
+					typename Table::const_iterator it = mi.get_iterator();
+					const typename Table::value_type& tup = *pi;
 					table_.update(it,tup);
 					*mfi = true;
 					*pfi = true;
@@ -161,7 +161,7 @@ namespace boost { namespace rel {
 			{
 				if (!(*mfi))
 				{
-					BOOST_TYPENAME Table::const_iterator it = i.get_iterator();
+					typename Table::const_iterator it = i.get_iterator();
 					table_.remove(it);
 				}
 			}
@@ -197,7 +197,7 @@ namespace boost { namespace rel {
 		bool insert(const typename Table::value_type& tuple)
 		{
 			sort_tuple sub;
-			copy_fields<BOOST_TYPENAME Table::sort_list>(tuple, sub);
+			copy_fields<typename Table::sort_list>(tuple, sub);
 
 			if (tuple_exists(delta_.first, sub))
 			{
@@ -221,7 +221,7 @@ namespace boost { namespace rel {
 		bool remove(const typename Table::value_type& tup)
 		{
 			sort_tuple sub;
-			copy_fields<BOOST_TYPENAME Table::sort_list>(tup, sub);
+			copy_fields<typename Table::sort_list>(tup, sub);
 
 			if (remove_from_plus(sub))
 				return true;
@@ -229,7 +229,7 @@ namespace boost { namespace rel {
 			if (tuple_exists(delta_.second, sub)) 
 				return false;
 
-			BOOST_TYPENAME Table::const_iterator tit;
+			typename Table::const_iterator tit;
             if (!rel::find(table_, sub, tit))
 				return false;
 
@@ -240,7 +240,7 @@ namespace boost { namespace rel {
 		bool remove(const typename Table::const_iterator& it)
 		{
 			sort_tuple sub;
-			copy_fields<BOOST_TYPENAME Table::sort_list>(*it, sub);  // TODO!!!
+			copy_fields<typename Table::sort_list>(*it, sub);  // TODO!!!
 
 			if (remove_from_plus(sub))
 				return true;
@@ -312,7 +312,7 @@ namespace boost { namespace rel {
 
 	private:
 		Table table_;
-		BOOST_TYPENAME table_delta<Table>::delta_type delta_;
+		typename table_delta<Table>::delta_type delta_;
 	};
 
 	class transaction
@@ -372,13 +372,13 @@ namespace boost { namespace rel {
 		}
 
 		template<class Info>
-			BOOST_TYPENAME table_delta<table<Info> >::delta_type delta(const table<Info>& t) const
+			typename table_delta<table<Info> >::delta_type delta(const table<Info>& t) const
 		{
 			std::auto_ptr<table_proxy> ap(new table_proxy_impl<table<Info> >(t));
 			set_type::const_iterator i = proxies_.find(ap.get());
 
-			typedef BOOST_TYPENAME table_delta<table<Info> >::plus_type plus_type;
-			typedef BOOST_TYPENAME table_delta<table<Info> >::minus_type minus_type;
+			typedef typename table_delta<table<Info> >::plus_type plus_type;
+			typedef typename table_delta<table<Info> >::minus_type minus_type;
 
 			if (i == proxies_.end())
 				return std::make_pair(plus_type(),minus_type(t));

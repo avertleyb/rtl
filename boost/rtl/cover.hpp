@@ -42,8 +42,8 @@ namespace boost { namespace rel {
 			>
 	{
 	public:
-		typedef BOOST_TYPENAME cover_concrete_iterator_helper::AbstractIterator AbstractIterator; 
-		typedef BOOST_TYPENAME cover_concrete_iterator_helper::value_type value_type; 
+		typedef typename cover_concrete_iterator_helper::AbstractIterator AbstractIterator; 
+		typedef typename cover_concrete_iterator_helper::value_type value_type; 
 
 		cover_concrete_iterator_helper() : itr_() {}
 		cover_concrete_iterator_helper(const typename Table::const_iterator& itr) : itr_(itr) {}
@@ -76,10 +76,10 @@ namespace boost { namespace rel {
 			GetFunctor(const typename Table::const_iterator& it, int n, void* p) : it_(it), n_(n), p_(p) {}
 			template<class Column> bool operator()(Column&)
 			{
-				if (n_ != list_index_of<BOOST_TYPENAME value_type::field_list, Column>::value) return true;
+				if (n_ != list_index_of<typename value_type::field_list, Column>::value) return true;
 				else
 				{
-					*static_cast<BOOST_TYPENAME Column::type*>(p_) = it_.get(Column());
+					*static_cast<typename Column::type*>(p_) = it_.get(Column());
 					return false;
 				}
 			}
@@ -93,7 +93,7 @@ namespace boost { namespace rel {
 		virtual void get(int n, void* p) const
 		{
 			GetFunctor functor(itr_,n, p);
-			breakable_for_each<BOOST_TYPENAME value_type::field_list>(functor);
+			breakable_for_each<typename value_type::field_list>(functor);
 		}
 
 		virtual ~cover_concrete_iterator_helper()
@@ -117,8 +117,8 @@ namespace boost { namespace rel {
 		friend class cover_t<Tuple,SortList,Keys>;
 		typedef cover_abstract_iterator_helper<Tuple, SortList> AbstractIterator;
 	public:
-		typedef BOOST_TYPENAME cover_iterator::relation_type relation_type;
-		typedef BOOST_TYPENAME cover_iterator::value_type value_type;
+		typedef typename cover_iterator::relation_type relation_type;
+		typedef typename cover_iterator::value_type value_type;
 
 		cover_iterator() {}
 
@@ -126,8 +126,8 @@ namespace boost { namespace rel {
 			typename Column::type
 		get_internal(const Column&) const 
 		{
-			BOOST_TYPENAME Column::type temp;
-			enum {ni = list_index_of<BOOST_TYPENAME value_type::field_list,Column>::value};
+			typename Column::type temp;
+			enum {ni = list_index_of<typename value_type::field_list,Column>::value};
 			(*itr_).get(ni,&temp);
 			return temp;
 		}
@@ -235,8 +235,8 @@ namespace boost { namespace rel {
 				const Table& tab,
 				const tuple_base& sub,
 				int fields_in_tuple,
-				BOOST_TYPENAME Table::const_iterator* b,
-				BOOST_TYPENAME Table::const_iterator* e
+				typename Table::const_iterator* b,
+				typename Table::const_iterator* e
 			)
 				: tab_(&tab)
 				, sub_(&sub)
@@ -252,7 +252,7 @@ namespace boost { namespace rel {
 				if (fields_in_List != fields_in_tuple_) return true;
 				else
 				{
-					range_t<BOOST_TYPENAME Table::const_iterator> p = 
+					range_t<typename Table::const_iterator> p = 
 						tab_->equal_range(*(static_cast<const row<List>*>(sub_)));
 					*b_ = p.begin().base();
 					*e_ = p.end().base();
@@ -272,7 +272,7 @@ namespace boost { namespace rel {
 			cover_concrete_iterator_helper<Table>* low = new cover_concrete_iterator_helper<Table>();
 			cover_concrete_iterator_helper<Table>* high = new cover_concrete_iterator_helper<Table>();
 			EqualRangeFunctor functor(tab_, sub, n, &low->itr_, &high->itr_);
-			breakable_for_each<BOOST_TYPENAME generate_prefixes<BOOST_TYPENAME Table::sort_list>::type>(functor);
+			breakable_for_each<typename generate_prefixes<typename Table::sort_list>::type>(functor);
 			return std::make_pair(low,high);
 		}
 
@@ -283,7 +283,7 @@ namespace boost { namespace rel {
 				const Table& tab,
 				const tuple_base& sub,
 				int fields_in_tuple,
-				BOOST_TYPENAME Table::const_iterator* b
+				typename Table::const_iterator* b
 			)
 				: tab_(&tab)
 				, sub_(&sub)
@@ -306,14 +306,14 @@ namespace boost { namespace rel {
 			const Table* tab_;
 			const tuple_base* sub_;
 			int fields_in_tuple_;
-			BOOST_TYPENAME Table::const_iterator* b_;
+			typename Table::const_iterator* b_;
 		};
 
 		virtual AbstractIterator* lower_bound(const tuple_base& sub, int n) const
 		{
 			cover_concrete_iterator_helper<Table>* low = new cover_concrete_iterator_helper<Table>();
 			LowerBoundFunctor functor(tab_,sub,n,&low->itr_);
-			breakable_for_each<BOOST_TYPENAME generate_prefixes<BOOST_TYPENAME Table::sort_list>::type>(functor);
+			breakable_for_each<typename generate_prefixes<typename Table::sort_list>::type>(functor);
 			return low;
 		}
 
@@ -324,7 +324,7 @@ namespace boost { namespace rel {
 				const Table& tab,
 				const tuple_base& sub,
 				int fields_in_tuple,
-				BOOST_TYPENAME Table::const_iterator* e
+				typename Table::const_iterator* e
 			)
 				: tab_(&tab)
 				, sub_(&sub)
@@ -348,14 +348,14 @@ namespace boost { namespace rel {
 			const Table* tab_;
 			const tuple_base* sub_;
 			int fields_in_tuple_;
-			BOOST_TYPENAME Table::const_iterator* e_;
+			typename Table::const_iterator* e_;
 		};
 
 		virtual AbstractIterator* upper_bound(const tuple_base& sub, int n) const
 		{
 			cover_concrete_iterator_helper<Table>* high = new cover_concrete_iterator_helper<Table>();
 			UpperBoundFunctor functor(tab_,sub,n,&high->itr_);
-			breakable_for_each<BOOST_TYPENAME generate_prefixes<BOOST_TYPENAME Table::sort_list>::type>(functor);
+			breakable_for_each<typename generate_prefixes<typename Table::sort_list>::type>(functor);
 			return high;
 		}
 
@@ -403,7 +403,7 @@ namespace boost { namespace rel {
 		template<class SubTuple>
 			range_t<const_iterator> equal_range(const SubTuple& sub) const
 		{
-			const int depth = rel::size<BOOST_TYPENAME SubTuple::field_list>::value;
+			const int depth = rel::size<typename SubTuple::field_list>::value;
 			std::pair<AbstractIterator*,AbstractIterator*> p = hlp_->equal_range(sub,depth);
 			const_iterator b(p.first,this);
 			const_iterator e(p.second,this);
@@ -413,7 +413,7 @@ namespace boost { namespace rel {
 		template<class SubTuple>
 			const_iterator lower_bound(const SubTuple& sub) const
 		{
-			const int depth = rel::size<BOOST_TYPENAME SubTuple::field_list>::value;
+			const int depth = rel::size<typename SubTuple::field_list>::value;
 			AbstractIterator* i = hlp_->lower_bound(sub,depth);
 			const_iterator b = const_iterator(i,this);
 			return b;
@@ -422,7 +422,7 @@ namespace boost { namespace rel {
 		template<class SubTuple>
 			const_iterator upper_bound(const SubTuple& sub) const
 		{
-			const int depth = rel::size<BOOST_TYPENAME SubTuple::field_list>::value;
+			const int depth = rel::size<typename SubTuple::field_list>::value;
 			AbstractIterator* i = hlp_->upper_bound(sub,depth);
 			const_iterator e = const_iterator(i,this);
 			return e;

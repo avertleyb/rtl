@@ -15,8 +15,8 @@ namespace boost { namespace rel {
 	template<class R> 
     struct traits_impl<R, iterator_index_tag>
 	{
-        typedef typename iterator_index_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::sort_list, BOOST_TYPENAME R::strategy_type>::type plus_type;
-        typedef typename iterator_index_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type, BOOST_TYPENAME R::sort_list, BOOST_TYPENAME R::strategy_type>::type minus_type;
+        typedef typename iterator_index_t<typename traits<typename R::arg_type>::plus_type, typename R::sort_list, typename R::strategy_type>::type plus_type;
+        typedef typename iterator_index_t<typename traits<typename R::arg_type>::minus_type, typename R::sort_list, typename R::strategy_type>::type minus_type;
 	};
 
     template<class R>

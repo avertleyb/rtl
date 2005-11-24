@@ -51,9 +51,9 @@ namespace book_test_cpp
 
 	template <class Table> void prettyprint(const Table& t)
 	{
-		for (BOOST_TYPENAME Table::const_iterator it = t.begin(); it != t.end(); ++it)
+		for (typename Table::const_iterator it = t.begin(); it != t.end(); ++it)
 		{
-			BOOST_TYPENAME Table::value_type tup = *it;
+			typename Table::value_type tup = *it;
 			std::cout 
 				<< BOOST_RTL_FIELD(tup, book::title) << BOOST_RTL_FIELD(tup, author::name) << std::endl; 
 		}

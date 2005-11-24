@@ -60,7 +60,7 @@ namespace boost { namespace rel {
 	// alias
 
 	template <class Col, class Alias = null_type> 
-		struct alias : public column_name<column<alias<Col, Alias>, BOOST_TYPENAME Col::type> >
+		struct alias : public column_name<column<alias<Col, Alias>, typename Col::type> >
 	{
 		typedef Col aliased_type;
 		enum {ctg = 2};

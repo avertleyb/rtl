@@ -28,7 +28,7 @@ namespace boost { namespace rel {
         typedef iterator_root<Derived, Relation> base_type;
 
 	public:
-		typedef BOOST_TYPENAME Relation::idx::const_iterator idx_iterator;
+		typedef typename Relation::idx::const_iterator idx_iterator;
 		using base_type::relation_type;
         using base_type::relation_;
 
@@ -129,7 +129,7 @@ namespace boost { namespace rel {
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
 
-			range_t<BOOST_TYPENAME idx::const_iterator> r(index_.equal_range(sub));
+			range_t<typename idx::const_iterator> r(index_.equal_range(sub));
 			return range_t<const_iterator>(
 				const_iterator(r.begin().base(),static_cast<const Derived*>(this)),
 				const_iterator(r.end().base(),static_cast<const Derived*>(this)));

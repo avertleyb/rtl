@@ -59,7 +59,7 @@ namespace boost { namespace rel {
 		{
 			typedef row
 			<
-				BOOST_TYPENAME list_intersection
+				typename list_intersection
 				<
 					typename Table1::field_list,
 					typename SubTuple::field_list
@@ -87,7 +87,7 @@ namespace boost { namespace rel {
 				>::type
 			> part2;
 
-			typedef BOOST_TYPENAME list_prefix
+			typedef typename list_prefix
 			<
 				common_pairs,
 				rel::size<typename SubTuple::field_list>::value
@@ -96,7 +96,7 @@ namespace boost { namespace rel {
 			static part1 projection1(const SubTuple& sub)
 			{
 				part1 temp;
-				copy_fields<BOOST_TYPENAME part1::field_list>(sub,temp);
+				copy_fields<typename part1::field_list>(sub,temp);
 				return temp;
 			}
 
@@ -238,7 +238,7 @@ namespace boost { namespace rel {
 		{
 			typedef typename boost::mpl::if_c
 			<
-				list_contains<BOOST_TYPENAME Table1::field_list, Column>::value,
+				list_contains<typename Table1::field_list, Column>::value,
 				get1,
 				get2
 			>::type result;
@@ -247,16 +247,16 @@ namespace boost { namespace rel {
 
 		static bool itrEqual_11(const typename Table1::const_iterator& i1, const typename Table1::const_iterator& i2)
 		{
-			typedef BOOST_TYPENAME list_prefix<BOOST_TYPENAME Table1::sort_list,PrefixSize>::type prefix;
+			typedef typename list_prefix<typename Table1::sort_list,PrefixSize>::type prefix;
 			return compare_iterators<prefix>(i1,i2)==0;
 		}
 
 		static int itr_comp(const typename Table1::const_iterator& i1, const typename Table2::const_iterator& i2)
 		{
-			typedef BOOST_TYPENAME create_pairs
+			typedef typename create_pairs
 			<
-				BOOST_TYPENAME Table1::sort_list,
-				BOOST_TYPENAME Table2::sort_list,
+				typename Table1::sort_list,
+				typename Table2::sort_list,
 				PrefixSize
 			>::type prefix;
 			return compare_different_iterators<prefix>(i1,i2);
@@ -264,7 +264,7 @@ namespace boost { namespace rel {
 
 		static bool itrEqual_22(const typename Table2::const_iterator& i1, const typename Table2::const_iterator& i2)
 		{
-			typedef BOOST_TYPENAME list_prefix<BOOST_TYPENAME Table2::sort_list,PrefixSize>::type prefix;
+			typedef typename list_prefix<typename Table2::sort_list,PrefixSize>::type prefix;
 			return compare_iterators<prefix>(i1,i2)==0;
 		}
 
@@ -488,8 +488,8 @@ namespace boost { namespace rel {
 
 			typedef mg_t
 				<
-					range_t<BOOST_TYPENAME arg1_type::const_iterator>,
-					range_t<BOOST_TYPENAME arg2_type::const_iterator>,
+					range_t<typename arg1_type::const_iterator>,
+					range_t<typename arg2_type::const_iterator>,
 					prefix_size
 				> equivalent_operator_type;
 
@@ -503,20 +503,20 @@ namespace boost { namespace rel {
 				arg2_.equal_range(tup2)
 			);
 			
-			BOOST_TYPENAME equivalent_operator_type::const_iterator mb(m.begin());
+			typename equivalent_operator_type::const_iterator mb(m.begin());
 			
 			const_iterator begin(mb.base1().base(), mb.base2().base(), this);
 			//... estabishing restarts...
 			begin.setRestartLow(mb.getRestartLow().base());
 			begin.setRestartHigh(mb.getRestartHigh().base());
 
-			BOOST_TYPENAME equivalent_operator_type::const_iterator me(m.end());
+			typename equivalent_operator_type::const_iterator me(m.end());
 			const_iterator end;
 			
 			if (m.end() == m.begin()) end = begin;
 			else
 			{
-				BOOST_TYPENAME equivalent_operator_type::const_iterator last = m.end();
+				typename equivalent_operator_type::const_iterator last = m.end();
 				--last; // points to the last tuple in equivalent operator
 				end = const_iterator(last.base1().base(), last.base2().base(), this);
 				//...establish restarts...
@@ -535,8 +535,8 @@ namespace boost { namespace rel {
 			BOOST_STATIC_ASSERT(valid);
 			typedef mg_t
 				<
-					range_t<BOOST_TYPENAME arg1_type::const_iterator>,
-					range_t<BOOST_TYPENAME arg2_type::const_iterator>,
+					range_t<typename arg1_type::const_iterator>,
+					range_t<typename arg2_type::const_iterator>,
 					prefix_size
 				> equivalent_operator_type;
 
@@ -545,8 +545,8 @@ namespace boost { namespace rel {
 			typename proj::part1 tup1(proj::projection1(sub));
 			typename proj::part2 tup2(proj::projection2(sub));
 
-			range_t<BOOST_TYPENAME arg1_type::const_iterator> r1(arg1_.lower_bound(tup1),arg1_.end());
-			range_t<BOOST_TYPENAME arg2_type::const_iterator> r2(arg2_.lower_bound(tup2),arg2_.end());
+			range_t<typename arg1_type::const_iterator> r1(arg1_.lower_bound(tup1),arg1_.end());
+			range_t<typename arg2_type::const_iterator> r2(arg2_.lower_bound(tup2),arg2_.end());
 
 			equivalent_operator_type m(r1,r2);
 			
@@ -560,8 +560,8 @@ namespace boost { namespace rel {
 			BOOST_STATIC_ASSERT(valid);
 			typedef mg_t
 				<
-					range_t<BOOST_TYPENAME arg1_type::const_iterator>,
-					range_t<BOOST_TYPENAME arg2_type::const_iterator>,
+					range_t<typename arg1_type::const_iterator>,
+					range_t<typename arg2_type::const_iterator>,
 					prefix_size
 				> equivalent_operator_type;
 
@@ -570,8 +570,8 @@ namespace boost { namespace rel {
 			typename proj::part1 tup1(proj::projection1(sub));
 			typename proj::part2 tup2(proj::projection2(sub));
 
-			range_t<BOOST_TYPENAME arg1_type::const_iterator> r1(arg1_.begin(),arg1_.upper_bound(tup1));
-			range_t<BOOST_TYPENAME arg2_type::const_iterator> r2(arg2_.begin(),arg2_.upper_bound(tup2));
+			range_t<typename arg1_type::const_iterator> r1(arg1_.begin(),arg1_.upper_bound(tup1));
+			range_t<typename arg2_type::const_iterator> r2(arg2_.begin(),arg2_.upper_bound(tup2));
 
 			equivalent_operator_type m(r1,r2);
 
@@ -580,7 +580,7 @@ namespace boost { namespace rel {
 			if (m.end() == m.begin()) end = begin;
 			else
 			{
-				BOOST_TYPENAME equivalent_operator_type::const_iterator last = m.end();
+				typename equivalent_operator_type::const_iterator last = m.end();
 				--last; // points to the last tuple in equivalent operator
 				end = const_iterator(last.base1().base(), last.base2().base(), this);
 				++end;

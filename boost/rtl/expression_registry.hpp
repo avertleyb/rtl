@@ -56,8 +56,8 @@ namespace boost { namespace rel {
 			typename minus_type::const_iterator minus_end = minus.end();
             for (typename minus_type::const_iterator it1 = minus.begin(); it1 != minus_end; ++it1)
 			{
-				row<BOOST_TYPENAME Idx::idx::sort_list> sub;
-				copy_fields<BOOST_TYPENAME Idx::idx::sort_list>(it1, sub);
+				row<typename Idx::idx::sort_list> sub;
+				copy_fields<typename Idx::idx::sort_list>(it1, sub);
 				idx_.internal_table().remove(idx_.internal_table().lower_bound(sub));
 			}
 

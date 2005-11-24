@@ -59,11 +59,11 @@ namespace boost { namespace rel {
 	template <class Table>
 	void print(const Table& tab)
 	{
-		BOOST_TYPENAME Table::const_iterator e = tab.end(); 
-		for (BOOST_TYPENAME Table::const_iterator it = tab.begin(); it != e; ++it)
+		typename Table::const_iterator e = tab.end(); 
+		for (typename Table::const_iterator it = tab.begin(); it != e; ++it)
 		{
 			boost::mpl::for_each<
-				BOOST_TYPENAME Table::field_list>(print_field<BOOST_TYPENAME Table::value_type>(*it));
+				typename Table::field_list>(print_field<typename Table::value_type>(*it));
 
 			std::cout << std::endl;
 		}
@@ -77,8 +77,8 @@ namespace boost { namespace rel {
 	int count(const Table& tab)
 	{
 		int c = 0;
-		BOOST_TYPENAME Table::const_iterator e = tab.end();
-		for (BOOST_TYPENAME Table::const_iterator itr = tab.begin(); itr != e; ++itr)
+		typename Table::const_iterator e = tab.end();
+		for (typename Table::const_iterator itr = tab.begin(); itr != e; ++itr)
 			c++;
 		
 		return c;

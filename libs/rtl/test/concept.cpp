@@ -42,22 +42,22 @@ namespace concept_cpp
 
 		// iterator
 
-		test_value_type(BOOST_TYPENAME T::const_iterator::value_type());
+		test_value_type(typename T::const_iterator::value_type());
 		
 		BOOST_STATIC_ASSERT((is_same<
 			std::bidirectional_iterator_tag, 
-			BOOST_TYPENAME T::const_iterator::iterator_category>::value));
+			typename T::const_iterator::iterator_category>::value));
 
 		BOOST_STATIC_ASSERT((is_same<
 			ptrdiff_t, 
-			BOOST_TYPENAME T::const_iterator::difference_type>::value));
+			typename T::const_iterator::difference_type>::value));
 
 		BOOST_STATIC_ASSERT((is_same<
 			T, 
-			BOOST_TYPENAME T::const_iterator::relation_type>::value));
+			typename T::const_iterator::relation_type>::value));
 
-		BOOST_TYPENAME T::const_iterator i;
-		BOOST_TYPENAME T::const_iterator j(i);
+		typename T::const_iterator i;
+		typename T::const_iterator j(i);
 		j = i;
 
 		TESTASSERT(j == i);
@@ -87,13 +87,13 @@ namespace concept_cpp
 
 		//relation
 
-		BOOST_TYPENAME T::const_iterator();
-		test_value_type(BOOST_TYPENAME T::value_type());
+		typename T::const_iterator();
+		test_value_type(typename T::value_type());
 //		test_iskey(T::is_distinct);
 		
 		BOOST_STATIC_ASSERT((is_same<
-			BOOST_TYPENAME T::value_type, 
-			BOOST_TYPENAME T::const_iterator::value_type>::value));
+			typename T::value_type, 
+			typename T::const_iterator::value_type>::value));
 
 		TESTASSERT(equal_tables(t, range(t.begin(), t.end())));
 
@@ -103,7 +103,7 @@ namespace concept_cpp
 		TESTASSERT(t.lower_bound(null_tuple) == t.begin());
 		TESTASSERT(t.upper_bound(null_tuple) == t.end());
 
-		t.equal_range(row<BOOST_TYPENAME T::sort_list>());
+		t.equal_range(row<typename T::sort_list>());
 
 		//TESTASSERT(equal_tables(t, cover(t)));
 	}

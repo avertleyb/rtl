@@ -35,7 +35,7 @@ namespace tt
 	template<class Base> 
 	class trans_test : public Base
 	{
-		typedef BOOST_TYPENAME Base::relation_type relation_type;
+		typedef typename Base::relation_type relation_type;
 	public:
 		virtual void run()
 		{
@@ -46,10 +46,10 @@ namespace tt
 			transaction tr;
 			this->modify_tables(tr);
 			
-			table<table_info<BOOST_TYPENAME Base::relation_type::field_list, BOOST_TYPENAME Base::relation_type::sort_list> > r_modified;
-			BOOST_TYPENAME traits<relation_type>::modified_type m = modified(r_before, tr);
+			table<table_info<typename Base::relation_type::field_list, typename Base::relation_type::sort_list> > r_modified;
+			typename traits<relation_type>::modified_type m = modified(r_before, tr);
 
-			for (BOOST_TYPENAME traits<relation_type>::modified_type::const_iterator it =
+			for (typename traits<relation_type>::modified_type::const_iterator it =
 				m.begin(); it != m.end(); ++it)
 				r_modified.insert(*it);
 

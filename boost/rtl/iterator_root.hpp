@@ -106,7 +106,7 @@ namespace boost { namespace rel {
 		{
 			value_type tup;
 			set_field_generic<value_type> s(static_cast<const Derived&>(*this),tup);
-			boost::mpl::for_each<BOOST_TYPENAME value_type::field_list>(s);
+			boost::mpl::for_each<typename value_type::field_list>(s);
 			return tup;
 		}
 
@@ -133,8 +133,8 @@ namespace boost { namespace rel {
 				bool return_value = true;
 				typename T::type r1 = i1_.get(c);
 				typename T::type r2 = i2_.get(c);
-				bool temp = std::less<BOOST_TYPENAME T::type>()(r1,r2);
-				if (temp || std::less<BOOST_TYPENAME T::type>()(r2,r1))
+				bool temp = std::less<typename T::type>()(r1,r2);
+				if (temp || std::less<typename T::type>()(r2,r1))
 				{
 					result_ = temp ? -1 : 1;
 					return_value = false;
@@ -148,8 +148,8 @@ namespace boost { namespace rel {
 				bool return_value = true;
 				typename T1::type r1 = i1_.get(c1);
 				typename T2::type r2 = i2_.get(c2);
-				bool temp = std::less<BOOST_TYPENAME T1::type>()(r1,r2);
-				if (temp || std::less<BOOST_TYPENAME T1::type>()(r2,r1))
+				bool temp = std::less<typename T1::type>()(r1,r2);
+				if (temp || std::less<typename T1::type>()(r2,r1))
 				{
 					result_ = temp ? -1 : 1;
 					return_value = false;
@@ -182,8 +182,8 @@ namespace boost { namespace rel {
 				typedef typename P::second c2;
 				typename c1::type r1 = i1_.get(c1());
 				typename c2::type r2 = i2_.get(c2());
-				bool temp = std::less<BOOST_TYPENAME c1::type>()(r1,r2);
-				if (temp || std::less<BOOST_TYPENAME c1::type>()(r2,r1))
+				bool temp = std::less<typename c1::type>()(r1,r2);
+				if (temp || std::less<typename c1::type>()(r2,r1))
 				{
 					result_ = temp ? -1 : 1;
 					return_value = false;

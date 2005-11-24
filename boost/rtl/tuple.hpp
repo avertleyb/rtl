@@ -92,8 +92,8 @@ namespace boost { namespace rel {
 			bool operator()(const T&)
 		{
 			bool temp;
-			if (!(temp = std::less<BOOST_TYPENAME T::type>()(BOOST_RTL_FIELD(t1_, T), BOOST_RTL_FIELD(t2_, T))) && 
-				!std::less<BOOST_TYPENAME T::type>()(BOOST_RTL_FIELD(t2_, T), BOOST_RTL_FIELD(t1_, T))) 
+			if (!(temp = std::less<typename T::type>()(BOOST_RTL_FIELD(t1_, T), BOOST_RTL_FIELD(t2_, T))) && 
+				!std::less<typename T::type>()(BOOST_RTL_FIELD(t2_, T), BOOST_RTL_FIELD(t1_, T))) 
 				return true;
 			result_ = temp ? -1 : 1;
 			return false;
@@ -128,10 +128,10 @@ namespace boost { namespace rel {
 		template <class Pair> 
 			bool operator()(const Pair&)
 		{
-			typedef BOOST_TYPENAME Pair::first::type type;
+			typedef typename Pair::first::type type;
 			bool temp;
-			if (!(temp =std::less<type>()(BOOST_RTL_FIELD(t1_, BOOST_TYPENAME Pair::first), BOOST_RTL_FIELD(t2_, BOOST_TYPENAME Pair::second))) && 
-				!std::less<type>()(BOOST_RTL_FIELD(t2_, BOOST_TYPENAME Pair::second), BOOST_RTL_FIELD(t1_, BOOST_TYPENAME Pair::first))) 
+			if (!(temp =std::less<type>()(BOOST_RTL_FIELD(t1_, typename Pair::first), BOOST_RTL_FIELD(t2_, typename Pair::second))) && 
+				!std::less<type>()(BOOST_RTL_FIELD(t2_, typename Pair::second), BOOST_RTL_FIELD(t1_, typename Pair::first))) 
 				return true;
 			result_ = temp ? -1 : 1;
 			return false;
@@ -150,7 +150,7 @@ namespace boost { namespace rel {
 		SortList1* = 0, SortList2* = 0, boost::mpl::int_<Len>* = 0)
 	{
 		int result;
-		breakable_for_each<BOOST_TYPENAME create_pairs<SortList1, SortList2, Len>::type>
+		breakable_for_each<typename create_pairs<SortList1, SortList2, Len>::type>
 			(compare_different_fields<Tuple1,Tuple2>(t1, t2, result));
 		return result;
 	}
@@ -209,7 +209,7 @@ namespace boost { namespace rel {
 		SortList1* = 0, SortList2* = 0, boost::mpl::int_<Len>* = 0)
 	{
 		boost::mpl::for_each<
-			BOOST_TYPENAME create_pairs<SortList1, SortList2, Len>::type>(copy_different_fields<Tuple1,Tuple2>(t1, t2));
+			typename create_pairs<SortList1, SortList2, Len>::type>(copy_different_fields<Tuple1,Tuple2>(t1, t2));
 	}
 
 	// row
@@ -285,7 +285,7 @@ namespace boost { namespace rel {
 		}
 
 	public:
-		BOOST_TYPENAME derive_from_all<FieldList>::type fields_;
+		typename derive_from_all<FieldList>::type fields_;
 	};
 
 	// equal_range_cmp

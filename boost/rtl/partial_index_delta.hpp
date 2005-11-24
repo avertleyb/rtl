@@ -15,8 +15,8 @@ namespace boost { namespace rel {
 	template<class R> 
     struct traits_impl<R, partial_index_tag>
 	{
-        typedef typename partial_index_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type,BOOST_TYPENAME R::strategy_type>::type plus_type;
-        typedef typename partial_index_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type,BOOST_TYPENAME R::strategy_type>::type minus_type;
+        typedef typename partial_index_t<typename traits<typename R::arg_type>::plus_type,typename R::strategy_type>::type plus_type;
+        typedef typename partial_index_t<typename traits<typename R::arg_type>::minus_type,typename R::strategy_type>::type minus_type;
 	};
 
 	template<class R>

@@ -34,8 +34,8 @@ namespace boost { namespace rel {
 
 	public:
 		BOOST_RTL_PULL_ITERATOR_TYPEDEFS(base_type);
-		typedef BOOST_TYPENAME Relation::arg1_type::const_iterator arg1_iterator;
-		typedef BOOST_TYPENAME Relation::arg2_type::const_iterator arg2_iterator;
+		typedef typename Relation::arg1_type::const_iterator arg1_iterator;
+		typedef typename Relation::arg2_type::const_iterator arg2_iterator;
 
 		const arg1_iterator& base1() const 
 		{

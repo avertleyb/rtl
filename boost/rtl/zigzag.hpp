@@ -113,7 +113,7 @@ namespace boost { namespace rel {
 
 		static int compare_sides(const arg1_iterator& i1, const arg2_iterator& i2)
 		{
-			return compare_iterators<BOOST_TYPENAME Table1::sort_list>(i1,i2);
+			return compare_iterators<typename Table1::sort_list>(i1,i2);
 		}
 
 		void establish_sign(bool is_e1, bool is_e2)
@@ -229,8 +229,8 @@ namespace boost { namespace rel {
 
 		typedef zigzag
 		<
-			range_t<BOOST_TYPENAME Table1::const_iterator>, 
-			range_t<BOOST_TYPENAME Table2::const_iterator>, 
+			range_t<typename Table1::const_iterator>, 
+			range_t<typename Table2::const_iterator>, 
 			Policy
 		> equivalent_operator_type;
 
@@ -289,7 +289,7 @@ namespace boost { namespace rel {
 			if (z.end() == b) end = begin;
 			else
 			{
-				BOOST_TYPENAME equivalent_operator_type::const_iterator last = z.end();
+				typename equivalent_operator_type::const_iterator last = z.end();
 				--last; // points to the last tuple in equivalent operator
 				end = const_iterator(last.base1().base(), last.base2().base(), this, last.get_sign());
 				++end;

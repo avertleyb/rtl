@@ -19,9 +19,9 @@ namespace boost { namespace rel {
 	};
 
 	template<class Table1, class Table2>
-		BOOST_TYPENAME union_t<Table1, Table2>::type Union(const Table1& t1, const Table2& t2)
+		typename union_t<Table1, Table2>::type Union(const Table1& t1, const Table2& t2)
 	{
-		return BOOST_TYPENAME union_t<Table1, Table2>::type(t1, t2);
+		return typename union_t<Table1, Table2>::type(t1, t2);
 	}
 }}
 

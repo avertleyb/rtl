@@ -87,13 +87,13 @@ namespace boost { namespace rel {
 	private:
 		static int compare_sides(const arg1_iterator& i1, const arg2_iterator& i2) 
 		{
-			return compare_iterators<BOOST_TYPENAME relation_type::sort_list>(i1,i2);
+			return compare_iterators<typename relation_type::sort_list>(i1,i2);
 		}
 
 		arg2_iterator get_matching() const
 		{
-			row<BOOST_TYPENAME relation_type::sort_list> temp;
-			copy_fields<BOOST_TYPENAME relation_type::sort_list>(itr1_, temp);
+			row<typename relation_type::sort_list> temp;
+			copy_fields<typename relation_type::sort_list>(itr1_, temp);
 			return this->relation()->arg2_.lower_bound(temp);
 		}
 
@@ -257,7 +257,7 @@ namespace boost { namespace rel {
 		template<class SubTuple>
 			range_t<const_iterator> equal_range(const SubTuple& s) const
 		{
-			range_t<BOOST_TYPENAME const_iterator::arg1_iterator> temp(arg1_.equal_range(s));
+			range_t<typename const_iterator::arg1_iterator> temp(arg1_.equal_range(s));
 			const_iterator low(temp.begin().base(),this);
 			low.move_to_next();
 			const_iterator high(temp.end().base(),this);
@@ -303,24 +303,24 @@ namespace boost { namespace rel {
 
 
 	template<class Table1, class Table2>
-	BOOST_TYPENAME isection_t<Table1,Table2>::type 
+	typename isection_t<Table1,Table2>::type 
 	isection(const Table1& t1, const Table2& t2)
 	{
-		return BOOST_TYPENAME isection_t<Table1,Table2>::type(t1,t2);
+		return typename isection_t<Table1,Table2>::type(t1,t2);
 	}
 
 	template<class Table1, class Table2>
-	BOOST_TYPENAME rsection_t<Table1,Table2>::type 
+	typename rsection_t<Table1,Table2>::type 
 	rsection(const Table1& t1, const Table2& t2)
 	{
-		return BOOST_TYPENAME rsection_t<Table1,Table2>::type(t1,t2);
+		return typename rsection_t<Table1,Table2>::type(t1,t2);
 	}
 
 	template<class Table1, class Table2>
-	BOOST_TYPENAME diff_t<Table1,Table2>::type 
+	typename diff_t<Table1,Table2>::type 
 	diff(const Table1& t1, const Table2& t2)
 	{
-		return BOOST_TYPENAME diff_t<Table1,Table2>::type(t1,t2);
+		return typename diff_t<Table1,Table2>::type(t1,t2);
 	}
 }}
 

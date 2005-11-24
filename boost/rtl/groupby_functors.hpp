@@ -14,7 +14,7 @@ namespace boost { namespace rel {
 	// sum
 
 	template <class Column> 
-	struct sum_t : public column<sum_t<Column>, BOOST_TYPENAME Column::type>
+	struct sum_t : public column<sum_t<Column>, typename Column::type>
 	{
 		template<class Tuple> void operator()(const Tuple& t)
 		{
@@ -42,7 +42,7 @@ namespace boost { namespace rel {
 	// min
 
 	template <class Column> 
-	class min_t : public column<min_t<Column>, BOOST_TYPENAME Column::type>
+	class min_t : public column<min_t<Column>, typename Column::type>
 	{
 	public:
 		min_t() : empty_(true){}
@@ -64,7 +64,7 @@ namespace boost { namespace rel {
 	// max
 
 	template <class Column> 
-	class max_t : public column<max_t<Column>, BOOST_TYPENAME Column::type>
+	class max_t : public column<max_t<Column>, typename Column::type>
 	{
 	public:
 		max_t() : empty_(true){}

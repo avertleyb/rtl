@@ -42,12 +42,12 @@ namespace boost { namespace rel {
 	private:
 		virtual AbstractRelation* getMinus(const transaction& tr) const
 		{
-			return new cover_concrete_helper<BOOST_TYPENAME traits<Table>::minus_type>(delta(tab_,tr).second); 
+			return new cover_concrete_helper<typename traits<Table>::minus_type>(delta(tab_,tr).second); 
 		}
 
 		virtual AbstractRelation* getPlus(const transaction& tr) const
 		{
-			return new cover_concrete_helper<BOOST_TYPENAME traits<Table>::plus_type>(delta(tab_,tr).first);  
+			return new cover_concrete_helper<typename traits<Table>::plus_type>(delta(tab_,tr).first);  
 		}
 	};
 }
@@ -71,9 +71,9 @@ namespace rel
 	{
 		return cover_t
 		<
-			BOOST_TYPENAME Table::value_type, 
-			BOOST_TYPENAME Table::sort_list,
-			BOOST_TYPENAME Table::keys
+			typename Table::value_type, 
+			typename Table::sort_list,
+			typename Table::keys
 		>
 		(new CONCRETE_HELPER<Table>(tab));
 	}
@@ -81,12 +81,12 @@ namespace rel
 	template<class R> 
     struct traits_impl<R, cover_tag>
 	{
-		typedef cover_t<BOOST_TYPENAME R::value_type, BOOST_TYPENAME R::sort_list, BOOST_TYPENAME R::keys> minus_type;
-		typedef cover_t<BOOST_TYPENAME R::value_type, BOOST_TYPENAME R::sort_list, BOOST_TYPENAME R::keys> plus_type;
+		typedef cover_t<typename R::value_type, typename R::sort_list, typename R::keys> minus_type;
+		typedef cover_t<typename R::value_type, typename R::sort_list, typename R::keys> plus_type;
 	};
 
 	template<class R>
-	BOOST_TYPENAME traits<R>::delta_type delta(const R& cv, const transaction& tr, cover_tag)
+	typename traits<R>::delta_type delta(const R& cv, const transaction& tr, cover_tag)
 	{
         return std::make_pair(cv.getPlus(tr), cv.getMinus(tr));
 	}

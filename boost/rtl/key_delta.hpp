@@ -14,8 +14,8 @@ namespace boost { namespace rel {
 	template<class R> 
     struct traits_impl<R, key_tag>
 	{
-        typedef typename key_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, BOOST_TYPENAME R::key_type>::type plus_type;
-        typedef typename key_t<BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type, BOOST_TYPENAME R::key_type>::type minus_type;
+        typedef typename key_t<typename traits<typename R::arg_type>::plus_type, typename R::key_type>::type plus_type;
+        typedef typename key_t<typename traits<typename R::arg_type>::minus_type, typename R::key_type>::type minus_type;
 	};
 
 	template<class R>

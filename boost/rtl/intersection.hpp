@@ -19,9 +19,9 @@ namespace boost { namespace rel {
 	};
 
 	template<class Table1, class Table2>
-		BOOST_TYPENAME intersection_t<Table1, Table2>::type intersection(const Table1& t1, const Table2& t2)
+		typename intersection_t<Table1, Table2>::type intersection(const Table1& t1, const Table2& t2)
 	{
-		return BOOST_TYPENAME intersection_t<Table1, Table2>::type(t1, t2);
+		return typename intersection_t<Table1, Table2>::type(t1, t2);
 	}
 }}
 

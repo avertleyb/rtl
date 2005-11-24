@@ -33,20 +33,20 @@ namespace boost { namespace rel {
 		<
 			table_info
 			<
-				BOOST_TYPENAME Table::field_list,
+				typename Table::field_list,
 				SortList,
-				BOOST_TYPENAME Table::keys,
+				typename Table::keys,
 				Strategy
 			> 
 		> res;
 
 		// res.reserve(t.size()); Sometimes it can make operations faster
 				
-		BOOST_TYPENAME Table::const_iterator e(t.end());
-		for(BOOST_TYPENAME Table::const_iterator itr = t.begin(); itr != e; ++itr)
+		typename Table::const_iterator e(t.end());
+		for(typename Table::const_iterator itr = t.begin(); itr != e; ++itr)
 		{
-			BOOST_TYPENAME Table::value_type temp;
-			copy_fields<BOOST_TYPENAME Table::value_type::field_list>(*itr,temp);
+			typename Table::value_type temp;
+			copy_fields<typename Table::value_type::field_list>(*itr,temp);
 			res.insert(temp);
 		}
 		return res;

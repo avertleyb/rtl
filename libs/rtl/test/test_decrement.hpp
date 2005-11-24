@@ -10,7 +10,7 @@
 template<class R>
 	void test_decrement(const R& r)
 {
-	std::vector<BOOST_TYPENAME R::const_iterator> v;
+	std::vector<typename R::const_iterator> v;
 	
 	typename R::const_iterator i = r.end();
 	if (i != r.begin()) // DA
@@ -24,7 +24,7 @@ template<class R>
 
 	TESTASSERT(boost::rel::count(r) == static_cast<int>(v.size()));
 
-	BOOST_TYPENAME std::vector<BOOST_TYPENAME R::const_iterator>::reverse_iterator j;
+	typename std::vector<typename R::const_iterator>::reverse_iterator j;
 	for (i = r.begin(), j = v.rbegin(); i != r.end(); ++i, ++j)
 	{
 		if (i != *j)
@@ -32,13 +32,13 @@ template<class R>
 			std::cout << "should be:   ";
 			
 			boost::mpl::for_each<
-				BOOST_TYPENAME R::field_list>(boost::rel::print_field<BOOST_TYPENAME R::value_type>(*i));
+				typename R::field_list>(boost::rel::print_field<typename R::value_type>(*i));
 
 			std::cout << std::endl;
 			std::cout << "actually is: ";
 			
 			boost::mpl::for_each<
-				BOOST_TYPENAME R::field_list>(boost::rel::print_field<BOOST_TYPENAME R::value_type>(**j));
+				typename R::field_list>(boost::rel::print_field<typename R::value_type>(**j));
 
 			std::cout << std::endl;
 			TESTASSERT(false);

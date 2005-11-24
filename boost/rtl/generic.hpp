@@ -21,8 +21,6 @@
 #include <boost/static_assert.hpp>
 #include <boost/smart_ptr.hpp>
 
-#define BOOST_TYPENAME BOOST_MSVC_TYPENAME
-
 namespace boost { namespace rel {
 
 	template<bool x, bool y> 

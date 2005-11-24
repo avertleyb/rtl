@@ -107,7 +107,7 @@ namespace boost { namespace rel {
         typedef iterator_index_tag tag;
 
   		BOOST_RTL_PULL_INDEX_TYPEDEFS(base_type);
-		typedef BOOST_TYPENAME Table::const_iterator tab_iterator;
+		typedef typename Table::const_iterator tab_iterator;
         using base_type::table_;
         using base_type::index_;
 
@@ -151,10 +151,10 @@ namespace boost { namespace rel {
     };
     
     template<class SortList, class Table>
-    	BOOST_TYPENAME iterator_index_t<Table, SortList>::type 
+    	typename iterator_index_t<Table, SortList>::type 
     iterator_index(const Table& t, const SortList* s = 0)
     {
-    	return BOOST_TYPENAME iterator_index_t<Table,SortList>::type(t);
+    	return typename iterator_index_t<Table,SortList>::type(t);
     }
 }}
     

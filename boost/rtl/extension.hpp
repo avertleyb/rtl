@@ -106,7 +106,7 @@ namespace boost { namespace rel {
 			const bool valid = valid_subtuple<SubTuple, sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
 
-			range_t<BOOST_TYPENAME arg_type::const_iterator> r(arg_.equal_range(sub));
+			range_t<typename arg_type::const_iterator> r(arg_.equal_range(sub));
 			return range(
 				const_iterator(r.begin().base(), this),
 				const_iterator(r.end().base(), this));
@@ -144,9 +144,9 @@ namespace boost { namespace rel {
 	// extension
 
 	template<class Table, class Policy>
-		BOOST_TYPENAME extension_t<Table, Policy>::type extension(const Table& t, const Policy& p)
+		typename extension_t<Table, Policy>::type extension(const Table& t, const Policy& p)
 	{
-		return BOOST_TYPENAME extension_t<Table, Policy>::type(t, p);
+		return typename extension_t<Table, Policy>::type(t, p);
 	}
 }}
 

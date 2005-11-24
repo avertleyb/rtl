@@ -106,7 +106,7 @@ namespace boost { namespace rel {
         using base_type::index_;
         using base_type::table_;
 
-		typedef BOOST_TYPENAME Table::const_iterator tab_iterator;
+		typedef typename Table::const_iterator tab_iterator;
 
     	const Table& getTable() const {return *table_;}
 
@@ -130,10 +130,10 @@ namespace boost { namespace rel {
     };
 
     template<class Table>
-    	BOOST_TYPENAME partial_index_t<Table>::type 
+    	typename partial_index_t<Table>::type 
     partial_index(const Table& t)
     {
-    	return BOOST_TYPENAME partial_index_t<Table>::type(t);
+    	return typename partial_index_t<Table>::type(t);
     }
 }}
 

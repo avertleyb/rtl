@@ -142,7 +142,7 @@ namespace boost { namespace rel {
 			range_t<const_iterator> equal_range(const SubTuple& sub) const
 		{
 			BOOST_STATIC_ASSERT((
-                valid_subtuple<SubTuple,BOOST_TYPENAME Table::sort_list>::value
+                valid_subtuple<SubTuple,typename Table::sort_list>::value
                 ));
 
 			range_t<typename arg_type::const_iterator> r(arg_.equal_range(sub));
@@ -166,7 +166,7 @@ namespace boost { namespace rel {
 			const_iterator lower_bound(const SubTuple& sub) const
 		{
 			BOOST_STATIC_ASSERT((
-                valid_subtuple<SubTuple,BOOST_TYPENAME Table::sort_list>::value
+                valid_subtuple<SubTuple,typename Table::sort_list>::value
                 ));
 
             typename arg_type::const_iterator it = arg_.lower_bound(sub);
@@ -182,7 +182,7 @@ namespace boost { namespace rel {
 			const_iterator upper_bound(const SubTuple& sub) const
 		{
 			BOOST_STATIC_ASSERT((
-                valid_subtuple<SubTuple,BOOST_TYPENAME Table::sort_list>::value
+                valid_subtuple<SubTuple,typename Table::sort_list>::value
                 ));
 
             typename arg_type::const_iterator it = arg_.upper_bound(sub);
@@ -214,9 +214,9 @@ namespace boost { namespace rel {
 	// selection
 
 	template<class Table, class Pred>
-		BOOST_TYPENAME selection_t<Table, Pred>::type selection(const Table& t, Pred p)
+		typename selection_t<Table, Pred>::type selection(const Table& t, Pred p)
 	{
-		return BOOST_TYPENAME selection_t<Table, Pred>::type(t, p);
+		return typename selection_t<Table, Pred>::type(t, p);
 	}
 
 }}

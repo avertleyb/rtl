@@ -163,8 +163,8 @@ namespace boost { namespace rel {
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
 
-			range_t<BOOST_TYPENAME arg_type::const_iterator> r(arg_.equal_range(sub));
-			dprj_t<range_t<BOOST_TYPENAME arg_type::const_iterator>, FieldList> p(r);
+			range_t<typename arg_type::const_iterator> r(arg_.equal_range(sub));
+			dprj_t<range_t<typename arg_type::const_iterator>, FieldList> p(r);
 			
 			const_iterator b(p.begin().base().base(),this);
 			const_iterator e(p.end().base().base(),this);
@@ -177,8 +177,8 @@ namespace boost { namespace rel {
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
 
-			range_t<BOOST_TYPENAME arg_type::const_iterator> r(arg_.lower_bound(sub),arg_.end());
-			dprj_t<range_t<BOOST_TYPENAME arg_type::const_iterator>,FieldList> s(r);
+			range_t<typename arg_type::const_iterator> r(arg_.lower_bound(sub),arg_.end());
+			dprj_t<range_t<typename arg_type::const_iterator>,FieldList> s(r);
 			return const_iterator(s.begin().base().base(),this);
 		}
 
@@ -187,8 +187,8 @@ namespace boost { namespace rel {
 		{
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
-			range_t<BOOST_TYPENAME arg_type::const_iterator> r(arg_.begin(),arg_.upper_bound(sub));
-			dprj_t<range_t<BOOST_TYPENAME arg_type::const_iterator>,FieldList> s(r);
+			range_t<typename arg_type::const_iterator> r(arg_.begin(),arg_.upper_bound(sub));
+			dprj_t<range_t<typename arg_type::const_iterator>,FieldList> s(r);
 			return const_iterator(s.end().base().base(),this);
 		}
 	};
@@ -210,9 +210,9 @@ namespace boost { namespace rel {
 
 
 	template<class FieldList, class Table>
-		BOOST_TYPENAME projection_t<Table,FieldList>::type projection(const Table& t, const FieldList* = 0)
+		typename projection_t<Table,FieldList>::type projection(const Table& t, const FieldList* = 0)
 	{
-		return BOOST_TYPENAME projection_t<Table,FieldList>::type(t);
+		return typename projection_t<Table,FieldList>::type(t);
 	}
 		
 }}

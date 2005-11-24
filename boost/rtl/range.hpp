@@ -19,9 +19,9 @@ namespace boost { namespace rel {
 		friend class iterator_root<range_iterator<Iter, Op>, Op>;
 
 	public:
-		typedef BOOST_TYPENAME range_iterator::value_type value_type;
-		typedef BOOST_TYPENAME range_iterator::relation_type relation_type;
-		typedef BOOST_TYPENAME range_iterator::base_type base_type;
+		typedef typename range_iterator::value_type value_type;
+		typedef typename range_iterator::relation_type relation_type;
+		typedef typename range_iterator::base_type base_type;
 
 		range_iterator(const Iter& itr, const relation_type* o) 
 			: base_type(o) 
@@ -110,7 +110,7 @@ namespace boost { namespace rel {
 			//	+----+----+----+----+
 			//
 			//
-			typedef BOOST_TYPENAME list_intersection<sort_list,BOOST_TYPENAME SubTuple::field_list>::type compare_list;
+			typedef typename list_intersection<sort_list,typename SubTuple::field_list>::type compare_list;
 
 			const_iterator b;
 			const_iterator e;
@@ -132,7 +132,7 @@ namespace boost { namespace rel {
 			}
 			if ((lower_bound_situation == 1) && (upper_bound_situation == -1))
 			{
-				range_t<BOOST_TYPENAME Policy::iterator> r = base_operator().equal_range(sub);
+				range_t<typename Policy::iterator> r = base_operator().equal_range(sub);
 				return range(
 					const_iterator(r.begin().base(), static_cast<const typename Policy::relation*>(this)), 
 					const_iterator(r.end().base(), static_cast<const typename Policy::relation*>(this)));
@@ -153,7 +153,7 @@ namespace boost { namespace rel {
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
 
-			typedef typename list_intersection<sort_list,BOOST_TYPENAME SubTuple::field_list>::type compare_list;
+			typedef typename list_intersection<sort_list,typename SubTuple::field_list>::type compare_list;
 
 			int lower_bound_situation = compare_tuples<compare_list>(sub,*policy_.begin());
 			if ((lower_bound_situation == -1) || (lower_bound_situation == 0))
@@ -181,7 +181,7 @@ namespace boost { namespace rel {
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
 
-			typedef BOOST_TYPENAME list_intersection<sort_list,BOOST_TYPENAME SubTuple::field_list>::type compare_list;
+			typedef typename list_intersection<sort_list,typename SubTuple::field_list>::type compare_list;
 
 			int upper_bound_situation = compare_tuples<compare_list>(sub,*(prev(policy_.end())));
 			if (upper_bound_situation == -1)

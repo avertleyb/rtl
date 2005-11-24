@@ -38,8 +38,8 @@ namespace boost { namespace rel {
 		<
 			dprj_t
 			<
-				BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::minus_type, 
-				BOOST_TYPENAME R::restriction
+				typename traits<typename R::arg_type>::minus_type, 
+				typename R::restriction
 			>,
 			helper_type
 		>::type minus_type;
@@ -48,8 +48,8 @@ namespace boost { namespace rel {
 		<
 			dprj_t
 			<
-				BOOST_TYPENAME traits<BOOST_TYPENAME R::arg_type>::plus_type, 
-				BOOST_TYPENAME R::restriction
+				typename traits<typename R::arg_type>::plus_type, 
+				typename R::restriction
 			>,
 			helper_type
 		>::type plus_type;

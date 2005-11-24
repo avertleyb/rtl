@@ -107,7 +107,7 @@ namespace boost { namespace rel {
 		{
 			data_iterator b(data_.begin());
 			size_t dist = std::distance(b,itr);
-			BOOST_TYPENAME data::iterator location(data_.begin());
+			typename data::iterator location(data_.begin());
 			std::advance(location,dist);
 			*location = t;
 		}
@@ -117,7 +117,7 @@ namespace boost { namespace rel {
 		{
 			if (firstUnsorted_ != data_.size())
 			{
-				BOOST_TYPENAME data::iterator middle(data_.begin());
+				typename data::iterator middle(data_.begin());
 				std::advance(middle, firstUnsorted_);
 				std::sort(middle, data_.end(), equal_range_cmp<SortList>());
 				std::inplace_merge(data_.begin(),middle,data_.end(),equal_range_cmp<SortList>());

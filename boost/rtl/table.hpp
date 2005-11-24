@@ -63,9 +63,9 @@ namespace boost { namespace rel {
    	public:
     	typedef typename table<Info>::data_iterator data_iterator;
 
-    	typedef BOOST_TYPENAME table_iterator::relation_type relation_type;
-    	typedef BOOST_TYPENAME table_iterator::value_type value_type;
-    	typedef BOOST_TYPENAME table_iterator::base_type base_type;
+    	typedef typename table_iterator::relation_type relation_type;
+    	typedef typename table_iterator::value_type value_type;
+    	typedef typename table_iterator::base_type base_type;
 
     public:
     	table_iterator(const data_iterator& i, const relation_type* o) 
@@ -223,7 +223,7 @@ namespace boost { namespace rel {
     		void update(const const_iterator& i, const SubTuple& sub)
     	{
     		value_type tup;
-    		copy_fields<BOOST_TYPENAME SubTuple::field_list>(sub, tup);
+    		copy_fields<typename SubTuple::field_list>(sub, tup);
  			data_ptr_->update(i.base(),tup);
   		}
 

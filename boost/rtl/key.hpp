@@ -151,9 +151,9 @@ namespace boost { namespace rel {
 	};
 
 	template<class Keys, class Table>
-		BOOST_TYPENAME key_t<Table, Keys>::type key(const Table& t, const Keys* = 0)
+		typename key_t<Table, Keys>::type key(const Table& t, const Keys* = 0)
 	{
-		return BOOST_TYPENAME key_t<Table,Keys>::type(t);
+		return typename key_t<Table,Keys>::type(t);
 	}
 
 }}

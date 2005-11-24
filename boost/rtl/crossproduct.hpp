@@ -20,7 +20,7 @@ namespace boost { namespace rel {
 	// cross_product
 
 	template <class Table1, class Table2>
-		BOOST_TYPENAME cross_product_t<Table1, Table2>::type cross_product(const Table1& t1, const Table2& t2)
+		typename cross_product_t<Table1, Table2>::type cross_product(const Table1& t1, const Table2& t2)
 	{
 		return range_join(t1, t2, begin(), end());
 	}

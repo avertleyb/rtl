@@ -105,7 +105,7 @@ namespace boost { namespace rel {
 	{
 		typedef typename cnv_base<Table, Pairs>::type base_type;
 
-		typedef BOOST_TYPENAME make_reverse<Pairs>::type reverse_pairs;
+		typedef typename make_reverse<Pairs>::type reverse_pairs;
 
 		friend class conversion_iterator<Table,Pairs>;
 	
@@ -145,20 +145,20 @@ namespace boost { namespace rel {
 
 			typedef row
 			<
-				BOOST_TYPENAME full_sublist_conversion
+				typename full_sublist_conversion
 				<
 					reverse_pairs,
-					BOOST_TYPENAME SubTuple::field_list
+					typename SubTuple::field_list
 				>::type
 			> target_subtuple;
 			target_subtuple tup;
 			
 			boost::mpl::for_each
 			<
-				BOOST_TYPENAME filter_pairs<reverse_pairs,BOOST_TYPENAME SubTuple::field_list>::type
+				typename filter_pairs<reverse_pairs,typename SubTuple::field_list>::type
 			>(copy_different_fields<SubTuple,target_subtuple>(sub,tup));
 			
-			range_t<BOOST_TYPENAME arg_type::const_iterator> r(arg_.equal_range(tup));
+			range_t<typename arg_type::const_iterator> r(arg_.equal_range(tup));
 			const_iterator cb(r.begin().base(),this);
 			const_iterator ce(r.end().base(),this);
 			return range_t<const_iterator>(cb,ce);
@@ -172,16 +172,16 @@ namespace boost { namespace rel {
 
 			typedef row
 			<
-				BOOST_TYPENAME full_sublist_conversion
+				typename full_sublist_conversion
 				<
 					reverse_pairs,
-					BOOST_TYPENAME SubTuple::field_list
+					typename SubTuple::field_list
 				>::type
 			> target_subtuple;
 			target_subtuple tup;
 			boost::mpl::for_each
 			<
-				BOOST_TYPENAME filter_pairs<reverse_pairs,BOOST_TYPENAME SubTuple::field_list>::type
+				typename filter_pairs<reverse_pairs,typename SubTuple::field_list>::type
 			>(copy_different_fields<SubTuple,target_subtuple>(sub,tup));
 			return const_iterator(arg_.lower_bound(tup),this);
 		}
@@ -194,16 +194,16 @@ namespace boost { namespace rel {
 
 			typedef row
 			<
-				BOOST_TYPENAME full_sublist_conversion
+				typename full_sublist_conversion
 				<
 					reverse_pairs,
-					BOOST_TYPENAME SubTuple::field_list
+					typename SubTuple::field_list
 				>::type
 			> target_subtuple;
 			target_subtuple tup;
 			boost::mpl::for_each
 			<
-				BOOST_TYPENAME filter_pairs<reverse_pairs,BOOST_TYPENAME SubTuple::field_list>::type
+				typename filter_pairs<reverse_pairs,typename SubTuple::field_list>::type
 			>(copy_different_fields<SubTuple,target_subtuple>(sub,tup));
 			return const_iterator(arg_.upper_bound(tup),this);
 		}
@@ -225,21 +225,21 @@ namespace boost { namespace rel {
 		typedef cnv_t
 		<
 			Table,
-			BOOST_TYPENAME rename_pairs<typename Table::field_list,A>::type
+			typename rename_pairs<typename Table::field_list,A>::type
 		> type;
 	};
 
 	template<class FieldList, class Table>
-		BOOST_TYPENAME manual_rename_t<Table,FieldList>::type manual_rename(const Table& t)
+		typename manual_rename_t<Table,FieldList>::type manual_rename(const Table& t)
 	{
-		return BOOST_TYPENAME manual_rename_t<Table,FieldList>::type(t);
+		return typename manual_rename_t<Table,FieldList>::type(t);
 	}
 
 	template<class A, class Table>
-		BOOST_TYPENAME auto_rename_t<Table,A>::type
+		typename auto_rename_t<Table,A>::type
 		auto_rename(const Table& t)
 	{
-		return BOOST_TYPENAME auto_rename_t<Table,A>::type(t);
+		return typename auto_rename_t<Table,A>::type(t);
 	}
 
 }}
