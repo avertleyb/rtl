@@ -93,58 +93,41 @@ namespace boost { namespace rel {
 
 	// ctreate_node_proxy
 
-	template<class Tb, class SL, class Str> class key_idx_t;
-	template<class Tb, class SL, class Str> class it_idx_t;
-	template<class T> class ch_t;
-
-	template<class Tb, class SL, class Str> 
-		node_proxy::ptr create_node_proxy(const key_idx_t<Tb, SL, Str>& idx)
-	{
-		return node_proxy::ptr(
-			new key_index_proxy_impl<key_idx_t<Tb, SL, Str> >(idx));
-	}
-
-	template<class Tb, class SL, class Str> 
-		node_proxy::ptr create_node_proxy(const it_idx_t<Tb, SL, Str>& idx)
-	{
-		return node_proxy::ptr(
-			new node_proxy_impl<it_idx_t<Tb, SL, Str> >(idx));
-	}
-
-	template<class T> 
-		node_proxy::ptr create_node_proxy(const ch_t<T>& c)
-	{
-		return node_proxy::ptr(
-			new node_proxy_impl<ch_t<T> >(c));
-	}
+    struct key_index_tag;
+    struct iterator_index_tag;
+    struct cache_tag;
+    struct cover_tag;
 
 	// expression_registry_traverse_functor
 	
-	template<class Tuple, class SortList, class Keys> class cover_t;
 	class expression_registry;
 
-	class expression_registry_traverse_functor
+    class expression_registry_traverse_functor
 	{
 	public:
 		expression_registry_traverse_functor(expression_registry* reg)
 			: reg_(reg)
 		{}
-		template<class T, class SortList, class Impl>
-			void operator()(key_idx_t<T, SortList, Impl>* p) const;
 
-        template<class T, class SortList, class Impl>
-			void operator()(it_idx_t<T, SortList, Impl>* p) const;
+		template<class R>
+			void operator()(R& r, key_index_tag tag) const;
 
-        template<class T>
-			void operator()(ch_t<T>* p) const;
+        template<class R>
+			void operator()(R& r, iterator_index_tag tag) const;
 
-        template<class Tuple, class SortList, class Keys>
-			void operator()(cover_t<Tuple, SortList, Keys>* p) const
+        template<class R>
+			void operator()(R& r, cache_tag tag) const;
+
+        template<class R>
+			void operator()(R& r, cover_tag) const
 		{
-			p->register_expression(reg_);
+			r.register_expression(reg_);
 		}
-		void operator()(void*) const
+
+        template<class R>
+    		void operator()(R& r, ...) const
 		{}
+
 	private:
 		expression_registry* reg_;
 	};
@@ -197,23 +180,24 @@ namespace boost { namespace rel {
 		std::vector<node_proxy::ptr> proxies_;
 	};
 
-    template<class T, class SortList, class Impl>
-        void expression_registry_traverse_functor::operator()(key_idx_t<T, SortList, Impl>* p) const
-	{
-		reg_->add_node(create_node_proxy(*p));
-	}
+	template<class R>
+    void expression_registry_traverse_functor::operator()(R& r, key_index_tag tag) const
+    {
+        reg_->add_node(node_proxy::ptr(new key_index_proxy_impl<R>(r)));
+    }
 
-    template<class T, class SortList, class Impl>
-		void expression_registry_traverse_functor::operator()(it_idx_t<T, SortList, Impl>* p) const
-	{
-		reg_->add_node(create_node_proxy(*p));
-	}
+    template<class R>
+    void expression_registry_traverse_functor::operator()(R& r, iterator_index_tag tag) const
+    {
+    	reg_->add_node(node_proxy::ptr(new node_proxy_impl<R>(r)));
+    }
 
-    template<class T>
-		void expression_registry_traverse_functor::operator()(ch_t<T>* p) const
-	{
-		reg_->add_node(create_node_proxy(*p));
-	}
+    template<class R>
+    void expression_registry_traverse_functor::operator()(R& r, cache_tag tag) const
+    {
+    	reg_->add_node(node_proxy::ptr(new node_proxy_impl<R>(r)));
+    }
+
 }}
 
 #endif//BOOST_RTL_EXPRESSION_REGISTRY_HPP_INCLUDED

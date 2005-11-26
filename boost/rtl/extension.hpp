@@ -40,7 +40,7 @@ namespace boost { namespace rel {
 		template<class Column> 
 			typename Column::type get_internal(const Column& c) const 
 		{
-			typedef BOOST_MSVC_TYPENAME list_contains<BOOST_MSVC_TYPENAME Table::field_list, Column>::type in_arg;
+			typedef typename list_contains<typename Table::field_list, Column>::type in_arg;
 			return get_internal(c, (in_arg*)0);
 		}
 		template<class Column> 

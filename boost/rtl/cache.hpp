@@ -162,7 +162,7 @@ namespace boost { namespace rel {
 		{
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
-			range_t<BOOST_MSVC_TYPENAME Table::const_iterator> r(arg_ptr_->equal_range(sub));
+			range_t<typename Table::const_iterator> r(arg_ptr_->equal_range(sub));
 			return range_t<const_iterator>
 			(
 				const_iterator(r.begin().base(),this), 
@@ -203,7 +203,7 @@ namespace boost { namespace rel {
 	typename cache_t<Table>::type
 	cache(const Table& t)
 	{
-		return BOOST_MSVC_TYPENAME cache_t<Table>::type(t);
+		return typename cache_t<Table>::type(t);
 	}
 }}
 

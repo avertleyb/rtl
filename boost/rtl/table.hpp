@@ -180,7 +180,7 @@ namespace boost { namespace rel {
     	{
     		const bool valid = valid_subtuple<SubTuple,sort_list>::value;
     		BOOST_STATIC_ASSERT(valid);
-            typedef BOOST_MSVC_TYPENAME rel::size<BOOST_MSVC_TYPENAME SubTuple::field_list>::type size_type;
+            typedef typename rel::size<typename SubTuple::field_list>::type size_type;
 			data_range p(data_ptr_->equal_range(sub, size_type()));
 			range_t<const_iterator> r(const_iterator(p.first,this),const_iterator(p.second,this)); 
     		return r;
@@ -191,7 +191,7 @@ namespace boost { namespace rel {
     	{
     		const bool valid = valid_subtuple<SubTuple,sort_list>::value;
     		BOOST_STATIC_ASSERT(valid);
-            typedef BOOST_MSVC_TYPENAME rel::size<BOOST_MSVC_TYPENAME SubTuple::field_list>::type size_type;
+            typedef typename rel::size<typename SubTuple::field_list>::type size_type;
   			return const_iterator(data_ptr_->lower_bound(sub, size_type()), this);
     	}
 
@@ -200,7 +200,7 @@ namespace boost { namespace rel {
     	{
     		const bool valid = valid_subtuple<SubTuple,sort_list>::value;
     		BOOST_STATIC_ASSERT(valid);
-            typedef BOOST_MSVC_TYPENAME rel::size<BOOST_MSVC_TYPENAME SubTuple::field_list>::type size_type;
+            typedef typename rel::size<typename SubTuple::field_list>::type size_type;
   			return const_iterator(data_ptr_->upper_bound(sub, size_type()), this);
     	}
 

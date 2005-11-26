@@ -68,7 +68,7 @@ namespace boost { namespace rel {
 		{
             typename boost::mpl::deref<Begin>::type param;
 			if (f(param))
-                breakable_for_each_t<BOOST_MSVC_TYPENAME boost::mpl::next<Begin>::type, End, F>::run(f);
+                breakable_for_each_t<typename boost::mpl::next<Begin>::type, End, F>::run(f);
 		}
         template<class Unused>
     		static void do_run(F f, boost::mpl::true_)
@@ -78,8 +78,8 @@ namespace boost { namespace rel {
 		void breakable_for_each(F f, Sequence* = 0)
 	{
 		breakable_for_each_t<
-			BOOST_MSVC_TYPENAME boost::mpl::begin<Sequence>::type, 
-			BOOST_MSVC_TYPENAME boost::mpl::end<Sequence>::type, 
+			typename boost::mpl::begin<Sequence>::type, 
+			typename boost::mpl::end<Sequence>::type, 
 			F>::run(f);
 	}
 

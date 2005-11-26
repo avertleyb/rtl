@@ -83,9 +83,9 @@ namespace boost { namespace rel {
 	{};
 
 	template<class Table, class Begin, class End> 
-		BOOST_MSVC_TYPENAME range_selection_t<Table, Begin, End>::type range_selection(const Table& t, const Begin& b, const End& e)
+		typename range_selection_t<Table, Begin, End>::type range_selection(const Table& t, const Begin& b, const End& e)
 	{
-		return BOOST_MSVC_TYPENAME range_selection_t<Table, Begin, End>::type(t, b, e);
+		return typename range_selection_t<Table, Begin, End>::type(t, b, e);
 	}
 
 	// equal_selection
@@ -153,9 +153,9 @@ namespace boost { namespace rel {
 	{};
 
 	template<class Table, class Sub> 
-		BOOST_MSVC_TYPENAME equal_selection_t<Table, Sub>::type equal_selection(const Table& t, const Sub& sub)
+		typename equal_selection_t<Table, Sub>::type equal_selection(const Table& t, const Sub& sub)
 	{
-		return BOOST_MSVC_TYPENAME equal_selection_t<Table, Sub>::type(t, sub);
+		return typename equal_selection_t<Table, Sub>::type(t, sub);
 	}
 
 	// eq
@@ -163,7 +163,7 @@ namespace boost { namespace rel {
 		struct selection_eq_t : equal_selection_t<Table, Key>
 	{};
 	template<class Table, class Key>
-		BOOST_MSVC_TYPENAME selection_eq_t<Table, Key>::type
+		typename selection_eq_t<Table, Key>::type
 		selection_eq(const Table& t, const Key& k)
 	{
 		return equal_selection(t, k);
@@ -175,7 +175,7 @@ namespace boost { namespace rel {
 		typename range_selection_t<Table, begin, lower_bound_t<Key> >::type>
 	{};
 	template<class Table, class Key>
-		BOOST_MSVC_TYPENAME selection_lt_t<Table, Key>::type
+		typename selection_lt_t<Table, Key>::type
 		selection_lt(const Table& t, const Key& k)
 	{
 		return range_selection(t, begin(), lower_bound(k));
@@ -187,7 +187,7 @@ namespace boost { namespace rel {
 		typename range_selection_t<Table, begin, upper_bound_t<Key> >::type>
 	{};
 	template<class Table, class Key>
-		BOOST_MSVC_TYPENAME selection_le_t<Table, Key>::type
+		typename selection_le_t<Table, Key>::type
 		selection_le(const Table& t, const Key& k)
 	{
 		return range_selection(t, begin(), upper_bound(k));
@@ -199,7 +199,7 @@ namespace boost { namespace rel {
 		typename range_selection_t<Table, upper_bound_t<Key>, end>::type>
 	{};
 	template<class Table, class Key>
-		BOOST_MSVC_TYPENAME selection_gt_t<Table, Key>::type
+		typename selection_gt_t<Table, Key>::type
 		selection_gt(const Table& t, const Key& k)
 	{
 		return range_selection(t, upper_bound(k), end());
@@ -211,7 +211,7 @@ namespace boost { namespace rel {
 		typename range_selection_t<Table, lower_bound_t<Key>, end>::type>
 	{};
 	template<class Table, class Key>
-		BOOST_MSVC_TYPENAME selection_ge_t<Table, Key>::type
+		typename selection_ge_t<Table, Key>::type
 		selection_ge(const Table& t, const Key& k)
 	{
 		return range_selection(t, lower_bound(k), end());

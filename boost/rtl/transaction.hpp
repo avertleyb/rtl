@@ -11,6 +11,7 @@
 #include <vector>
 #include <algorithm>
 #include <boost/mem_fn.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/rtl/tuple.hpp>
 #include <boost/rtl/range.hpp>
 #include <boost/rtl/identifiable.hpp>
@@ -61,8 +62,8 @@ namespace boost { namespace rel {
 		bool find(const R& tab, const Sub& sub, typename R::const_iterator& it) 
 	{
 		BOOST_STATIC_ASSERT((boost::is_same<
-			BOOST_MSVC_TYPENAME R::sort_list, 
-			BOOST_MSVC_TYPENAME Sub::field_list>::value));
+			typename R::sort_list, 
+			typename Sub::field_list>::value));
 
 		range_t<typename R::const_iterator> r(tab.equal_range(sub));
 
@@ -77,8 +78,8 @@ namespace boost { namespace rel {
 		bool tuple_exists(const R& tab, const Sub& sub) 
 	{
 		BOOST_STATIC_ASSERT((boost::is_same<
-			BOOST_MSVC_TYPENAME R::sort_list, 
-			BOOST_MSVC_TYPENAME Sub::field_list>::value));
+			typename R::sort_list, 
+			typename Sub::field_list>::value));
 
 		range_t<typename R::const_iterator> r(tab.equal_range(sub));
 		return (r.begin() != r.end());
@@ -274,7 +275,7 @@ namespace boost { namespace rel {
 			if (!remove(it))
 				return false;
 
-			if (compare_tuples<BOOST_MSVC_TYPENAME Table::sort_list>(*it, tup) == 0)
+			if (compare_tuples<typename Table::sort_list>(*it, tup) == 0)
 			{
 				delta_.first.insert(tup);
 				return true;
@@ -342,76 +343,86 @@ namespace boost { namespace rel {
 		{
 			clear();
 		}
-		template<class Info> 
-			bool insert(const table<Info>& t, const typename table<Info>::value_type& tuple)
+		template<class T> 
+			bool insert(const T& t, const typename T::value_type& tuple)
 		{
+            BOOST_STATIC_ASSERT((is_same<typename T::tag, table_tag>::value));
 			return add(t)->insert(tuple);
 		}
-		template<class Info>
-			bool remove(const table<Info>& t, const typename table<Info>::value_type& tuple)
+		template<class T>
+			bool remove(const T& t, const typename T::value_type& tuple)
 		{
+            BOOST_STATIC_ASSERT((is_same<typename T::tag, table_tag>::value));
 			return add(t)->remove(tuple);
 		}
 
-		template<class Info>
-			bool remove(const table_iterator<Info>& it)
+		template<class It>
+			bool remove(const It& it)
 		{
+            BOOST_STATIC_ASSERT((is_same<typename It::relation_type::tag, table_tag>::value));
 			return add(*(it.relation()))->remove(it); //DA
 		}
 
-		template<class Info>
-			bool update(const table<Info>& t, const typename table<Info>::value_type& tuple)
+		template<class T>
+			bool update(const T& t, const typename T::value_type& tuple)
 		{
+            BOOST_STATIC_ASSERT((is_same<typename T::tag, table_tag>::value));
 			return add(t)->update(tuple);
 		}
 
-		template<class Info, class Tuple>
-			bool update(const table_iterator<Info>& it, const Tuple& tuple)
+		template<class T, class Tuple>
+            bool update(const T& t, const typename T::const_iterator& it, const Tuple& tuple)
 		{
-			return add(*(it.relation()))->update(it,tuple); //DA
+            BOOST_STATIC_ASSERT((is_same<typename T::tag, table_tag>::value));
+			return add(t)->update(it,tuple); //DA
 		}
 
-		template<class Info>
-			typename table_delta<table<Info> >::delta_type delta(const table<Info>& t) const
+		template<class T>
+			typename table_delta<T>::delta_type delta(const T& t) const
 		{
-			std::auto_ptr<table_proxy> ap(new table_proxy_impl<table<Info> >(t));
+            BOOST_STATIC_ASSERT((is_same<typename T::tag, table_tag>::value));
+
+            std::auto_ptr<table_proxy> ap(new table_proxy_impl<T>(t));
 			set_type::const_iterator i = proxies_.find(ap.get());
 
-			typedef typename table_delta<table<Info> >::plus_type plus_type;
-			typedef typename table_delta<table<Info> >::minus_type minus_type;
+			typedef typename table_delta<T>::plus_type plus_type;
+			typedef typename table_delta<T>::minus_type minus_type;
 
 			if (i == proxies_.end())
 				return std::make_pair(plus_type(),minus_type(t));
 
-			table_proxy_impl<table<Info> >* p = 
-				static_cast<table_proxy_impl<table<Info> >*>(*i);
+			table_proxy_impl<T>* p = 
+				static_cast<table_proxy_impl<T>*>(*i);
 
 			assert(p != 0);
 			return p->delta_;
 		}
-		template<class Info>
-			bool has_delta(const table<Info>& t) const
+		template<class T>
+			bool has_delta(const T& t) const
 		{
-			std::auto_ptr<table_proxy> ap(new table_proxy_impl<table<Info> >(t));
+            BOOST_STATIC_ASSERT((is_same<typename T::tag, table_tag>::value));
+			std::auto_ptr<table_proxy> ap(new table_proxy_impl<T>(t));
 			return proxies_.find(ap.get()) != proxies_.end();
 		}
 	private:
-		template<class Info>
-			table_proxy_impl<table<Info> >* add(const table<Info>& t)
+		template<class T>
+			table_proxy_impl<T>* add(const T& t)
 		{
-			table_proxy_impl<table<Info> > tpi(t);
+            BOOST_STATIC_ASSERT((is_same<typename T::tag, table_tag>::value));
+
+            table_proxy_impl<T> tpi(t);
 			set_type::iterator it = proxies_.find(&tpi);
 
 			if (it != proxies_.end())
-				return static_cast<table_proxy_impl<table<Info> >*>(*it);
+				return static_cast<table_proxy_impl<T>*>(*it);
 
 			std::pair<set_type::iterator, bool> insert_result = 
-				proxies_.insert(new table_proxy_impl<table<Info> >(t));
+				proxies_.insert(new table_proxy_impl<T>(t));
 
 			assert(insert_result.second);
 
-			table_proxy_impl<table<Info> >* p = 
-				static_cast<table_proxy_impl<table<Info> >*>(*insert_result.first);
+			table_proxy_impl<T>* p = 
+				static_cast<table_proxy_impl<T>*>(*insert_result.first);
 
 			assert(p != 0);
 			return p;

@@ -63,7 +63,7 @@ namespace boost { namespace rel {
 			data_range equal_range(const Sub& sub, const Size&) const
 		{
 			sort();
-			equal_range_cmp<BOOST_MSVC_TYPENAME list_prefix<SortList, Size::value>::type> pr;
+			equal_range_cmp<typename list_prefix<SortList, Size::value>::type> pr;
 			return std::equal_range(data_.begin(), data_.end(), sub, pr);
 		}
 
@@ -71,7 +71,7 @@ namespace boost { namespace rel {
 			data_iterator lower_bound(const Sub& sub, const Size&) const
 		{
 			sort();
-			equal_range_cmp<BOOST_MSVC_TYPENAME list_prefix<SortList, Size::value>::type> pr;
+			equal_range_cmp<typename list_prefix<SortList, Size::value>::type> pr;
 			return std::lower_bound(data_.begin(), data_.end(), sub, pr);
 		}
 
@@ -79,7 +79,7 @@ namespace boost { namespace rel {
 			data_iterator upper_bound(const Sub& sub, const Size&) const
 		{
 			sort();
-			equal_range_cmp<BOOST_MSVC_TYPENAME list_prefix<SortList, Size::value>::type> pr;
+			equal_range_cmp<typename list_prefix<SortList, Size::value>::type> pr;
 			return std::upper_bound(data_.begin(), data_.end(), sub, pr);
 		}
 

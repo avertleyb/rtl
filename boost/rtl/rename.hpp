@@ -57,7 +57,7 @@ namespace boost { namespace rel {
 
 			typedef typename find_value
 			<
-				BOOST_MSVC_TYPENAME relation_type::reverse_pairs, 
+				typename relation_type::reverse_pairs, 
 				Column
 			>::type original_column;
 			

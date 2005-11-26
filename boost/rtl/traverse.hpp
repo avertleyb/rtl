@@ -12,7 +12,9 @@ namespace boost { namespace rel {
 	template<class T, class F> 
 		void traverse(T t, F f)
 	{
-		f(&t);
+        typename T::tag tag;
+		f(t, tag);
+
 		t.traverse_args(f);
 	}
 }}

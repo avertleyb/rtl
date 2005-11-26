@@ -89,17 +89,17 @@ namespace boost { namespace rel {
 	template <class Table1, class Table2>
 	bool equal_tables(const Table1& t1, const Table2& t2)
 	{
-		BOOST_STATIC_ASSERT((list_equal<BOOST_MSVC_TYPENAME Table1::field_list, BOOST_MSVC_TYPENAME Table2::field_list>::value));
+		BOOST_STATIC_ASSERT((list_equal<typename Table1::field_list, typename Table2::field_list>::value));
 
-		BOOST_MSVC_TYPENAME Table1::const_iterator it1 = t1.begin();
-		BOOST_MSVC_TYPENAME Table2::const_iterator it2 = t2.begin();
+		typename Table1::const_iterator it1 = t1.begin();
+		typename Table2::const_iterator it2 = t2.begin();
 
-		BOOST_MSVC_TYPENAME Table1::const_iterator e1 = t1.end();
-		BOOST_MSVC_TYPENAME Table2::const_iterator e2 = t2.end();
+		typename Table1::const_iterator e1 = t1.end();
+		typename Table2::const_iterator e2 = t2.end();
 
 		while (it1 != e1 && it2 != e2)
 		{
-			if (compare_iterators<BOOST_MSVC_TYPENAME Table1::field_list>(it1, it2) != 0) //DA
+			if (compare_iterators<typename Table1::field_list>(it1, it2) != 0) //DA
 				return false;
 
 			++it1;

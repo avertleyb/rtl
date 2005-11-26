@@ -108,14 +108,20 @@ namespace concept_cpp
 		//TESTASSERT(equal_tables(t, cover(t)));
 	}
 
-	void dummy_traverser(void*)
-	{};
+	
+    struct dummy_traverser
+	{
+        template<class R, class Tag>
+            void operator()(R&, Tag) const
+        {}
+    };
 
 	template<class T>
 		void do_test(T t)
 	{
 		_do_test(t);
-		traverse(t, dummy_traverser);
+        dummy_traverser tr;
+		traverse(t, tr);
 	}
 
 	BOOST_RTL_DEFINE_COLUMN(int, c1);

@@ -58,16 +58,16 @@ namespace update_cpp
 		// update by iterator
 		my_table::const_iterator it = t.lower_bound(subtuple(7));
 		TESTASSERT(it != t.end());
-		TESTASSERT(!tr.update(it, my_tuple(5, 15)));
+		TESTASSERT(!tr.update(t, it, my_tuple(5, 15)));
 		
 		// key not changed
-		TESTASSERT(tr.update(it, my_tuple(7, 17)));
+		TESTASSERT(tr.update(t, it, my_tuple(7, 17)));
 		TESTASSERT(find_val(delta(t, tr).first, 7) == 17);
 		TESTASSERT(find_val(delta(t, tr).second, 7) == 7);
 		TESTASSERT(find_val(modified(t, tr), 7) == 17);
 
 		// key changed
-		TESTASSERT(tr.update(it, my_tuple(17, 17)));
+		TESTASSERT(tr.update(t, it, my_tuple(17, 17)));
 		TESTASSERT(find_val(delta(t, tr).first, 17) == 17);
 		TESTASSERT(find_val(delta(t, tr).second, 7) == 7);
 		TESTASSERT(find_val(modified(t, tr), 17) == 17);

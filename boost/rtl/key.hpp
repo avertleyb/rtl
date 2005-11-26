@@ -117,7 +117,7 @@ namespace boost { namespace rel {
 		{
 			const bool valid = valid_subtuple<SubTuple,sort_list>::value;
 			BOOST_STATIC_ASSERT(valid);
-			range_t<BOOST_MSVC_TYPENAME Table::const_iterator> r(arg_.equal_range(sub));
+			range_t<typename Table::const_iterator> r(arg_.equal_range(sub));
 			return range_t<const_iterator>
 			(
 				const_iterator(r.begin().base(),this), 
