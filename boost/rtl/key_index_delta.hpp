@@ -15,8 +15,19 @@ namespace boost { namespace rel {
 	template<class R> 
     struct traits_impl<R, key_index_tag>
 	{
-        typedef typename key_index_t<typename traits<typename R::arg_type>::plus_type, typename R::sort_list, typename R::strategy_type>::type plus_type;
-        typedef typename key_index_t<typename traits<typename R::arg_type>::minus_type, typename R::sort_list, typename R::strategy_type>::type minus_type;
+        typedef typename basic_key_index_t<
+            typename traits<typename R::arg_type>::plus_type, 
+            typename R::sort_list, 
+            typename R::fast_list, 
+            typename R::strategy_type
+        >::type plus_type;
+        
+        typedef typename basic_key_index_t<
+            typename traits<typename R::arg_type>::minus_type, 
+            typename R::sort_list, 
+            typename R::fast_list, 
+            typename R::strategy_type
+        >::type minus_type;
 	};
 
 	template<class R>
