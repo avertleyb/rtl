@@ -162,6 +162,7 @@ namespace boost { namespace rel {
 
 	struct functor_proxy
 	{
+        virtual ~functor_proxy() {}
 		virtual void uncover() const = 0; 
 	};
 
